@@ -78,3 +78,8 @@ Check free hardrive space
 ```
 df -h
 ```
+
+Shutdown
+```
+sudo poweroff
+```
