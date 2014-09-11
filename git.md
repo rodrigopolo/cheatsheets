@@ -1,5 +1,3 @@
-### RodrigoPolo.com Cheats
-
 ### Git
 
 List git-ignored files
