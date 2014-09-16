@@ -1,6 +1,6 @@
 ### Bash misc
 
-Compress file or folder
+Compress file or folder to file.tar.gz
 ```
 tar -czf file.tar.gz directory/
 tar -czf file.tar.gz file.txt
@@ -15,6 +15,21 @@ Uncompress TAR and BZ files
 ```
 tar xzf file.tar.gz
 tar xjf file.tar.bz2
+```
+
+ZIP compress
+```
+zip -r file.zip folder
+```
+
+ZIP Uncompress
+```
+unzip file.zip
+```
+
+ZIP without OS X Files
+```
+zip -r -X file.zip folder
 ```
 
 Remove a folder
