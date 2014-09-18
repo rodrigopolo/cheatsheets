@@ -42,7 +42,7 @@ mysqldump -h [host] -u [user] -p[pass] --routines --no-create-info --no-data --n
 
 Restore from SQL file
 ```
-mysql -h [host] -u [user] -p[pass] [database] [ [script.sql] --default-character-set=utf8
+mysql -h [host] -u [user] -p[pass] [database] < [script.sql] --default-character-set=utf8
 ```
 
 #### Misc
