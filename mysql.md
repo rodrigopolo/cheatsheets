@@ -61,3 +61,12 @@ Reset `AUTO_INCREMENT` number
 ```
 ALTER TABLE [table] AUTO_INCREMENT=0;
 ```
+
+Fixing double-encoded UTF-8 data 
+```
+mysqldump -h [host] -u [user] -p[pass] --opt --quote-names \
+    --skip-set-charset --default-character-set=latin1 [database] > [database].sql
+
+mysql -h [host] -u [user] -p[pass] \
+    --default-character-set=utf8 [database] < [database].sql
+```
