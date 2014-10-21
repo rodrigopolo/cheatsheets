@@ -12,6 +12,12 @@ Replace
 $\1['\L\2']
 ```
 
+Find all links and replace them with `#`
+```
+href\="(\S+)"
+href="#"
+```
+
 ```
 \l : first character to lower case
 \u : first character to upper case
