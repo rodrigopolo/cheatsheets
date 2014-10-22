@@ -18,6 +18,11 @@ href\="(\S+)"
 href="#"
 ```
 
+Dates on ISO 9075
+```
+\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}
+```
+
 ```
 \l : first character to lower case
 \u : first character to upper case
