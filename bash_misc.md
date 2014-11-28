@@ -98,3 +98,19 @@ Shutdown
 ```
 sudo poweroff
 ```
+
+Timestamps with [ISO 8601](http://www.w3.org/TR/NOTE-datetime)
+
+With timezone
+```
+date +%Y-%m-%dT%H:%M:%S%:z
+```
+UTC
+```
+date -u +%Y-%m-%dT%H:%M:%SZ
+```
+
+For filenames
+```
+date -u +%Y-%m-%dT%H.%M.%SZ
+```
