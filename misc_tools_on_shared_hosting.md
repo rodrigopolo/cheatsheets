@@ -43,6 +43,12 @@ rm -rf phantomjs-1.9.8-linux-x86_64
 rm phantomjs-1.9.8-linux-x86_64.tar.bz2
 ```
 
+Create a symbolic link to the bin folder
+```
+ln -s /home/<user_folder>/apps/phantomjs /home/<user_folder>/bin/phantomjs
+```
+
+
 
 ## YouTube Downloader Install
 
