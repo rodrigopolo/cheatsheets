@@ -1,5 +1,9 @@
 # Misc Apps on Shared Hosting
 
+I use [DreamHost](http://www.dreamhost.com/r.cgi?279254) for my main blog RodrigoPolo.com, and sometimes I need to work with multimedia files, upload or download a YouTube video, but working on a shared hosting account is limited, you don’t have “Super User” access for obvious reasons, so I precompiled some tools that can work in this environment (GNU/Linux X x64), here is how to install them and use them.
+
+
+
 ## Setup an app and a bin folder
 ```
 cd
