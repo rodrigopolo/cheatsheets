@@ -116,12 +116,12 @@ date -u +%Y-%m-%dT%H.%M.%SZ
 ```
 
 
-# Get folder size on OS X by file size, NOT disk usage
+Get folder size on OS X by file size, NOT disk usage
 ```
 find . -type f -print0 | xargs -0 stat -f%z | awk '{b+=$1} END {print b}'
 ```
 
-# Get folder size on Linux by file size, NOT disk usage
+Get folder size on Linux by file size, NOT disk usage
 ```
 find . -type f -print0 | xargs -0 stat -c%s | awk '{b+=$1} END {print b}'
 ```
