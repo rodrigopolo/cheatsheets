@@ -20,6 +20,9 @@ Create thumbnails without extended spaces
 mogrify -resize 640x640 -format jpg -quality 75 -path thumbs *.jpg
 ```
 
+Create smaller versions of images only if they are bigger than X dimension and fit inside X dimension:
+mogrify -resize 1024x1024^> -format jpg -quality 75 -path thumbs *.jpg
+
 [source](http://stackoverflow.com/questions/12433300/imagemagick-how-to-resize-proportionally-with-mogrify-without-a-background)
 
 
