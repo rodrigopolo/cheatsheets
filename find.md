@@ -26,4 +26,9 @@ Find and replace folder permissions for web folders
 find `pwd` -type f -exec chmod 644 {} \; && find ./ -type d -exec chmod 755 {} \; && chmod 755 `pwd`
 ```
 
+Change file dates
+```
+find "`pwd`" -type f -exec touch -c -t 201503151200 "{}" \;
+```
+
 >Tip: You can use ``pwd`` to define current folder or type `./`
