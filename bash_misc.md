@@ -125,3 +125,15 @@ Get folder size on Linux by file size, NOT disk usage
 ```
 find . -type f -print0 | xargs -0 stat -c%s | awk '{b+=$1} END {print b}'
 ```
+
+Replace text using `sed`
+```
+sed -e 's/hello/hola/g;s/world/mundo/g;' < file.txt > out.txt
+```
+
+Replace ext. using `sed`
+```
+for i in *.md; do echo "$i" "$( sed -e 's/\.md$/.txt/g' <<< $i )"; done
+for i in *.md; do echo "$i" "`sed -e 's/\.md$/.txt/g' <<< $i`"; done
+```
+
