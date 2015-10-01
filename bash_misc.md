@@ -125,3 +125,8 @@ Get folder size on Linux by file size, NOT disk usage
 ```
 find . -type f -print0 | xargs -0 stat -c%s | awk '{b+=$1} END {print b}'
 ```
+
+Clear history and logout
+```
+rm ~/.bash_history; history -c; logout
+```
