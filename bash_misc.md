@@ -130,3 +130,15 @@ Clear history and logout
 ```
 rm ~/.bash_history; history -c; logout
 ```
+
+Replace text using `sed`
+```
+sed -e 's/hello/hola/g;s/world/mundo/g;' < file.txt > out.txt
+```
+
+Replace ext. using `sed`
+```
+for i in *.md; do echo "$i" "$( sed -e 's/\.md$/.txt/g' <<< $i )"; done
+for i in *.md; do echo "$i" "`sed -e 's/\.md$/.txt/g' <<< $i`"; done
+```
+
