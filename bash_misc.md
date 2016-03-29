@@ -142,3 +142,7 @@ for i in *.md; do echo "$i" "$( sed -e 's/\.md$/.txt/g' <<< $i )"; done
 for i in *.md; do echo "$i" "`sed -e 's/\.md$/.txt/g' <<< $i`"; done
 ```
 
+Delete history and exit
+```
+cat /dev/null > ~/.bash_history && history -c && exit
+```

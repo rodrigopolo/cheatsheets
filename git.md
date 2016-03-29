@@ -94,3 +94,10 @@ Host bitbucket.org
         HostName altssh.bitbucket.org
         Port 443
 ```
+
+GitHub pages
+```
+git checkout gh-pages
+git merge master
+git push origin gh-pages
+```
