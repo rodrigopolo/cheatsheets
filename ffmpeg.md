@@ -220,7 +220,37 @@ output.mov
 
 Install in OS X
 ```
-brew install ffmpeg
+brew install \
+automake \
+fdk-aac \
+git \
+lame \
+libass \
+libtool \
+libvorbis \
+libvpx \
+opus \
+sdl \
+shtool \
+texi2html \
+theora \
+wget \
+x264 \
+xvid \
+libvidstab \
+xvid \
+yasm
+
+brew install ffmpeg \
+--with-fdk-aac \
+--with-ffplay \
+--with-freetype \
+--with-libass \
+--with-libquvi \
+--with-libvorbis \
+--with-libvpx \
+--with-opus \
+--with-x265
 ```
 
 
