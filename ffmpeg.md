@@ -1,3 +1,63 @@
+H.264/AAC Encoding
+```
+FFmpeg \
+-i input.mp4 \
+-c:v libx264 \
+-preset slow \
+-crf 20 \
+-c:a libfdk_aac \
+-b:a 128k \
+-ac 2 \
+-ar 44100 \
+-ac 2 \
+-movflags +faststart \
+output.mp4
+```
+
+> X264 8-bit CRF: `0-51`, 0=lossless 23=default, 51=worst, 18 almost lossless  
+> X264 10-bit CRF: `0-63`
+
+X264 Presets:
+* `ultrafast`
+* `superfast`
+* `veryfast`
+* `faster`
+* `fast`
+* `medium`
+* `slow`
+* `slower`
+* `veryslow`
+* `placebo`
+
+H.265/HE-AAC version 2 Encoding
+```
+ffmpeg \
+-i input.mp4 \
+-c:v libx265 \
+-preset medium \
+-x265-params crf=28 \
+-ar 48000 \
+-ac 2 \
+-c:a libfdk_aac \
+-profile:a aac_he_v2 \
+-b:a 64k \
+-strict experimental \
+output.mp4
+```
+
+> X265 CRF: 28=default
+
+* `ultrafast`
+* `superfast`
+* `veryfast`
+* `faster`
+* `fast`
+* `medium`
+* `slow`
+* `slower`
+* `veryslow`
+* `placebo`
+
 Modify rotation metadata without re-encoding.
 ```
 ffmpeg \
@@ -122,6 +182,42 @@ ffmpeg \
 output.mp4
 ```
 
+Add alpha channel mask encoding to `qtrle`
+```
+/Users/rpolo/Desktop/ffmpeglatest/ffmpeg \
+-hide_banner \
+-y \
+-loop 1 \
+-i alpha.png \
+-i input.mp4 \
+-filter_complex \
+"[0:v]alphaextract[alf]; \
+ [1:v][alf]alphamerge" \
+-c:v qtrle \
+-an \
+-t 1 \
+output.mov
+```
+
+Add alpha channel mask encoding to `png`
+```
+/Users/rpolo/Desktop/ffmpeglatest/ffmpeg \
+-hide_banner \
+-y \
+-loop 1 \
+-i alpha.png \
+-i input.mp4 \
+-filter_complex \
+"[0:v]alphaextract[alf]; \
+ [1:v][alf]alphamerge" \
+-c:v png \
+-pix_fmt rgb32 \
+-an \
+-t 1 \
+output.mov
+```
+
+
 Install in OS X
 ```
 brew install ffmpeg
@@ -136,3 +232,4 @@ Links
 * [How to encode 10bit H.264 files](http://video.stackexchange.com/questions/13164/encoding-422-in-10-bit-with-libx264)
 * [ProRes Info](https://transcoding.wordpress.com/2012/01/29/prores-ffmpeg/)
 * [Homebrew](http://brew.sh/)
+* [Most complete FFmpeg compilation for Windows](http://oss.netfarm.it/mplayer/)
