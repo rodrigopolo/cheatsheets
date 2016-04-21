@@ -81,7 +81,7 @@ cd google-api-python-client-1.2/ && mv apiclient/ oauth2client/ uritemplate/ .. 
 curl -O -J https://pypi.python.org/packages/ff/a9/5751cdf17a70ea89f6dde23ceb1705bfb638fd8cee00f845308bf8d26397/httplib2-0.9.2.tar.gz
 tar xzvf httplib2-0.9.2.tar.gz && rm httplib2-0.9.2.tar.gz
 mv httplib2-0.9.2/python2/httplib2 httplib2 && rm -rf httplib2-0.9.2
-curl -O -J <url>upload_video.py
+curl -O -J https://raw.githubusercontent.com/rodrigopolo/cheatsheets/master/upload_video.py
 ```
 
 Create a project in the [Google Cloud Console](https://cloud.google.com/console/project) using the YouTube credential
