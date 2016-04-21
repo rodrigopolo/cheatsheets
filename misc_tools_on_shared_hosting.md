@@ -88,7 +88,7 @@ Create a project in the [Google Cloud Console](https://cloud.google.com/console/
 * Enable YouTube Data API v3 in APIs & auth->API.
 * In Credentials, click on CREATE NEW CLIENT ID, select Installed application for Application Type, and Other for Installed application type, and click Create Client ID.
 
-Create a `client_secrets.json` within the `ptu` folder containging the following, replace `client_id` and `client_secret` with the ones from Google Cloud Console:
+Create a `client_secrets.json` within the `pyu` folder containging the following, replace `client_id` and `client_secret` with the ones from Google Cloud Console:
 ```
 {
 	"installed": {
@@ -232,22 +232,6 @@ Download an specific format
 ```
 youtube-dl http://youtu.be/<video_id> -f <id>
 ```
-
-
-
-## YouTube Uploader Commands
-
-Upload a video:
-```
-youtube-upload \
---email=your.youtube.id@gmail.com \
---title="Video Title" \
---description="Video description" \
---category=People \
---keywords="some keywords" \
-input_video.m4v
-```
-
 
 
 ## MP4Box Commands
