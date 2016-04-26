@@ -182,6 +182,24 @@ ffmpeg \
 output.mp4
 ```
 
+Make a time-lapse fom a video, if you have a GoPro video recorded at normal speed (29.97fps) and you want to convert that video to a time-lapse video using the same GoPro time-lapse speed selection style, like a picture each 0.5, 1, 2, 5, 10, 30, 60 seconds, here is the command, the filter `setpts` changet the presentation timestamp (PTS), the `1/0.5/(30000/1001)*PTS` formula goes as follows, one second divided the pictures per second, the result is devided by the input frame rate, having 29.97 being described as `30000/1001`, and the result, multiplied by PTS. More info about video speed [here](https://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video)  
+
+You can also specify the `-filter:v "setpts=0.5*PTS"` to a 2x speed using `0.5`, 4x speed using `0.25`, 8x speed using `0.125`, 16x speed using `0.0625` and so on.
+
+```
+ffmpeg \
+-y \
+-hide_banner \
+-i GOPR0001.MP4 \
+-filter:v "setpts=1/0.5/(30000/1001)*PTS" \
+-c:v libx264 \
+-preset medium \
+-crf 20 \
+-an \
+-strict experimental \
+time-lapse.mp4
+```
+
 Add alpha channel mask encoding to `qtrle`
 ```
 /Users/rpolo/Desktop/ffmpeglatest/ffmpeg \
