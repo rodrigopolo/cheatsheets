@@ -35,6 +35,17 @@ Crop
 mogrify -crop 1920x1080+320-0  +repage -format jpg -quality 75 *.jpg
 ```
 
+Watermark
+```
+mogrify \
+-gravity SouthEast \
+-draw "image Over 0,0 0,0 'copyright.png'" \
+-format jpg \
+-quality 75 \
+-path wm \
+*.jpg
+```
+
 [source](http://stackoverflow.com/questions/12433300/imagemagick-how-to-resize-proportionally-with-mogrify-without-a-background)
 
 
