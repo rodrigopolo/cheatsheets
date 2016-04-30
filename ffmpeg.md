@@ -235,6 +235,27 @@ Add alpha channel mask encoding to `png`
 output.mov
 ```
 
+Premiere DNX to H.264/AAC for YouTube with `hqdn3d` denoise and GOP 30
+```
+ffmpeg \
+-y \
+-hide_banner \
+-i input.mp4 \
+-pix_fmt yuv420p \
+-vf "hqdn3d=1.5:1.5:6:6" \
+-c:v libx264 \
+-preset fast \
+-crf 22 \
+-x264opts "keyint=30:scenecut=-1" \
+-c:a libfdk_aac \
+-b:a 128k \
+-ac 2 \
+-ar 44100 \
+-ac 2 \
+-movflags +faststart \
+output.mp4
+```
+
 
 Install in OS X
 ```
