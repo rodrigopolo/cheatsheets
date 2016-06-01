@@ -256,6 +256,13 @@ ffmpeg \
 output.mp4
 ```
 
+Test a filter with `ffplay`
+```
+ffplay \
+-filter:v "crop=1920:1080:0:140" \
+input.mp4
+```
+
 
 Install in OS X
 ```
