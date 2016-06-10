@@ -200,6 +200,25 @@ ffmpeg \
 time-lapse.mp4
 ```
 
+Time-lapse from GoPro JPGs with crop and resize (`4000×3000` to `1280x720`)
+```
+ffmpeg \
+-y \
+-hide_banner \
+-r 30000/1001 \
+-f image2 \
+-start_number 5523 \
+-i G001%04d.JPG \
+-pix_fmt yuv420p \
+-vf "crop=4000:2250:0:375,scale=1280:720" \
+-c:v libx264 \
+-preset faster \
+-crf 22 \
+-an \
+-movflags +faststart \
+time-lapse.mp4
+```
+
 Add alpha channel mask encoding to `qtrle`
 ```
 /Users/rpolo/Desktop/ffmpeglatest/ffmpeg \
@@ -240,7 +259,7 @@ Premiere DNX to H.264/AAC for YouTube with `hqdn3d` denoise and GOP 30
 ffmpeg \
 -y \
 -hide_banner \
--i input.mp4 \
+-i input.mxf \
 -pix_fmt yuv420p \
 -vf "hqdn3d=1.5:1.5:6:6" \
 -c:v libx264 \
@@ -251,8 +270,41 @@ ffmpeg \
 -b:a 128k \
 -ac 2 \
 -ar 44100 \
+-movflags +faststart \
+output.mp4
+```
+Premiere DNX to H.264/AAC
+```
+ffmpeg \
+-y \
+-hide_banner \
+-i input.mxf \
+-pix_fmt yuv420p \
+-c:v libx264 \
+-preset fast \
+-crf 22 \
+-c:a libfdk_aac \
+-b:a 128k \
+-ar 44100 \
 -ac 2 \
 -movflags +faststart \
+output.mp4
+```
+
+Premiere DNX to H.265/AAC
+```
+ffmpeg \
+-y \
+-hide_banner \
+-i input.mxf \
+-pix_fmt yuv420p \
+-c:v libx265 \
+-preset faster \
+-x265-params crf=22 \
+-c:a libfdk_aac \
+-b:a 128k \
+-ar 44100 \
+-ac 2 \
 output.mp4
 ```
 
@@ -263,6 +315,46 @@ ffplay \
 input.mp4
 ```
 
+YouTube Recomended Settings
+```
+ffmpeg \				# Calling the binary
+-i input.mp4 \			# Input video file
+-r 30000/1001 \			# Set the frame rate - optional
+-vf scale="1920:1080" \	# Resize video - optional
+-codec:v libx264 \		# X264 Video Codec
+-crf 21 \				# Video Quality
+-bf 2 \					# Maximum 2 B-frames as per guideline
+-flags +cgop \			# Closed GOP as per guideline
+-pix_fmt yuv420p \		# Chroma subsampling 4:2:0 as per guideline
+-c:a libfdk_aac \		# Fraunhofer FDK AAC codec library
+-b:a 128k \				# Audio Bitrate
+-ac 2 \					# Audio channels
+-r:a 44100 \			# Audio samplerate
+-map 0:v:0 \			# First file : video : first track
+-map 0:a:0 \			# First file : audio : first track 
+-movflags faststart \	# Put MOOV atom at the front of the file
+output.mp4
+```
+
+GoPro join, first, the `mylist.txt` file:
+```
+file 'GOPR5522.MP4'
+file 'GP015522.MP4'
+file 'GP025522.MP4'
+```
+
+Then, the encoding:
+```
+ffmpeg -f concat -i mylist.txt -c copy output.mp4
+```
+
+
+Using the concat protocol:
+```
+ffmpeg \
+-i 'concat:GOPR5522.MP4|GP015522.MP4|GP025522.MP4' \
+-codec copy output.mp4
+```
 
 Install in OS X
 ```
