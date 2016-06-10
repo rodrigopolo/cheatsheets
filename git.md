@@ -104,3 +104,13 @@ git merge master
 git push origin gh-pages
 git checkout master
 ```
+
+Create patch from last commit, add `~` for extra commits:
+```
+git format-patch HEAD~
+```
+
+Apply patch:
+```
+git am commit-name.patch
+```
