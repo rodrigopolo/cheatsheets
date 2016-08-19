@@ -46,6 +46,27 @@ mogrify \
 *.jpg
 ```
 
+Slice image
+```
+convert tocut.png -crop 265x265 +repage +adjoin %d.png
+```
+
+Remove padding
+```
+mogrify -trim +repage *.png
+```
+
+Add padding
+```
+mogrify -background none -gravity center -extent 162x162 *.png
+```
+
+Create thumbnails
+```
+mogrify -format png -resize 128x128 -path 128 folder/*.png
+mogrify -format png -resize 40x40 -path 40 folder/*.png
+```
+
 [source](http://stackoverflow.com/questions/12433300/imagemagick-how-to-resize-proportionally-with-mogrify-without-a-background)
 
 
