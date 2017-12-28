@@ -1,4 +1,4 @@
-H.264/AAC Encoding
+AVC/H.264/AAC Encoding
 ```
 FFmpeg \
 -i input.mp4 \
@@ -29,7 +29,7 @@ X264 Presets:
 * `veryslow`
 * `placebo`
 
-H.265/HE-AAC version 2 Encoding
+HEVC/H.265/HE-AAC version 2 Encoding
 ```
 ffmpeg \
 -i input.mp4 \
@@ -41,6 +41,7 @@ ffmpeg \
 -c:a libfdk_aac \
 -profile:a aac_he_v2 \
 -b:a 64k \
+-tag:v hvc1 \
 -strict experimental \
 output.mp4
 ```
@@ -348,12 +349,19 @@ Then, the encoding:
 ffmpeg -f concat -i mylist.txt -c copy output.mp4
 ```
 
-
 Using the concat protocol:
 ```
 ffmpeg \
 -i 'concat:GOPR5522.MP4|GP015522.MP4|GP025522.MP4' \
 -codec copy output.mp4
+```
+
+Split stereo into two mono tracks:
+```
+ffmpeg \
+-i stereo.wav \
+-map_channel 0.0.0 left.wav \
+-map_channel 0.0.1 right.wav
 ```
 
 Install in OS X
