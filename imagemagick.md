@@ -67,6 +67,21 @@ mogrify -format png -resize 128x128 -path 128 folder/*.png
 mogrify -format png -resize 40x40 -path 40 folder/*.png
 ```
 
+Create PDF from BMP
+```
+# Pad and crop
+mogrify -background white -gravity NorthWest -extent 2550x3300 -crop 2550x3300+0+0 *.bmp
+
+# To JPG
+mogrify -format jpg -quality 75 *.bmp
+
+# To PDF
+mogrify -format pdf *.jpg
+
+# Consolidate PDF
+pdftk *.pdf cat output ../Doc2.pdf
+```
+
 [source](http://stackoverflow.com/questions/12433300/imagemagick-how-to-resize-proportionally-with-mogrify-without-a-background)
 
 
