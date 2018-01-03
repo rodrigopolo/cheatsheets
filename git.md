@@ -99,7 +99,11 @@ GitHub pages
 ```
 git commit -m 'Info'
 git push origin master
+
+git checkout -b gh-pages
+# or
 git checkout gh-pages
+
 git merge master
 git push origin gh-pages
 git checkout master
