@@ -27,12 +27,12 @@ mogrify -resize "160^>" -gravity center -crop 160x160+0+0 -format jpg -quality 7
 
 Create smaller versions of images only if they are bigger than X dimension and fit inside X dimension:
 ```
-mogrify -resize 1024x1024^> -format jpg -quality 75 -path thumbs *.jpg
+mogrify -resize "1024x1024^>" -format jpg -quality 75 -path thumbs *.jpg
 ```
 
 Crop
 ```
-mogrify -crop 1920x1080+320-0  +repage -format jpg -quality 75 *.jpg
+mogrify -crop "1920x1080+320-0"  +repage -format jpg -quality 75 *.jpg
 ```
 
 Watermark
