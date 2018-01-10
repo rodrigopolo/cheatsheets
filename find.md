@@ -32,3 +32,8 @@ find "`pwd`" -type f -exec touch -c -t 201503151200 "{}" \;
 ```
 
 >Tip: You can use ``pwd`` to define current folder or type `./`
+
+Search with egrep and piping
+```
+cat file.txt | egrep "(\.jpe?g)" | grep word
+```
