@@ -37,3 +37,8 @@ Search with egrep and piping
 ```
 cat file.txt | egrep "(\.jpe?g)" | grep word
 ```
+
+File types
+```
+find . -type f | sed -e 's/.*\.//' | sort | uniq -c
+```
