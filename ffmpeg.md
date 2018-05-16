@@ -364,6 +364,11 @@ ffmpeg \
 -map_channel 0.0.1 right.wav
 ```
 
+Change volume
+```
+-filter:a "volume=24dB"
+```
+
 Install in OS X
 ```
 brew install \
