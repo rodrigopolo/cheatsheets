@@ -369,6 +369,24 @@ Change volume
 -filter:a "volume=24dB"
 ```
 
+Create blue video
+```
+ffmpeg \
+-y \
+-hide_banner \
+-f lavfi \
+-i "color=c=blue:s=1920x1080" \
+-i audio.m4a \
+-pix_fmt yuv420p \
+-c:v libx264 \
+-preset fast \
+-crf 28 \
+-c:a copy \
+-t "00:04:17.090" \
+-movflags +faststart \
+blue.mp4
+```
+
 Install in OS X
 ```
 brew install \
