@@ -387,6 +387,11 @@ ffmpeg \
 blue.mp4
 ```
 
+Add hard yellow subtitles
+```
+-vf "subtitles=subs.srt:force_style='Fontsize=26,PrimaryColour=&H00ffff&'"
+```
+
 Install in OS X
 ```
 brew install \
