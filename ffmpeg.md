@@ -392,6 +392,11 @@ Add hard yellow subtitles
 -vf "subtitles=subs.srt:force_style='Fontsize=26,PrimaryColour=&H00ffff&'"
 ```
 
+Deinterlace
+```
+-vf yadif 
+```
+
 Install in OS X
 ```
 brew install \
@@ -416,15 +421,21 @@ xvid \
 yasm
 
 brew install ffmpeg \
---with-fdk-aac \
---with-ffplay \
---with-freetype \
---with-libass \
---with-libquvi \
---with-libvorbis \
---with-libvpx \
---with-opus \
---with-x265
+--with-freetype     \
+--with-fdk-aac      \
+--with-libass       \
+--with-librsvg      \
+--with-libsoxr      \
+--with-libvidstab   \
+--with-tesseract    \
+--with-opencore-amr \
+--with-openh264     \
+--with-openjpeg     \
+--with-rtmpdump     \
+--with-rubberband   \
+--with-webp         \
+--with-zimg         \
+--with-srt
 ```
 
 
