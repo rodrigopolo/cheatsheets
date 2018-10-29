@@ -73,3 +73,8 @@ Text_Middle;,
 Text_End;]\n
 ;
 ```
+
+Remove metadata
+```
+exiftool -all= file.pdf
+```
