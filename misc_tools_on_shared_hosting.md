@@ -313,4 +313,33 @@ new.m4v
 
 ```
 
+## Node.js
+
+Install Node.js
+```
+cd
+cd apps
+wget https://nodejs.org/dist/v10.13.0/node-v10.13.0-linux-x64.tar.xz
+tar xf node-v10.13.0-linux-x64.tar.xz
+rm node-v10.13.0-linux-x64.tar.xz 
+mv node-v10.13.0-linux-x64 node
+ln -s ~/apps/node/bin/node ~/bin/node
+ln -s ~/apps/node/lib/node_modules/npm/bin/npm-cli.js ~/bin/npm
+ln -s ~/apps/node/lib/node_modules/npm/bin/npx-cli.js ~/bin/npx
+```
+
+Check Node.js version
+```
+node --version
+npm --version
+```
+
+Uninstall Node.js
+```
+rm ~/bin/node
+rm ~/bin/npm
+rm ~/bin/npx
+rm -rf ~/apps/node/
+```
+
 
