@@ -42,3 +42,9 @@ File types
 ```
 find . -type f | sed -e 's/.*\.//' | sort | uniq -c
 ```
+
+Rename
+```
+brew install ren
+ren '*.jpg' '#1.webp'
+```
