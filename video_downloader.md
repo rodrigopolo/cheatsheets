@@ -70,6 +70,11 @@ Convert VTT to SRT using FFmpeg:
 ffmpeg -i foo.vtt foo.srt
 ```
 
+JSON playlist
+```
+youtube-dl -j --flat-playlist 'https://www.youtube.com/watch?v=ID' | jq -r '.id' | sed 's_^_https://youtube.com/v/_'
+```
+
 Extra options
 ```
 --skip-download                  Do not download the video
