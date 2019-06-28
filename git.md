@@ -26,6 +26,16 @@ git rm file
 git rm -rf files
 ```
 
+Revert Changes to File
+```
+git checkout -- <file>
+```
+
+Revert File to Previous Commit
+```
+$ git checkout <commit_hash> -- <file>
+```
+
 Diff and Merge, edit ~/.gitconfig
 ```
 [merge]
