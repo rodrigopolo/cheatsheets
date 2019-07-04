@@ -17,6 +17,11 @@ tar xzf file.tar.gz
 tar xjf file.tar.bz2
 ```
 
+Compress file types
+```
+find . -name "*.jpg" | tar -czf jpgs.tar.gz -T -
+```
+
 ZIP compress
 ```
 zip -r file.zip folder
@@ -140,6 +145,34 @@ Replace ext. using `sed`
 ```
 for i in *.md; do echo "$i" "$( sed -e 's/\.md$/.txt/g' <<< $i )"; done
 for i in *.md; do echo "$i" "`sed -e 's/\.md$/.txt/g' <<< $i`"; done
+```
+
+Replace `./` with `md5sum`
+```
+sed -i -e 's/\.\//md5sum /g' files.txt
+```
+
+Replace last character with `]`
+```
+sed '$ s/.$/\]/' all.json > all2.json
+```
+
+Redirects:
+```
+> file redirects stdout to file
+1> file redirects stdout to file
+2> file redirects stderr to file
+&> file redirects stdout and stderr to file
+```
+
+Run command in the background, discard stdout and stderr
+```
+command > /dev/null 2>&1 &
+```
+
+Run command and append stdout and stderr to a log file.
+```
+command >> /path/to/log 2>&1 &
 ```
 
 Delete history and exit
