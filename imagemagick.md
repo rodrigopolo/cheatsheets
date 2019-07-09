@@ -78,8 +78,11 @@ mogrify -format jpg -quality 75 *.bmp
 # To PDF
 mogrify -format pdf *.jpg
 
-# Consolidate PDF
+# Consolidate PDF (OLD)
 pdftk *.pdf cat output ../Doc2.pdf
+
+NEW
+"/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py" -o all.pdf *.pdf
 ```
 
 [source](http://stackoverflow.com/questions/12433300/imagemagick-how-to-resize-proportionally-with-mogrify-without-a-background)
