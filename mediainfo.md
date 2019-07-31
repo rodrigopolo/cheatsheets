@@ -8,7 +8,6 @@ Mediainfo all tags in XML
 mediainfo -f -Lang=raw --ReadByHuman=0 --Output=XML input.mp4 > output.xml
 ```
 
-
 Mediainfo using template:
 ```
 mediainfo --Inform="file://template_mediainfo.txt" input.mp4
@@ -25,7 +24,6 @@ Text_Middle;,
 Text_End;.\r\n
 ```
 
-
 Example result:
 ```
 Name...............: A003C004_151124_R00H.mov
@@ -38,6 +36,18 @@ Bit depth..........:
 Bitrate............: 790 Mbps
 Framerate..........: 24.000 fps
 Aspect Ratio.......: 16:9
+```
+
+Get image resolutions
+```
+mediainfo --Inform="file://tempalte.txt" *.tiff >> res.txt
+```
+
+tempalte.txt
+```
+General;%FileName%.%FileExtension%
+Image;	%Width%	%Height%\r\n
+
 ```
 
 JSON Template
@@ -73,3 +83,5 @@ Text_Middle;,
 Text_End;]\n
 ;
 ```
+
+

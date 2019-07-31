@@ -43,6 +43,11 @@ File types
 find . -type f | sed -e 's/.*\.//' | sort | uniq -c
 ```
 
+Get file size with path
+```
+find "`pwd`" -type f -exec stat --printf="%n\t%s\n" '{}' \;
+```
+
 Rename
 ```
 brew install ren

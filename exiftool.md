@@ -24,6 +24,22 @@ Remove metadata
 exiftool -all= file.pdf
 ```
 
+Get one tag and save it to a JSON file, saving errors to another file
+```
+exiftool -json  -ImageDescription *.jpg >> images.json 2>> stderr.txt
+```
+
+Get one tag, and one tag only without headers
+```
+exiftool -ImageDescription x.jpg
+exiftool -s -s -s  -FileName -ImageDescription x.jpg
+```
+
+Generate MD5 from JPG files
+```
+find . -type f -iname "*.jpg" -exec md5sum '{}' \; > md5s.txt
+```
+
 Other tags
 ```
 exiftool \
