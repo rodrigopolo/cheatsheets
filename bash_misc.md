@@ -159,10 +159,10 @@ sed '$ s/.$/\]/' all.json > all2.json
 
 Redirects:
 ```
-> file redirects stdout to file
-1> file redirects stdout to file
-2> file redirects stderr to file
-&> file redirects stdout and stderr to file
+> redirects stdout to file
+1> redirects stdout to file
+2> redirects stderr to file
+&> redirects stdout and stderr to file
 ```
 
 Run command in the background, discard stdout and stderr
