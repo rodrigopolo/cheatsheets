@@ -1,3 +1,5 @@
+# FFmpeg cheat sheet
+
 AVC/H.264/AAC Encoding
 ```
 FFmpeg \
@@ -5,11 +7,10 @@ FFmpeg \
 -c:v libx264 \
 -preset slow \
 -crf 20 \
--c:a libfdk_aac \
+-c:a aac \
 -b:a 128k \
 -ac 2 \
 -ar 44100 \
--ac 2 \
 -movflags +faststart \
 output.mp4
 ```
@@ -34,15 +35,14 @@ HEVC/H.265/HE-AAC version 2 Encoding
 ffmpeg \
 -i input.mp4 \
 -c:v libx265 \
--preset medium \
--x265-params crf=28 \
--ar 48000 \
+-preset superfast \
+-crf 21 \
+-c:a aac \
+-b:a 128k \
 -ac 2 \
--c:a libfdk_aac \
--profile:a aac_he_v2 \
--b:a 64k \
+-ar 44100 \
 -tag:v hvc1 \
--strict experimental \
+-movflags +faststart \
 output.mp4
 ```
 
@@ -222,9 +222,7 @@ time-lapse.mp4
 
 Add alpha channel mask encoding to `qtrle`
 ```
-/Users/rpolo/Desktop/ffmpeglatest/ffmpeg \
--hide_banner \
--y \
+ffmpeg \
 -loop 1 \
 -i alpha.png \
 -i input.mp4 \
@@ -239,9 +237,7 @@ output.mov
 
 Add alpha channel mask encoding to `png`
 ```
-/Users/rpolo/Desktop/ffmpeglatest/ffmpeg \
--hide_banner \
--y \
+ffmpeg \
 -loop 1 \
 -i alpha.png \
 -i input.mp4 \
@@ -258,36 +254,33 @@ output.mov
 Premiere DNX to H.264/AAC for YouTube with `hqdn3d` denoise and GOP 30
 ```
 ffmpeg \
--y \
--hide_banner \
 -i input.mxf \
 -pix_fmt yuv420p \
 -vf "hqdn3d=1.5:1.5:6:6" \
 -c:v libx264 \
 -preset fast \
--crf 22 \
 -x264opts "keyint=30:scenecut=-1" \
--c:a libfdk_aac \
+-crf 22 \
+-c:a aac \
 -b:a 128k \
 -ac 2 \
 -ar 44100 \
 -movflags +faststart \
 output.mp4
 ```
+
 Premiere DNX to H.264/AAC
 ```
 ffmpeg \
--y \
--hide_banner \
 -i input.mxf \
 -pix_fmt yuv420p \
 -c:v libx264 \
 -preset fast \
 -crf 22 \
--c:a libfdk_aac \
+-c:a aac \
 -b:a 128k \
--ar 44100 \
 -ac 2 \
+-ar 44100 \
 -movflags +faststart \
 output.mp4
 ```
@@ -295,17 +288,17 @@ output.mp4
 Premiere DNX to H.265/AAC
 ```
 ffmpeg \
--y \
--hide_banner \
 -i input.mxf \
 -pix_fmt yuv420p \
 -c:v libx265 \
--preset faster \
--x265-params crf=22 \
--c:a libfdk_aac \
+-preset superfast \
+-crf 21 \
+-c:a aac \
 -b:a 128k \
--ar 44100 \
 -ac 2 \
+-ar 44100 \
+-tag:v hvc1 \
+-movflags +faststart \
 output.mp4
 ```
 
@@ -327,7 +320,7 @@ ffmpeg \				# Calling the binary
 -bf 2 \					# Maximum 2 B-frames as per guideline
 -flags +cgop \			# Closed GOP as per guideline
 -pix_fmt yuv420p \		# Chroma subsampling 4:2:0 as per guideline
--c:a libfdk_aac \		# Fraunhofer FDK AAC codec library
+-c:a aac \				# Fraunhofer FDK AAC codec library
 -b:a 128k \				# Audio Bitrate
 -ac 2 \					# Audio channels
 -r:a 44100 \			# Audio samplerate
@@ -364,16 +357,9 @@ ffmpeg \
 -map_channel 0.0.1 right.wav
 ```
 
-Change volume
-```
--filter:a "volume=24dB"
-```
-
 Create blue video
 ```
 ffmpeg \
--y \
--hide_banner \
 -f lavfi \
 -i "color=c=blue:s=1920x1080" \
 -i audio.m4a \
@@ -382,9 +368,36 @@ ffmpeg \
 -preset fast \
 -crf 28 \
 -c:a copy \
--t "00:04:17.090" \
+-t "00:01:00.000" \
 -movflags +faststart \
 blue.mp4
+```
+
+### Filters
+
+Crop
+```
+-vf "crop=1920:816:0:132" \
+```
+
+Denoise
+```
+-vf "hqdn3d=4:4:9:9" \
+```
+
+Scale
+```
+-vf "scale=640:-16" \
+```
+
+Denoise and scale
+```
+# -vf "hqdn3d=4:4:9:9,scale=640:-16" \
+```
+
+4K to UHD Pad
+```
+-vf "scale=min(iw*2160/ih\,3840):min(2160\,ih*3840/iw),pad=3840:2160:(3840-iw)/2:(2160-ih)/2" \
 ```
 
 Add hard yellow subtitles
@@ -397,7 +410,74 @@ Deinterlace
 -vf yadif 
 ```
 
-Install in OS X
+Change volume
+```
+-filter:a "volume=24dB"
+```
+
+# Video crop factors
+
+### Common Digital Video Formats
+
+Format | Dimensions | Aspect Ratio
+|----- |:----------:| -----------:|
+|HD    |   1280x720 |         16:9|
+|FHD   |  1920x1080 |         16:9|
+|4K-UHD|  3840x2160 |         16:9|
+|4K-DCI|  4096x2160 |      256:135|
+|5K.   |  5120x2880 |         16:9|
+|6K    |  6144x3456 |         16:9|
+|8K    |  7680x4320 |         16:9|
+
+### Cinemascope (2.35:1)
+
+Format  | 2.35:1 (47:20) | Letterbox |   FFmpeg Crop
+| ----- |---------------:|----------:|---------------:|
+|HD     |       1280x544 |        88 |   1280:544:0:88|
+|FHD    |       1920x816 |       132 |  1920:816:0:132|
+|4K-UHD |      3840x1632 |       264 | 3840:1632:0:264|
+|4K-DCI |      4096x1744 |       208 | 4096:1744:0:208|
+|5K     |      5120x2176 |       352 | 5120:2176:0:352|
+|6K     |      6144x2608 |       424 | 6144:2608:0:424|
+|8K     |      7680x3264 |       528 | 7680:3264:0:528|
+
+### Cinemascope (2.40:1)
+
+Format  | 2.40:1 (12:5) | Letterbox |   FFmpeg Crop
+| ----- |--------------:|----------:|---------------:|
+|HD     |      1280x528 |        96 |   1280:528:0:96|
+|FHD    |      1920x800 |       140 |  1920:800:0:140|
+|4K-UHD |     3840x1600 |       280 | 3840:1600:0:280|
+|4K-DCI |     4096x1712 |       224 | 4096:1712:0:224|
+|5K     |     5120x2128 |       376 | 5120:2128:0:376|
+|6K     |     6144x2560 |       448 | 6144:2560:0:448|
+|8K     |     7680x3200 |       560 | 7680:3200:0:560|
+
+### Ultra Panavision 70 (2.76:1)
+
+Format  | 2.76:1/69:25 | Letterbox |  FFmpeg Crop
+| ----- |-------------:|----------:|---------------:|
+|HD     |     1280x464 |       128 |  1280:464:0:128|
+|FHD    |     1920x688 |       196 |  1920:688:0:196|
+|4K-UHD |    3840x1382 |       384 | 3840:1382:0:384|
+|4K-DCI |    4096x1488 |       336 | 4096:1488:0:336|
+|5K     |    5120x1856 |       512 | 5120:1856:0:512|
+|6K     |    6144x2224 |       616 | 6144:2224:0:616|
+|8K     |    7680x2784 |       768 | 7680:2784:0:768|
+
+### 4K-DCI
+
+Format  | 4K-DCI (256:135) | 2.35:1 Letterbox |   FFmpeg Crop
+| ----- | ----------------:|-----------------:|---------------:|
+|HD     |         1280x672 |               24 |   1280:672:0:24|
+|FHD    |        1920x1008 |               36 |  1920:1008:0:36|
+|4K-UHD |        3840x2032 |               64 |  3840:2032:0:64|
+|4K-DCI |        4096x2160 |                0 |   4096:2160:0:0|
+|5K     |        5120x2704 |               88 |  5120:2704:0:88|
+|6K     |        6144x3248 |              104 | 6144:3248:0:104|
+|8K     |        7680x4048 |              136 | 7680:4048:0:136|
+
+Install in OS X (Deprecated)
 ```
 brew install \
 automake \
@@ -438,8 +518,7 @@ brew install ffmpeg \
 --with-srt
 ```
 
-
-Links
+Links (Deprecated)
 * [ffmpeg downloads](http://www.videohelp.com/software/ffmpeg)
 * [X264 10-BIT BUILDS](https://ffmpeg.zeranoe.com/blog/?p=435)
 * [Video Samples](https://www.arri.com/camera/alexa/learn/alexa_sample_footage/)
