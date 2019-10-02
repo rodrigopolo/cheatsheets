@@ -40,6 +40,29 @@ Generate MD5 from JPG files
 find . -type f -iname "*.jpg" -exec md5sum '{}' \; > md5s.txt
 ```
 
+Get dates from videos
+```
+exiftool \
+-r \
+-T \
+-directory \
+-filename \
+-MediaCreateDate \
+-ext MOV \
+-ext MP4 \
+. \
+> dates.txt
+
+General
+-CreateDate \
+
+MOV
+-CreationDate \
+
+MP4
+-MediaCreateDate \
+```
+
 Other tags
 ```
 exiftool \
