@@ -137,12 +137,36 @@ ffmpeg \
 output.mov
 ```
 
-ProRes profiles:
-* 0: 422 (Proxy)
-* 1: ProRes422 (LT)
-* 2: ProRes422 (Normal)
-* 3: ProRes422 (HQ)
+ProRes with YUV 4444 support
+```
+ffmpeg -i input.mp4 -c:v prores_ks -profile:v 3 -c:a pcm_s16le output.mov
+```
 
+
+`prores_ks` profiles:
+* `-1`: auto (default)
+* `0`: Proxy ≈ 45Mbps YUV 4:2:2
+* `1`: LT ≈ 102Mbps YUV 4:2:2
+* `2`: Standard ≈ 147Mbps YUV 4:2:2
+* `3`: HQ ≈ 220Mbps YUV 4:2:2
+* `4`: 4444 ≈ 330Mbps YUVA 4:4:4:4
+* `5`: 4444-HQ ≈ 500Mbps YUVA 4:4:4:4
+
+Source: https://trac.ffmpeg.org/wiki/Encode/VFX#Prores
+
+ProRes blue screen with subtitles from SRT
+```
+ffmpeg \
+-f lavfi \
+-i "color=c=blue:s=1920x1080" \
+-pix_fmt yuv422p10le \
+-vf "subtitles=sub.srt:force_style='Fontsize=26,PrimaryColour=&H00ffff&'" \
+-c:v prores_aw \
+-an \
+-t "00:01:04.993" \
+-movflags +faststart \
+output.mov
+```
 
 X264 10bit 4:2:2 Chroma at CRF 20 using X264 10Bit
 ```
