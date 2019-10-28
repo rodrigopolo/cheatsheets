@@ -37,6 +37,12 @@ ZIP without OS X Files
 zip -r -X file.zip folder
 ```
 
+Find inside files
+```
+find `pwd` -type f -iname "*.js" -exec grep -i "keyword" -l '{}' \; -print
+```
+
+
 Remove a folder
 ```
 rm -rf folder/
