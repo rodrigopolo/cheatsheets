@@ -279,6 +279,57 @@ mongorestore -d database -c newcollectionname ./folder/olddatabase.bson
 Sources
 [quackit](https://www.quackit.com/mongodb/tutorial/)
 
+Install
+```bash
+brew tap mongodb/brew && brew install mongodb-community@4.2
+```
+
+Locations
+```bash
+# Config
+/usr/local/etc/mongod.conf
+
+# Data
+/usr/local/var/mongodb
+```
+
+Brew message
+```
+To have launchd start mongodb/brew/mongodb-community now and restart at login:
+  brew services start mongodb/brew/mongodb-community
+Or, if you don't want/need a background service you can just run:
+  mongod --config /usr/local/etc/mongod.conf
+```
+
+Services
+```bash
+brew services start mongodb/brew/mongodb-community
+brew services restart mongodb-community
+brew services stop mongodb-community
+```
+
+Manual stop/start
+```bash
+launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+```
+
+Manual run
+```bash
+cd /usr/local
+/usr/local/opt/mongodb/bin/mongod \
+--config /usr/local/etc/mongod.conf \
+>> /usr/local/var/log/mongodb/output.log \
+2>> /usr/local/var/log/mongodb/output.log
+```
+
+Check version
+```
+$mongo
+db.version()
+```
+
+
 
 
 
