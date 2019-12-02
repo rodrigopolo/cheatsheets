@@ -126,6 +126,10 @@ For filenames
 date -u +%Y-%m-%dT%H.%M.%SZ
 ```
 
+Get file creation and modification date
+```
+stat -f "Access (atime): %Sa%nModify (mtime): %Sm%nChange (ctime): %Sc%nBirth  (Btime): %SB"
+```
 
 Get folder size on OS X by file size, NOT disk usage
 ```

@@ -24,6 +24,11 @@ Remove metadata
 exiftool -all= file.pdf
 ```
 
+Get GPS decimal location
+```
+exiftool -m -c "%+.10f" -p '$GPSlatitude,$GPSlongitude' file.jpg
+```
+
 Get one tag and save it to a JSON file, saving errors to another file
 ```
 exiftool -json  -ImageDescription *.jpg >> images.json 2>> stderr.txt
