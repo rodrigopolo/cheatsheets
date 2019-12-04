@@ -164,8 +164,15 @@ sed -i -e 's/\.\//md5sum /g' files.txt
 
 Replace last character with `]`
 ```
-sed '$ s/.$/\]/' all.json > all2.json
+sed '$ s/.$/\]/' input.json > output.json
 ```
+
+Convert a list of objects into a JSON file by adding commas on each line and `[]`
+```
+sed '1s;^;\[;' input.json | sed -e 's/'\$'/,'$'/g' | sed '$ s/.$/\]/' > output.json
+```
+
+https://www.cyberciti.biz/faq/bash-prepend-text-lines-to-file/
 
 Redirects:
 ```
