@@ -2,7 +2,7 @@
 
 Edit the file `/etc/pam.d/sshd`.
 
-```
+```bash
 sudo nano /etc/pam.d/sshd
 ```
 
@@ -19,7 +19,7 @@ session    optional     pam_motd.so  motd=/run/motd.dynamic noupdate
 ```
 
 Edit/create your message file:
-```
+```bash
 sudo nano /etc/motd
 ```
 
@@ -33,14 +33,14 @@ Paste what you like into the file:
 ```
 
 Restart your SSH service:
-```
+```bash
 sudo service ssh restart
 ```
 
 ## Edit Message of the Day (MOTD) in OS X
 
 Edit the `/etc/motd` file.
-```
+```bash
 sudo nano /etc/motd
 ```
 

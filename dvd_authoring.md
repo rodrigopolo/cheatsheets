@@ -2,7 +2,7 @@
 
 Convert video to MPEG
 
-```
+```bash
 ffmpeg \
 -y \
 -hide_banner \
@@ -14,7 +14,7 @@ mpeg_video.mpg
 ```
 
 Create the DVDAuthor `video.xml` file.
-```
+```xml
 <dvdauthor dest="/path/to/output/DVD_FOLDER">
 	<vmgm />
 	<titleset>
@@ -28,12 +28,12 @@ Create the DVDAuthor `video.xml` file.
 ```
 
 Create the `VIDEO_TS` folder using DVDAuthor
-```
+```bash
 dvdauthor -x video.xml 
 ```
 
 Convert the `VIDEO_TS` folder to a ISO image using DiskUtil
-````
+```bash
 hdiutil makehybrid -udf -udf-volume-name Label -o ISO_File.iso /path/to/input/DVD_FOLDER
 ```
 

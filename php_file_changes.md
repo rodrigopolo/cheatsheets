@@ -3,7 +3,7 @@
 #### 1) Create your shell script and save it:
 
 
-```
+```bash
 #!/bin/bash
 
 # Cron Script Path
@@ -36,19 +36,19 @@ return any result.
 
 #### 2) Give your shell script execution permissions:
 
-```
+```bash
 chmod +x script.sh
 ```
 
 #### 3) Create your cronjob, first create a text file to store your crontab:
 
-```
+```bash
 touch crontab.txt
 ```
 
 #### 4) Edit your file and enter the following changing the path to your shell script and your email:
 
-```
+```bash
 SHELL="/bin/bash"
 # Mail
 MAILTO="email@example.com"
@@ -61,12 +61,12 @@ This cronjob script will execute your shell script, and if it receives any data
 into the STDERR it will send an email to the address above, so lets add this 
 file to the crontab:
 
-```
+```bash
 crontab crontab.txt
 ```
 
 Done, to check if the crontab is created type:
 
-```
+```bash
 crontab -l
 ```

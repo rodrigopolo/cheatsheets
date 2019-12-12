@@ -5,7 +5,7 @@ I use [DreamHost](http://www.dreamhost.com/r.cgi?279254) for my main blog Rodrig
 
 
 ## Setup an app and a bin folder
-```
+```bash
 cd
 mkdir apps
 mkdir bin
@@ -14,12 +14,12 @@ mkdir bin
 Add the bin path to the $PATH
 
 Edit `~/.bash_profile`
-```
+```bash
 nano ~/.bash_profile
 ```
 
 Add the following text
-```
+```bash
 # For local bin
 export PATH=$PATH:~/bin
 ```
@@ -27,24 +27,24 @@ export PATH=$PATH:~/bin
 ## PhantomJS Install
 
 Download
-```
+```bash
 wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2
 ```
 
 Uncompress
-```
+```bash
 tar xjf phantomjs-1.9.8-linux-x86_64.tar.bz2
 ```
 
 Move to the apps folder and delete downloaded and uncompressed files
-```
+```bash
 mv phantomjs-1.9.8-linux-x86_64/bin/phantomjs ~/apps/phantomjs
 rm -rf phantomjs-1.9.8-linux-x86_64
 rm phantomjs-1.9.8-linux-x86_64.tar.bz2
 ```
 
 Create a symbolic link to the bin folder
-```
+```bash
 ln -s ~/apps/phantomjs ~/bin/phantomjs
 ```
 
@@ -53,17 +53,17 @@ ln -s ~/apps/phantomjs ~/bin/phantomjs
 ## YouTube Downloader Install
 
 Download the binary into the apps folder
-```
+```bash
 wget https://yt-dl.org/downloads/2015.01.25/youtube-dl
 ```
 
 Set permissions
-```
+```bash
 chmod +x youtube-dl
 ```
 
 Create a symbolic link to the bin folder
-```
+```bash
 ln -s ~/apps/youtube-dl ~/bin/youtube-dl
 ```
 
@@ -72,7 +72,7 @@ ln -s ~/apps/youtube-dl ~/bin/youtube-dl
 ## YouTube Uploader Install
 
 Follow this script line by line on the terminal to install the required script and libraries
-```
+```bash
 mkdir pyu
 cd pyu
 curl -O -J https://google-api-python-client.googlecode.com/files/google-api-python-client-1.2.tar.gz
@@ -102,20 +102,20 @@ Create a `client_secrets.json` within the `pyu` folder containging the following
 ```
 
 Create a bash script `~/apps/pyu/pyu` for global access and paste this:
-```
+```bash
 #!/usr/bin/env bash
 python ~/apps/pyu/upload_video.py $@
 ```
 
 Set permissions and create a symbolic link to the bin folder
-```
+```bash
 chmod +x ~/apps/pyu/pyu
 ln -s ~/apps/pyu/pyu ~/bin/pyu
 ```
 
 Then upload your video, it will give you a link the first time, this links is for authentication, follow the instructions on the terminal output.
 
-```
+```bash
 pyu \
 --file="01-TestHD1080.mp4" \
 --title="Test" \
@@ -151,19 +151,19 @@ IDs for categories:
 ## MP4Box Install
 
 Download and uncompress
-```
+```bash
 wget http://tools.rodrigopolo.com/bin/gnulnx/gpac.tar.gz
 tar xzf gpac.tar.gz
 rm gpac.tar.gz
 ```
 
 Create a symbolic link to the bin folder
-```
+```bash
 ln -s ~/apps/gpac/MP4Box ~/bin/mp4box
 ```
 
 Add library path for gpac
-```
+```bash
 nano ~/.bash_profile
 ```
 
@@ -176,7 +176,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/apps/gpac/
 
 
 ## MediaInfo Install
-```
+```bash
 wget http://tools.rodrigopolo.com/bin/gnulnx/mediainfo.tar.gz
 tar xzf mediainfo.tar.gz
 rm mediainfo.tar.gz
@@ -186,7 +186,7 @@ ln -s ~/apps/mediainfo ~/bin/mediainfo
 # Media info short template
 
 Create the MediaInfo template file `~/apps/mediainfoshot.txt`
-```
+```bash
 nano ~/apps/mediainfoshot.txt
 ```
 
@@ -203,7 +203,7 @@ Text_End;.\r\n
 ```
 
 Create a `~/bin/minfo` file and enter the following script
-```
+```bash
 #!/usr/bin/env bash
 if [ -z "$1" ]; then
         echo
@@ -216,7 +216,7 @@ fi
 ```
 
 Set permissions
-```
+```bash
 chmod +x ~/bin/minfo
 ```
 
@@ -224,12 +224,12 @@ chmod +x ~/bin/minfo
 ## YouTube Downloader Commands:
 
 view available formats getting each id:
-```
+```bash
 youtube-dl http://youtu.be/<video_id> -F
 ```
 
 Download an specific format
-```
+```bash
 youtube-dl http://youtu.be/<video_id> -f <id>
 ```
 
@@ -237,14 +237,14 @@ youtube-dl http://youtu.be/<video_id> -f <id>
 ## MP4Box Commands
 
 Extract a portion of the video, example from `60` seconds to `60` seconds.
-```
+```bash
 mp4box \
 -splitx 60:60 \
 input.m4v
 ```
 
 Join audio/video
-```
+```bash
 mp4box \
 -keep-sys \
 -add "input_video.mp4#1:fps=29.970" \
@@ -255,17 +255,17 @@ mp4box \
 ## 360 and Stereo video metadata
 
 Clone the `spatial-media` repo on the app folder
-```
+```bash
 git clone https://github.com/google/spatial-media.git --depth 1
 ```
 
 Create the `~/bin/spatialmedia` and enter the following
-```
+```bash
 #!/usr/bin/env bash
 python ~/apps/spatial-media/spatialmedia $@
 ```
 Set the file permissions:
-```
+```bash
 chmod +x ~/bin/spatialmedia
 ```
 
@@ -279,17 +279,17 @@ chmod +x ~/bin/spatialmedia
 ## Notes
 
 For non-login shells
-```
+```bash
 ~/.bashrc 
 ```
 
 For login shells
-```
+```bash
 ~/.bash_profile
 ```
 
 ### An example
-```
+```bash
 # View available formats from the video
 youtube-dl http://youtu.be/yBX-KpMoxYk -F
 
@@ -316,7 +316,7 @@ new.m4v
 ## Node.js
 
 Install Node.js
-```
+```bash
 cd
 cd apps
 wget https://nodejs.org/dist/v10.13.0/node-v10.13.0-linux-x64.tar.xz
@@ -329,13 +329,13 @@ ln -s ~/apps/node/lib/node_modules/npm/bin/npx-cli.js ~/bin/npx
 ```
 
 Check Node.js version
-```
+```bash
 node --version
 npm --version
 ```
 
 Uninstall Node.js
-```
+```bash
 rm ~/bin/node
 rm ~/bin/npm
 rm ~/bin/npx

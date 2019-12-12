@@ -34,7 +34,7 @@ And the `client_secrets.json` file:
 
 In this example, the script would build and insert the following video resource for the video:
 
-```
+```bash
 python upload_video.py \
 --file="/tmp/test_video_file.mp4" \
 --title="Summer vacation in California" \
@@ -46,7 +46,7 @@ python upload_video.py \
 ```
 
 Auth JSON File
-```
+```bash
 upload_video.py-oauth2.json
 ```
 

@@ -4,7 +4,7 @@
 Download [NSSM](http://nssm.cc/download)
 
 Run Command Prompt as an administrator and type:
-```
+```cmd
 nssm.exe install [ServiceName]
 ```
 
@@ -30,13 +30,13 @@ Error: C:\path\to\stderr.log
 ```
 
 #### To start your service
-```
+```cmd
 net start [ServiceName]
 ```
 
 #### Uninstall service
 
-```
+```cmd
 net stop [ServiceName]
 nssm remove [ServiceName]
 ```
@@ -44,12 +44,12 @@ nssm remove [ServiceName]
 #### OS X
 
 Create a Launch daemon
-```
+```bash
 sudo nano  /Library/LaunchDaemons/org.yourdaemon.plist
 ```
 
 Paste your custom XML
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -80,14 +80,14 @@ Paste your custom XML
 ```
 
 Change permissions, load and start
-```
+```bash
 sudo /usr/sbin/chown root:wheel /Library/LaunchDaemons/org.yourdaemon.plist
 sudo /bin/launchctl load /Library/LaunchDaemons/org.yourdaemon.plist
 sudo /bin/launchctl start org.yourdaemon
 ```
 
 Stop and Remove
-```
+```bash
 sudo /bin/launchctl stop org.yourdaemon
 sudo /bin/launchctl unload /Library/LaunchDaemons/org.yourdaemon.plist
 sudo rm /Library/LaunchDaemons/org.yourdaemon.plist

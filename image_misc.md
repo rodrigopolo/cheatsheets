@@ -1,57 +1,53 @@
 
-# sed replace regex new
-cat todo.txt | grep -i "IMG_" | grep -i ".MP4" | sed -E -e 's/[^\/]+$//' | sort | uniq > videos.txt
+sed replace regex new
+```bash
+cat file.txt | grep -i "IMG_" | grep -i ".MP4" | sed -E -e 's/[^\/]+$//' | sort | uniq > videos.txt
+```
 
-
-cat todo.txt | grep -i ".AAE" sed -E -e 's/[^\/]+$//' | sort | uniq > trash.txt
-
+```bash
+cat file.txt | grep -i ".AAE" sed -E -e 's/[^\/]+$//' | sort | uniq > trash.txt
+```
 AAE
 .xmp
 empty folders and files
 
 
-#Find HEIC folders
+Find HEIC folders
+```bash
 find "`pwd`" -type f -iname "*.HEIC" | sed -E -e 's/[^\/]+$//' | sort | uniq > heic2.txt
+```
 
-
-# Find empty folders
+Find empty folders
+```bash
 find "`pwd`" -type d -exec bash -c "echo -ne '{}'; ls '{}' | wc -l" \; | awk '$NF==0' > empty.txt
 find "`pwd`" -type d -empty > empty.txt
+```
 
-# Unicos
+Unique
+```bash
 cat trash.txt | grep -i "/Share" | sed -E -e 's/[^\/]+$//' | sort | uniq > delete.txt
-
 exiftool -json input.jpg > output.JSON
-
  | awk -F $'\t' '{print $3}'
+```
 
-
----
+```bash
 find . -type d -exec bash -c "echo -ne '{} '; ls '{}' | wc -l" \; | awk '$NF==0'
-
-
+```
+```bash
 cat data.txt | grep -i "\.heic" > encode.txt
 cat convertir.txt | sort | uniq > encode2.txt 
-
-
+```
+```bash
 [^\/]\w+\.heic$
+```
 ---
 
-# Solo los que no tengan "-" luego del 3er tab
+Solo los que no tengan "-" luego del 3er tab
+```bash
 cat ~/check.txt | egrep -v '.*\t.*\t.*\t\-'
+```
 
-
-"Make": "Apple",
-"Model": "iPhone X",
-
-"Make": "Canon",
-"Model": "Canon EOS R",
-
-
-DateTimeOriginal
-
-
-
+```bash
 exiftool \
 -r \
 -T \
@@ -63,8 +59,8 @@ exiftool \
 -ext JPG \
 -ext JPEG \
 /DIR \
-> ~/Desktop/check.txt
-
+> ~/check.txt
+```
 
 
 Adobe Caches?
@@ -82,7 +78,7 @@ Picasa DB Folder
 ```
 
 Regex
-```
+```bash
 find . -regex "./[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}\.jpe?g"
 ```
 

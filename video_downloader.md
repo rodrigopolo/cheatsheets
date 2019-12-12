@@ -9,46 +9,46 @@ https://github.com/rg3/youtube-dl/blob/master/README.md#readme
 
 
 List all available formats
-```
+```bash
 youtube-dl  -F https://www.youtube.com/watch?v=<ID>
 ```
 
 List all available formats filtering MP4 with grep
-```
+```bash
 youtube-dl -F https://www.youtube.com/watch?v=<ID> | grep mp4
 
 ```
 
 Download best mp4 format available or any other best if no mp4 available
-```
+```bash
 youtube-dl \
 -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' \
 https://www.youtube.com/watch?v=<ID>
 ```
 
 List all available extractors (1126 until now 2018-08-29)
-```
+```bash
 youtube-dl --list-extractors
 ```
 
 Periscope download (list first)
-```
+```bash
 youtube-dl -F https://www.pscp.tv/w/<id>
 ```
 
 Twitter download (list first)
-```
+```bash
 youtube-dl -F https://twitter.com/<user>/status/<tw-id>
 ```
 
 Fox News aka Akamai AMP feed (list first)
-```
+```bash
 youtube-dl -F http://video.foxbusiness.com/v/<id>/
 ```
 
 
 Download `en` auto subtitle
-```
+```bash
 youtube-dl         \
 --write-auto-sub   \
 --sub-lang=en      \
@@ -57,7 +57,7 @@ https://www.youtube.com/watch?v=<ID>
 ```
 
 Download `en` subtitle
-```
+```bash
 youtube-dl         \
 --write-sub        \
 --sub-lang en      \
@@ -66,17 +66,17 @@ https://www.youtube.com/watch?v=<ID>
 ```
 
 Convert VTT to SRT using FFmpeg:
-```
+```bash
 ffmpeg -i foo.vtt foo.srt
 ```
 
 JSON playlist
-```
+```bash
 youtube-dl -j --flat-playlist 'https://www.youtube.com/watch?v=ID' | jq -r '.id' | sed 's_^_https://youtube.com/v/_'
 ```
 
 Extra options
-```
+```bash
 --skip-download                  Do not download the video
 --write-info-json                Write video metadata to a .info.json file
 --write-thumbnail                Write thumbnail image to disk

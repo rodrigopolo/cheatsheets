@@ -1,5 +1,5 @@
 Create disk image from folder:
-```
+```bash
 hdiutil create \
 -fs HFS+ \
 -srcfolder /path/to/folder \
@@ -8,7 +8,7 @@ hdiutil create \
 ```
 
 Create bootable disk
-```
+```bash
 sudo \
 /Applications/Install\ macOS\ Sierra.app/Contents/Resources/createinstallmedia \
 --volume /Volumes/VolumeName \

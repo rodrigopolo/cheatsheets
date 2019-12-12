@@ -1,15 +1,15 @@
 Simple use
-```
+```bash
 mediainfo input.mp4
 ```
 
 Mediainfo all tags in XML
-```
+```bash
 mediainfo -f -Lang=raw --ReadByHuman=0 --Output=XML input.mp4 > output.xml
 ```
 
 Mediainfo using template:
-```
+```bash
 mediainfo --Inform="file://template_mediainfo.txt" input.mp4
 ```
 
@@ -39,7 +39,7 @@ Aspect Ratio.......: 16:9
 ```
 
 Get image resolutions
-```
+```bash
 mediainfo --Inform="file://tempalte.txt" *.tiff >> res.txt
 ```
 
@@ -83,5 +83,3 @@ Text_Middle;,
 Text_End;]\n
 ;
 ```
-
-

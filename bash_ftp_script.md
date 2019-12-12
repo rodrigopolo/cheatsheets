@@ -1,7 +1,7 @@
 ### FTP Upload Script
 
 Automated FTP upload on Linux
-```
+```bash
 #!/bin/bash
 
 ####################

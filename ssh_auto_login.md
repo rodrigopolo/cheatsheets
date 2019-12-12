@@ -32,19 +32,19 @@
 1. On the terminal window that was already open, check if you already have
   a `~/.ssh` folder, if not, create it:
 
-  ```
+  ```bash
   mkdir ~/.ssh
   ```
 
 2. Check the `~./ssh` folder permissions:
 
-  ```
+  ```bash
   chmod -R og= ~/.ssh
   ```
 
 3. Paste/append you key to the `authorized_keys` file:
 
-  ```
+  ```bash
   nano authorized_keys
   ```
 
@@ -63,7 +63,7 @@ Some hosting providers and servers have some issues with the key encoding, you
 can upload your key directly to your server using `scp` and append you key to
 the `authorized_keys` file:
 
-```
+```bash
 scp -P 22 your_key.pub user@host:/path/to/home/.ssh/key.pub
 cat key.pub >> authorized_keys
 ```
@@ -74,7 +74,7 @@ GatorHosts for instance use the `authorized_keys2` file name.
 
 ### Permissions
 Always double check file permissions and ownership
-```
+```bash
 chmod -R og= ~/.ssh
 ```
 

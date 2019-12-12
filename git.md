@@ -1,38 +1,38 @@
 ### Git
 
 List git-ignored files
-```
+```bash
 git ls-files . --ignored --exclude-standard --others
 ```
 
 List untracked files
-```
+```bash
 git ls-files . --exclude-standard --others
 ```
 
 Reset to last commit
-```
+```bash
 git reset --hard
 ```
 
 Add files
-```
+```bash
 git add path/file.txt
 ```
 
 Remove file or files
-```
+```bash
 git rm file
 git rm -rf files
 ```
 
 Revert Changes to File
-```
+```bash
 git checkout -- <file>
 ```
 
 Revert File to Previous Commit
-```
+```bash
 $ git checkout <commit_hash> -- <file>
 ```
 
@@ -54,22 +54,22 @@ Diff and Merge, edit ~/.gitconfig
 > KDiff3 [download](http://kdiff3.sourceforge.net/).
 
 Merge
-```
+```bash
 git mergetool
 ```
 
 Generate key
-```
+```bash
 ssh-keygen -t rsa -C "your_email@example.com"
 ```
 
 View your key
-```
+```bash
 cat ~/.ssh/id_rsa.pub
 ```
 
 Set your identity
-```
+```bash
 git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
 ```
@@ -106,7 +106,7 @@ Host bitbucket.org
 ```
 
 GitHub pages
-```
+```bash
 git commit -m 'Info'
 git push origin master
 
@@ -120,11 +120,11 @@ git checkout master
 ```
 
 Create patch from last commit, add `~` for extra commits:
-```
+```bash
 git format-patch HEAD~
 ```
 
 Apply patch:
-```
+```bash
 git am commit-name.patch
 ```
