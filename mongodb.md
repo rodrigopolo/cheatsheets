@@ -254,6 +254,31 @@ db.getCollection('places').aggregate([{
 }])
 ```
 
+Cursor length fix
+```js
+// A simple aggregation with `group`
+var cursor = db.getCollection('collection').aggregate([
+	{$match: {
+		"property": {"$exists": true }
+	}},
+	{$group: { 
+		_id: '$groupable',
+		count: {$sum: 1}
+	}},
+	{$sort: {
+		count: -1
+	}}
+]);
+
+// Converting the "cursor" into an array
+var cursor_array = cursor.toArray();
+
+// Looping as an array using `for` instead of `while`
+for (var i = 0; i < cursor_array.length; i++) {
+	print(cursor_array[i]._id+'\t'+cursor_array[i].count);
+}
+```
+
 Geospatial Query Operators
 * [$geoIntersects](https://docs.mongodb.com/manual/reference/operator/query/geoIntersects/#op._S_geoIntersects)  
 * [$geoWithin](https://docs.mongodb.com/manual/reference/operator/query/geoWithin/#op._S_geoWithin)  
@@ -328,6 +353,32 @@ Check version
 $mongo
 db.version()
 ```
+
+### $type
+
+| Type                   | Number | Alias                | Notes               |
+|:-----------------------|-------:|:---------------------|:--------------------|
+|Double                  |       1|"double"              |                     |
+|String                  |       2|"string"              |                     |
+|Object                  |       3|"object"              |                     |
+|Array                   |       4|"array"               |                     |
+|Binary data             |       5|"binData"             |                     |
+|Undefined               |       6|"undefined"           | Deprecated.         |
+|ObjectId                |       7|"objectId"            |                     |
+|Boolean                 |       8|"bool"                |                     |
+|Date                    |       9|"date"                |                     |
+|Null                    |      10|"null"                |                     |
+|Regular Expression      |      11|"regex"               |                     |
+|DBPointer               |      12|"dbPointer"           | Deprecated.         |
+|JavaScript              |      13|"javascript"          |                     |
+|Symbol                  |      14|"symbol"              | Deprecated.         |
+|JavaScript (with scope) |      15|"javascriptWithScope" |                     |
+|32-bit integer          |      16|"int"                 |                     |
+|Timestamp               |      17|"timestamp"           |                     |
+|64-bit integer          |      18|"long"                |                     |
+|Decimal128              |      19|"decimal"             | New in version 3.4. |
+|Min key                 |      -1|"minKey"              |                     |
+|Max key                 |     127|"maxKey"              |                     |
 
 
 

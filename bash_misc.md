@@ -157,6 +157,11 @@ for i in *.md; do echo "$i" "$( sed -e 's/\.md$/.txt/g' <<< $i )"; done
 for i in *.md; do echo "$i" "`sed -e 's/\.md$/.txt/g' <<< $i`"; done
 ```
 
+Remove file in paths, sort, inque, grep results
+```bash
+cat todo.txt | sed 's:[^/]*$::' | sort | uniq |grep -i keyword
+```
+
 Replace `./` with `md5sum`
 ```bash
 sed -i -e 's/\.\//md5sum /g' files.txt
@@ -169,10 +174,10 @@ sed '$ s/.$/\]/' input.json > output.json
 
 Convert a list of objects into a JSON file by adding commas on each line and `[]`
 ```bash
-sed '1s;^;\[;' input.json | sed -e 's/'\$'/,'$'/g' | sed '$ s/.$/\]/' > output.json
+sed '1s;^;\[;' input.json | sed '$ s/.$/\]/' > output.json
 ```
-
 https://www.cyberciti.biz/faq/bash-prepend-text-lines-to-file/
+https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/
 
 Redirects:
 ```bash
@@ -195,4 +200,9 @@ command >> /path/to/log 2>&1 &
 Delete history and exit
 ```bash
 cat /dev/null > ~/.bash_history && history -c && exit
+```
+
+Redirect `stdout` and `stderr` to files
+```sh
+command > stdout 2> stderr
 ```
