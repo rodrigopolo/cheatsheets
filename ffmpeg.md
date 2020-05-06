@@ -154,20 +154,6 @@ ffmpeg -i input.mp4 -c:v prores_ks -profile:v 3 -c:a pcm_s16le output.mov
 
 Source: https://trac.ffmpeg.org/wiki/Encode/VFX#Prores
 
-ProRes blue screen with subtitles from SRT
-```bash
-ffmpeg \
--f lavfi \
--i "color=c=blue:s=1920x1080" \
--pix_fmt yuv422p10le \
--vf "subtitles=sub.srt:force_style='Fontsize=26,PrimaryColour=&H00ffff&'" \
--c:v prores_aw \
--an \
--t "00:01:04.993" \
--movflags +faststart \
-output.mov
-```
-
 Add blured bars for vertical video
 ```bash
 ffmpeg \
@@ -398,20 +384,34 @@ ffmpeg \
 -map_channel 0.0.1 right.wav
 ```
 
-Create blue video
+Create blue video with subs
 ```bash
 ffmpeg \
 -f lavfi \
 -i "color=c=blue:s=1920x1080" \
--i audio.m4a \
+-vf "subtitles=subs.srt:force_style='Fontsize=26,PrimaryColour=&H00ffff&'" \
 -pix_fmt yuv420p \
 -c:v libx264 \
 -preset fast \
--crf 28 \
--c:a copy \
--t "00:01:00.000" \
+-crf 21 \
+-an \
+-t "00:14:56.244" \
 -movflags +faststart \
-blue.mp4
+subs.mp4
+```
+
+ProRes blue screen with subtitles from SRT
+```bash
+ffmpeg \
+-f lavfi \
+-i "color=c=blue:s=1920x1080" \
+-pix_fmt yuv422p10le \
+-vf "subtitles=sub.srt:force_style='Fontsize=26,PrimaryColour=&H00ffff&'" \
+-c:v prores_aw \
+-an \
+-t "00:01:04.993" \
+-movflags +faststart \
+output.mov
 ```
 
 ### Filters
