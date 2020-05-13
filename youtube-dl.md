@@ -1,21 +1,36 @@
-# YouTube-dl 
+# YouTube-dl
 - Download videos from YouTube (and more sites)
 
 Download:
-https://rg3.github.io/youtube-dl/
+https://youtube-dl.org/
 
 Documentation:
-https://github.com/rg3/youtube-dl/blob/master/README.md#readme
+https://github.com/ytdl-org/youtube-dl/blob/master/README.md
+
+
+Create defaults:
+```bash
+mkdir -p ~/.config/youtube-dl/
+nano ~/.config/youtube-dl/config
+```
+
+Custom settings
+```
+--restrict-filenames
+--continue
+--write-info-json
+-f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
+```
 
 
 List all available formats
 ```bash
-youtube-dl  -F https://www.youtube.com/watch?v=<ID>
+VIDEO_youtube-dl  -F URL
 ```
 
 List all available formats filtering MP4 with grep
 ```bash
-youtube-dl -F https://www.youtube.com/watch?v=<ID> | grep mp4
+VIDEO_youtube-dl -F URL | grep mp4
 
 ```
 
@@ -23,7 +38,7 @@ Download best mp4 format available or any other best if no mp4 available
 ```bash
 youtube-dl \
 -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' \
-https://www.youtube.com/watch?v=<ID>
+VIDEO_URL
 ```
 
 List all available extractors (1126 until now 2018-08-29)
@@ -53,7 +68,7 @@ youtube-dl         \
 --write-auto-sub   \
 --sub-lang=en      \
 --skip-download    \
-https://www.youtube.com/watch?v=<ID>
+VIDEO_URL
 ```
 
 Download `en` subtitle
@@ -62,7 +77,7 @@ youtube-dl         \
 --write-sub        \
 --sub-lang en      \
 --skip-download    \
-https://www.youtube.com/watch?v=<ID>
+VIDEO_URL
 ```
 
 Convert VTT to SRT using FFmpeg:
