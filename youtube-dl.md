@@ -14,6 +14,8 @@ mkdir -p ~/.config/youtube-dl/
 nano ~/.config/youtube-dl/config
 ```
 
+Windows: `%APPDATA%\youtube-dl\config.txt`
+
 Custom settings
 ```
 --restrict-filenames
