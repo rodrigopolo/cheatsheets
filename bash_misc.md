@@ -176,6 +176,27 @@ Convert a list of objects into a JSON file by adding commas on each line and `[]
 ```bash
 sed '1s;^;\[;' input.json | sed '$ s/.$/\]/' > output.json
 ```
+
+Break JSONs into lines and clean last object "fo"
+```bash
+sed -E $'s/(fo\"\:[0-9]+\},)(\{)/\\1\\\n\\2/g' "./ricigt1/followers.json" | \
+sed -E $'s/(,\"fo\"\:[0-9]+)//g' > "./ricigt1/ricigt1-followers.json"
+
+sed -E $'s/(fo\"\:[0-9]+\},)(\{)/\\1\\\n\\2/g' "./ricigt1/friends.json" | \
+sed -E $'s/(,\"fo\"\:[0-9]+)//g' > "./ricigt1/ricigt1-friends.json"
+```
+
+Remove duplicates and convert one line intwo two lines for `aria2c` to download
+```bash
+cat file | sort | uniq | sed -E $'s/\|/\\\n  out=/g' > uris.txt
+aria2c -j 16 -i uris.txt
+```
+
+Check difference between two files
+```bash
+diff --side-by-side --suppress-common-lines file1.txt file2.txt
+```
+
 https://www.cyberciti.biz/faq/bash-prepend-text-lines-to-file/
 https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/
 
