@@ -179,11 +179,8 @@ sed '1s;^;\[;' input.json | sed '$ s/.$/\]/' > output.json
 
 Break JSONs into lines and clean last object "fo"
 ```bash
-sed -E $'s/(fo\"\:[0-9]+\},)(\{)/\\1\\\n\\2/g' "./ricigt1/followers.json" | \
-sed -E $'s/(,\"fo\"\:[0-9]+)//g' > "./ricigt1/ricigt1-followers.json"
-
-sed -E $'s/(fo\"\:[0-9]+\},)(\{)/\\1\\\n\\2/g' "./ricigt1/friends.json" | \
-sed -E $'s/(,\"fo\"\:[0-9]+)//g' > "./ricigt1/ricigt1-friends.json"
+sed -E $'s/(fo\"\:[0-9]+\},)(\{)/\\1\\\n\\2/g' "json1.json" | \
+sed -E $'s/(,\"fo\"\:[0-9]+)//g' > "json2.json"
 ```
 
 Remove duplicates and convert one line intwo two lines for `aria2c` to download
