@@ -18,10 +18,10 @@ Windows: `%APPDATA%\youtube-dl\config.txt`
 
 Custom settings
 ```
+-f 'bestvideo[ext=mp4][vcodec*=avc1.640]+bestaudio[ext=m4a]/best[ext=mp4]/best'
+--write-info-json
 --restrict-filenames
 --continue
---write-info-json
--f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
 ```
 
 
