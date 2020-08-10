@@ -53,3 +53,21 @@ Rename
 brew install ren
 ren '*.jpg' '#1.webp'
 ```
+
+Rename with find - Linux
+```bash
+find "`pwd`" -regex ".*\.\(jpg\|gif\|png\|jpeg\)" -exec ./singleren.sh '{}' \;
+```
+
+Rename with find - macOS
+```bash
+find -E "`pwd`" -iregex ".*\.(jpg|gif|png|jpeg)" -exec ./singleren.sh '{}' \;
+```
+
+singleren.sh
+```bash
+#!/usr/bin/env bash
+IFS=$'\t\n'
+mv $1 "${1%.*}"
+```
+
