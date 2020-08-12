@@ -149,16 +149,21 @@ while (cursor.hasNext()) {
 
 ```
 
-Create index
+Get indexes
+```js
+db.getCollection('collection').getIndexes()
+```
+
+Create indexes
 ```js
 // Full text, all properties have to be in the same sentence
-db.floreceras.createIndex({
+db.collection.createIndex({
 	'entities.hashtags.text': 'text',
 	'full_text': 'text'
 });
 
 // Simple index creation
-db.floreceras.createIndex({'user.id': 1});
+db.collection.createIndex({'user.id': 1});
 
 // Unique Index on a Single Field
 db.members.createIndex({"user_id": 1}, {unique: true});
@@ -168,6 +173,24 @@ db.members.createIndex({groupNumber: 1, lastname: 1, firstname: 1}, {unique: tru
 
 // Create a 2dsphere Index
 db.collection.createIndex({'field': "2dsphere"});
+```
+
+Full text search
+```js
+// Common
+db.stores.find({$text: {$search: "java coffee shop"}})
+
+// Exact
+db.stores.find({$text: {$search: "\"coffee shop\""}})
+
+// Exclusion
+db.stores.find({$text: {$search: "java shop -coffee"}})
+
+
+db.stores.find(
+	{$text: {$search: "java coffee shop"}},
+	{score: {$meta: "textScore"}}
+).sort({score: {$meta: "textScore"}})
 ```
 
 Search within borders
