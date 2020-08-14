@@ -314,6 +314,8 @@ Copy a DB from one host to another *deprecated*
 db.copyDatabase(<from_db>, <to_db>, <from_hostname>, <username>, <password>);
 ```
 
+## Dump and restore
+
 Dump a collection
 ```bash
 mongodump --out=./ -d database -c collection
@@ -322,6 +324,38 @@ mongodump --out=./ -d database -c collection
 Restore a collection
 ```bash
 mongorestore -d database -c newcollectionname ./folder/olddatabase.bson
+```
+
+### Dump and restore examples
+
+Dump collection
+```bash
+mongodump \
+--db=DB \
+--out=backup_folder \
+--collection=collection
+```
+
+Restore a collection to a different DB and different collection name
+```bash
+mongorestore \
+--nsFrom="DB.collection" \
+--nsTo="NewDB.NewCollection" \
+backup_folder/
+```
+
+Dump DB
+```bash
+mongodump \
+--db=DB \
+--out=backup_folder
+```
+
+Restore DB
+```bash
+mongorestore \
+--nsFrom='DB.*' \
+--nsTo='NewDB.*' gotwme/
 ```
 
 Sources
