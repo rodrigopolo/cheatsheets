@@ -67,6 +67,21 @@ mogrify -format png -resize 128x128 -path 128 folder/*.png
 mogrify -format png -resize 40x40 -path 40 folder/*.png
 ```
 
+Change DPI
+```bash
+mogrify -resample 150 *.tiff
+```
+
+To grayscale
+```bash
+mogrify -set colorspace Gray -separate -average *.tiff
+```
+
+JPG Grayscale
+```bash
+mogrify -format jpg -quality 90 -set colorspace Gray -separate -average *.tiff
+```
+
 Create PDF from BMP
 ```bash
 # Pad and crop
