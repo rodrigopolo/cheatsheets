@@ -44,3 +44,8 @@ Set defaults of Sublime Text into the `~/Library/Application Support/Sublime Tex
 	"show_encoding": true
 }
 ```
+
+Reset defaults Launchpad
+```sh
+defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
+```
