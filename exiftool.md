@@ -1,11 +1,11 @@
 Create a tab delimited file with focal lengths
 
 Determine the tag name for some information
-```bash
+```sh
 exiftool -s image.jpg
 ```
 
-```bash
+```sh
 exiftool \
 -r \
 -T \
@@ -21,12 +21,12 @@ exiftool \
 ```
 
 Sort totals
-```bash
+```sh
 awk 'BEGIN {FS="\t"}; {print $3, $4}' focals.txt | sort | uniq -c | awk '{print $1, $2}' | sort -nr
 ```
 
 Create a tab delimited file with Camera Models
-```bash
+```sh
 exiftool \
 -r \
 -T \
@@ -43,38 +43,38 @@ exiftool \
 ```
 
 Sort totals
-```bash
+```sh
 awk 'BEGIN {FS="\t"}; {print $3}' models.txt | sort | uniq -c | sort -nr
 ```
 
 Remove metadata
-```bash
+```sh
 exiftool -all= file.pdf
 ```
 
 Get GPS decimal location
-```bash
+```sh
 exiftool -m -c "%+.10f" -p '$GPSlatitude,$GPSlongitude' file.jpg
 ```
 
 Get one tag and save it to a JSON file, saving errors to another file
-```bash
+```sh
 exiftool -json  -ImageDescription *.jpg >> images.json 2>> stderr.txt
 ```
 
 Get one tag, and one tag only without headers
-```bash
+```sh
 exiftool -ImageDescription x.jpg
 exiftool -s -s -s  -FileName -ImageDescription x.jpg
 ```
 
 Generate MD5 from JPG files
-```bash
+```sh
 find . -type f -iname "*.jpg" -exec md5sum '{}' \; > md5s.txt
 ```
 
 Get dates from videos
-```bash
+```sh
 exiftool \
 -r \
 -T \
@@ -97,7 +97,7 @@ MP4
 ```
 
 Other tags
-```bash
+```sh
 exiftool \
 -common \
 -ScaleFactor35efl \
@@ -109,5 +109,17 @@ exiftool \
 -t \
 -r /path/to/images/
 ```
+
+Rename every file with the EXIF maker 'Apple' using date
+```sh
+exiftool -if '$make =~ /apple/i' -p '$filename' '-FileName<DateTimeOriginal' -d "%Y-%m-%d %H.%M.%S% - %%f.%%e" .
+```
+
+List files with maker 'apple'
+```sh
+exiftool -if '$make =~ /apple/i' -p '$filename' .
+```
+
+
 
 https://exiftool.org/faq.html
