@@ -43,6 +43,13 @@ youtube-dl \
 VIDEO_URL
 ```
 
+Download best, less than 720p
+```bash
+youtube-dl \
+-f 'bestvideo[height<=720]+bestaudio/best[height<=720]' \
+VIDEO_URL
+```
+
 List all available extractors (1126 until now 2018-08-29)
 ```bash
 youtube-dl --list-extractors
