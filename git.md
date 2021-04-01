@@ -131,6 +131,7 @@ git am commit-name.patch
 
 ## NPM
 ```sh
+npm login
 git commit -m "Blah"
 git tag v0.1.0
 git push origin master --tags
