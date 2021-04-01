@@ -128,3 +128,13 @@ Apply patch:
 ```bash
 git am commit-name.patch
 ```
+
+## NPM
+```sh
+git commit -m "Blah"
+git tag v0.1.0
+git push origin master --tags
+npm publish
+```
+
+Source: https://codeburst.io/how-to-create-and-publish-your-first-node-js-module-444e7585b738
