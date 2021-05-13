@@ -74,14 +74,14 @@ youtube-dl -F http://video.foxbusiness.com/v/<id>/
 List available subs
 ```sh
 youtube-dl         \
-https://www.youtube.com/watch?v=IDP3j_4icBo \
+VIDEO_URL \
 --list-subs
 ```
 
 Download `en` auto subtitle
 ```sh
 youtube-dl         \
-https://www.youtube.com/watch?v=IDP3j_4icBo \
+VIDEO_URL \
 --write-auto-sub   \
 --sub-lang=en      \
 --skip-download    \
@@ -91,7 +91,7 @@ https://www.youtube.com/watch?v=IDP3j_4icBo \
 Download `en` subtitle
 ```sh
 youtube-dl         \
-https://www.youtube.com/watch?v=IDP3j_4icBo \
+VIDEO_URL \
 --write-sub        \
 --sub-lang en      \
 --skip-download    \
