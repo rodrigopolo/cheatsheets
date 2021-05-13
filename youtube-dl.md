@@ -9,7 +9,7 @@ https://github.com/ytdl-org/youtube-dl/blob/master/README.md
 
 
 Create defaults:
-```bash
+```sh
 mkdir -p ~/.config/youtube-dl/
 nano ~/.config/youtube-dl/config
 ```
@@ -26,81 +26,90 @@ Custom settings
 
 
 List all available formats
-```bash
+```sh
 VIDEO_youtube-dl  -F URL
 ```
 
 List all available formats filtering MP4 with grep
-```bash
+```sh
 VIDEO_youtube-dl -F URL | grep mp4
 
 ```
 
 Download best mp4 format available or any other best if no mp4 available
-```bash
+```sh
 youtube-dl \
 -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' \
 VIDEO_URL
 ```
 
 Download best, less than 720p
-```bash
+```sh
 youtube-dl \
 -f 'bestvideo[height<=720]+bestaudio/best[height<=720]' \
 VIDEO_URL
 ```
 
 List all available extractors (1126 until now 2018-08-29)
-```bash
+```sh
 youtube-dl --list-extractors
 ```
 
 Periscope download (list first)
-```bash
+```sh
 youtube-dl -F https://www.pscp.tv/w/<id>
 ```
 
 Twitter download (list first)
-```bash
+```sh
 youtube-dl -F https://twitter.com/<user>/status/<tw-id>
 ```
 
 Fox News aka Akamai AMP feed (list first)
-```bash
+```sh
 youtube-dl -F http://video.foxbusiness.com/v/<id>/
 ```
 
 
-Download `en` auto subtitle
-```bash
+List available subs
+```sh
 youtube-dl         \
+https://www.youtube.com/watch?v=IDP3j_4icBo \
+--list-subs
+```
+
+Download `en` auto subtitle
+```sh
+youtube-dl         \
+https://www.youtube.com/watch?v=IDP3j_4icBo \
 --write-auto-sub   \
 --sub-lang=en      \
 --skip-download    \
-VIDEO_URL
+-o sub
 ```
 
 Download `en` subtitle
-```bash
+```sh
 youtube-dl         \
+https://www.youtube.com/watch?v=IDP3j_4icBo \
 --write-sub        \
 --sub-lang en      \
 --skip-download    \
-VIDEO_URL
+-o sub
 ```
 
 Convert VTT to SRT using FFmpeg:
-```bash
+```sh
 ffmpeg -i foo.vtt foo.srt
 ```
 
 JSON playlist
-```bash
+```sh
 youtube-dl -j --flat-playlist 'https://www.youtube.com/watch?v=ID' | jq -r '.id' | sed 's_^_https://youtube.com/v/_'
 ```
 
 Extra options
-```bash
+```sh
 --skip-download                  Do not download the video
 --write-info-json                Write video metadata to a .info.json file
 --write-thumbnail                Write thumbnail image to disk
