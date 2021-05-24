@@ -49,3 +49,38 @@ Reset defaults Launchpad
 ```sh
 defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 ```
+
+Script `label` to change Finder color tag:
+```sh
+#!/bin/bash
+if [[ $# -le 1 || ! "$1" =~ ^[0-7]$ ]]; then
+  echo "Usage: label 01234567 file ..." 1>&2
+  exit 1
+fi
+
+colors=( 0 2 1 3 6 4 5 7 )
+n=${colors[$1]}
+shift
+
+osascript - "$@" <<END > /dev/null 2>&1
+on run arguments
+tell application "Finder"
+repeat with f in arguments
+set f to (posix file (contents of f) as alias)
+set label index of f to $n
+end repeat
+end tell
+end
+END
+```
+
+```
+0 = No label
+1 = Red
+2 = Orange
+3 = Yellow
+4 = Green
+5 = Blue
+6 = Purple
+7 = Gray
+```
