@@ -342,4 +342,13 @@ rm ~/bin/npx
 rm -rf ~/apps/node/
 ```
 
-
+Bins and apps
+```sh
+mkdir .bin
+mkdir .apps
+ln -s /Applications/MAMP/Library/bin/mysql ~/.bin/mysql
+ln -s /Applications/MAMP/Library/bin/mysqldump ~/.bin/mysqldump
+ln -s /Applications/MAMP/bin/php/php7.3.24/bin/php ~/.bin/php
+ln -s ~/.apps/rar/rar ~/.bin/rar
+ln -s ~/.apps/rar/unrar ~/.bin/unrar
+```

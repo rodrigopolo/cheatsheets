@@ -18,16 +18,28 @@ sudo \
 --nointeraction
 ```
 
-Add a path to the Terminal into the `~/.zprofile` file:
-
+Add paths to system:
 ```sh
-path=( ~/bin $path )
+touch ~/.zshrc
+nano ~/.zshrc 
 ```
 
-Generate RSA Keys:
-
 ```sh
-ssh-keygen -t rsa
+export PATH=~/.bin:/usr/local/sbin:$PATH
+export HOMEBREW_EDITOR=/usr/bin/nano
+```
+
+Generate and add key (Big Sur)
+```sh
+ssh-keygen -t ed25519 -C "your_email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+Add key to a remote server, and set the permissions
+```sh
+nano authorized_keys
+chmod 644 authorized_keys
 ```
 
 Set defaults of Sublime Text into the `~/Library/Application Support/Sublime Text 3/Packages/User` file:
@@ -83,4 +95,19 @@ END
 5 = Blue
 6 = Purple
 7 = Gray
+```
+
+Set volume from terminal
+```sh
+sudo osascript -e "set Volume 10"
+```
+
+List available voices
+```sh
+say -v '?'
+```
+
+Speak
+```sh
+say -v Alex "I'm setting up all the remote connections"
 ```

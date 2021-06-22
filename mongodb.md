@@ -19,12 +19,12 @@ db.movies.find()
 ```
 
 Run script from terminal:
-```bash
+```sh
 mongo --host HOST DB --quiet script.js
 ```
 
 Send variables to a script
-```bash
+```sh
 mongo \
 --host HOST DB \
 --eval "var a='1', b='2', c=3" \
@@ -63,7 +63,7 @@ db.getCollection('collection').find({'anarray':{$size: 0}})
 ```
 
 Export with query
-```bash
+```sh
 mongoexport \
 --db DB \
 --collection COL \
@@ -73,7 +73,7 @@ mongoexport \
 ```
 
 Export with query and sort
-```bash
+```sh
 mongoexport \
 -d gotweetme \
 -c tw_twitz \
@@ -108,7 +108,7 @@ print(']');
 ```
 
 Manualy export command from terminal
-```bash
+```sh
 mongo --host HOST DB --quiet script.js > out.json
 ```
 
@@ -317,19 +317,31 @@ db.copyDatabase(<from_db>, <to_db>, <from_hostname>, <username>, <password>);
 ## Dump and restore
 
 Dump a collection
-```bash
+```sh
 mongodump --out=./ -d database -c collection
+```
+Dump a database as gziped archive
+```sh
+mongodump --db=database --gzip --archive=database.archive
 ```
 
 Restore a collection
-```bash
+```sh
 mongorestore -d database -c newcollectionname ./folder/olddatabase.bson
 ```
+
+Restore a db from archive
+```sh
+mongorestore --gzip --archive=database.archive
+```
+
+https://www.mongodb.com/blog/post/archiving-and-compression-in-mongodb-tools
+
 
 ### Dump and restore examples
 
 Dump collection
-```bash
+```sh
 mongodump \
 --db=DB \
 --out=backup_folder \
@@ -337,7 +349,7 @@ mongodump \
 ```
 
 Restore a collection to a different DB and different collection name
-```bash
+```sh
 mongorestore \
 --nsFrom="DB.collection" \
 --nsTo="NewDB.NewCollection" \
@@ -345,14 +357,14 @@ backup_folder/
 ```
 
 Dump DB
-```bash
+```sh
 mongodump \
 --db=DB \
 --out=backup_folder
 ```
 
 Restore DB
-```bash
+```sh
 mongorestore \
 --nsFrom='DB.*' \
 --nsTo='NewDB.*' gotwme/
@@ -362,12 +374,12 @@ Sources
 [quackit](https://www.quackit.com/mongodb/tutorial/)
 
 Install
-```bash
+```sh
 brew tap mongodb/brew && brew install mongodb-community@4.2
 ```
 
 Locations
-```bash
+```sh
 # Config
 /usr/local/etc/mongod.conf
 
@@ -384,26 +396,35 @@ Or, if you don't want/need a background service you can just run:
 ```
 
 Services
-```bash
+```sh
 brew services start mongodb/brew/mongodb-community
 brew services restart mongodb-community
 brew services stop mongodb-community
 ```
 
 Manual stop/start
-```bash
+```sh
 launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
 ```
 
 Manual run
-```bash
+```sh
 cd /usr/local
 /usr/local/opt/mongodb/bin/mongod \
 --config /usr/local/etc/mongod.conf \
 >> /usr/local/var/log/mongodb/output.log \
 2>> /usr/local/var/log/mongodb/output.log
 ```
+
+[macOS Install](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+```sh
+brew tap mongodb/brew
+brew install mongodb-community@4.4
+brew services start mongodb/brew/mongodb-community
+```
+
+
 
 Check version
 ```

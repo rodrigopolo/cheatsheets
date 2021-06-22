@@ -80,3 +80,17 @@ chmod -R og= ~/.ssh
 
 [PuTTY Downloads](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)  
 [Info Source](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps)
+
+
+Generate and add key (Big Sur)
+```sh
+ssh-keygen -t ed25519 -C "your_email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+Add key to a remote server, and set the permissions
+```sh
+nano authorized_keys
+chmod 644 authorized_keys
+```
