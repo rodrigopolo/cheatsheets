@@ -58,14 +58,22 @@ Merge
 git mergetool
 ```
 
-Generate key
-```bash
-ssh-keygen -t rsa -C "your_email@example.com"
+Generate and add key (Big Sur)
+```sh
+ssh-keygen -t ed25519 -C "your_email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+Add key to a remote server, and set the permissions
+```sh
+nano authorized_keys
+chmod 644 authorized_keys
 ```
 
 View your key
 ```bash
-cat ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_ed25519.pub
 ```
 
 Set your identity
