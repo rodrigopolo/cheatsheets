@@ -458,7 +458,7 @@ Change volume
 
 # Downmixing audio
 
-Stereo + Stereo → Stereo
+Stereo + Stereo → Stereo  
 ![stereo + stereo → stereo](https://i.imgur.com/AiAGIly.png "stereo + stereo → stereo")
 
 Using the amix filter
@@ -480,7 +480,7 @@ ffmpeg \
 output.mp3
 ```
 
-Downmix each input into specific output channel
+Downmix each input into specific output channel  
 ![Downmix each input into specific output channel](https://i.imgur.com/MPsU7mG.png "Downmix each input into specific output channel")
 
 Using the amerge and pan filters
@@ -492,7 +492,7 @@ ffmpeg \
 output.mp3
 ```
 
-Mono + Mono → Stereo
+Mono + Mono → Stereo  
 ![mono + mono → stereo](https://i.imgur.com/uhQZYpZ.png "mono + mono → stereo")
 
 Using the join filter
@@ -513,7 +513,7 @@ ffmpeg \
 output.mp3
 ```
 
-Mono + Mono → Mono
+Mono + Mono → Mono  
 ![mono + mono → mono](https://i.imgur.com/y45Hc6j.png "")
 
 Using the amix filter
