@@ -1,7 +1,7 @@
 # FFmpeg cheat sheet
 
 AVC/H.264/AAC Encoding
-```bash
+```sh
 FFmpeg \
 -i input.mp4 \
 -c:v libx264 \
@@ -31,7 +31,7 @@ X264 Presets:
 * `placebo`
 
 HEVC/H.265/HE-AAC version 2 Encoding
-```bash
+```sh
 ffmpeg \
 -i input.mp4 \
 -c:v libx265 \
@@ -60,7 +60,7 @@ output.mp4
 * `placebo`
 
 Modify rotation metadata without re-encoding.
-```bash
+```sh
 ffmpeg \
 -y \
 -hide_banner \
@@ -72,7 +72,7 @@ output.m4v
 
 
 To JPG sequence:
-```bash
+```sh
 ffmpeg \
 -y \
 -hide_banner \
@@ -85,7 +85,7 @@ image%04d.jpg
 ```
 
 From images
-```bash
+```sh
 ffmpeg \
 -y \
 -hide_banner \
@@ -97,7 +97,7 @@ output.m4v
 ```
 
 GoPro image sequence to DNxHD at 90Mbps
-```bash
+```sh
 ffmpeg \
 -y \
 -hide_banner \
@@ -110,7 +110,7 @@ output.mov
 ```
 
 GoPro image sequence to ProRes
-```bash
+```sh
 ffmpeg \
 -y \
 -hide_banner \
@@ -124,7 +124,7 @@ output.mov
 ```
 
 GoPro image sequence to ProRes_ks
-```bash
+```sh
 ffmpeg \
 -y \
 -hide_banner \
@@ -138,7 +138,7 @@ output.mov
 ```
 
 ProRes with YUV 4444 support
-```bash
+```sh
 ffmpeg -i input.mp4 -c:v prores_ks -profile:v 3 -c:a pcm_s16le output.mov
 ```
 
@@ -155,7 +155,7 @@ ffmpeg -i input.mp4 -c:v prores_ks -profile:v 3 -c:a pcm_s16le output.mov
 Source: https://trac.ffmpeg.org/wiki/Encode/VFX#Prores
 
 Add blured bars for vertical video
-```bash
+```sh
 ffmpeg \
 -i "input.mp4" \
 -filter_complex "[0:v]scale=ih*16/9:-1,boxblur=luma_radius=min(h\,w)/20:luma_power=1:chroma_radius=min(cw\,ch)/20:chroma_power=1[bg];[bg][0:v]overlay=(W-w)/2:(H-h)/2,crop=h=iw*9/16" \
@@ -172,7 +172,7 @@ output.mp4
 ```
 
 X264 10bit 4:2:2 Chroma at CRF 20 using X264 10Bit
-```bash
+```sh
 ffmpeg \
 -y \
 -hide_banner \
@@ -185,7 +185,7 @@ output.mp4
 ```
 
 X264 10bit 4:2:2 Chroma at 135Mbps using X264 10Bit
-```bash
+```sh
 ffmpeg \
 -y \
 -hide_banner \
@@ -198,7 +198,7 @@ output.mp4
 ```
 
 X264 10bit 4:4:4 Chroma at 135Mbps using X264 10Bit
-```bash
+```sh
 ffmpeg \
 -y \
 -hide_banner \
@@ -214,7 +214,7 @@ Make a time-lapse fom a video, if you have a GoPro video recorded at normal spee
 
 You can also specify the `-filter:v "setpts=0.5*PTS"` to a 2x speed using `0.5`, 4x speed using `0.25`, 8x speed using `0.125`, 16x speed using `0.0625` and so on.
 
-```bash
+```sh
 ffmpeg \
 -y \
 -hide_banner \
@@ -229,7 +229,7 @@ time-lapse.mp4
 ```
 
 Time-lapse from GoPro JPGs with crop and resize (`4000×3000` to `1280x720`)
-```bash
+```sh
 ffmpeg \
 -y \
 -hide_banner \
@@ -248,7 +248,7 @@ time-lapse.mp4
 ```
 
 Add alpha channel mask encoding to `qtrle`
-```bash
+```sh
 ffmpeg \
 -loop 1 \
 -i alpha.png \
@@ -263,7 +263,7 @@ output.mov
 ```
 
 Add alpha channel mask encoding to `png`
-```bash
+```sh
 ffmpeg \
 -loop 1 \
 -i alpha.png \
@@ -279,7 +279,7 @@ output.mov
 ```
 
 Premiere DNX to H.264/AAC for YouTube with `hqdn3d` denoise and GOP 30
-```bash
+```sh
 ffmpeg \
 -i input.mxf \
 -pix_fmt yuv420p \
@@ -297,7 +297,7 @@ output.mp4
 ```
 
 Premiere DNX to H.264/AAC
-```bash
+```sh
 ffmpeg \
 -i input.mxf \
 -pix_fmt yuv420p \
@@ -313,7 +313,7 @@ output.mp4
 ```
 
 Premiere DNX to H.265/AAC
-```bash
+```sh
 ffmpeg \
 -i input.mxf \
 -pix_fmt yuv420p \
@@ -330,14 +330,14 @@ output.mp4
 ```
 
 Test a filter with `ffplay`
-```bash
+```sh
 ffplay \
 -filter:v "crop=1920:1080:0:140" \
 input.mp4
 ```
 
 YouTube Recomended Settings
-```bash
+```sh
 ffmpeg \				# Calling the binary
 -i input.mp4 \			# Input video file
 -r 30000/1001 \			# Set the frame rate - optional
@@ -358,26 +358,26 @@ output.mp4
 ```
 
 GoPro join, first, the `mylist.txt` file:
-```bash
+```sh
 file 'GOPR5522.MP4'
 file 'GP015522.MP4'
 file 'GP025522.MP4'
 ```
 
 Then, the encoding:
-```bash
+```sh
 ffmpeg -f concat -i mylist.txt -c copy output.mp4
 ```
 
 Using the concat protocol:
-```bash
+```sh
 ffmpeg \
 -i 'concat:GOPR5522.MP4|GP015522.MP4|GP025522.MP4' \
 -codec copy output.mp4
 ```
 
 Split stereo into two mono tracks:
-```bash
+```sh
 ffmpeg \
 -i stereo.wav \
 -map_channel 0.0.0 left.wav \
@@ -385,7 +385,7 @@ ffmpeg \
 ```
 
 Create blue video with subs
-```bash
+```sh
 ffmpeg \
 -f lavfi \
 -i "color=c=blue:s=1920x1080" \
@@ -401,7 +401,7 @@ subs.mp4
 ```
 
 ProRes blue screen with subtitles from SRT
-```bash
+```sh
 ffmpeg \
 -f lavfi \
 -i "color=c=blue:s=1920x1080" \
@@ -417,44 +417,116 @@ output.mov
 ### Filters
 
 Crop
-```bash
+```sh
 -vf "crop=1920:816:0:132" \
 ```
 
 Denoise
-```bash
+```sh
 -vf "hqdn3d=4:4:9:9" \
 ```
 
 Scale
-```bash
+```sh
 -vf "scale=640:-16" \
 ```
 
 Denoise and scale
-```bash
+```sh
 # -vf "hqdn3d=4:4:9:9,scale=640:-16" \
 ```
 
 4K to UHD Pad
-```bash
+```sh
 -vf "scale=min(iw*2160/ih\,3840):min(2160\,ih*3840/iw),pad=3840:2160:(3840-iw)/2:(2160-ih)/2" \
 ```
 
 Add hard yellow subtitles
-```bash
+```sh
 -vf "subtitles=subs.srt:force_style='Fontsize=26,PrimaryColour=&H00ffff&'"
 ```
 
 Deinterlace
-```bash
+```sh
 -vf yadif 
 ```
 
 Change volume
-```bash
+```sh
 -filter:a "volume=24dB"
 ```
+
+# Downmixing audio
+
+Stereo + Stereo → Stereo
+![stereo + stereo → stereo](https://i.imgur.com/AiAGIly.png "stereo + stereo → stereo")
+
+Using the amix filter
+```sh
+ffmpeg \
+-i input0.mp3 \
+-i input1.mp3 \
+-filter_complex amix=inputs=2:duration=longest \
+output.mp3
+```
+
+Using the amerge filter
+```sh
+ffmpeg \
+-i input0.mp3 \
+-i input1.mp3 \
+-filter_complex amerge=inputs=2 \
+-ac 2 \
+output.mp3
+```
+
+Downmix each input into specific output channel
+![Downmix each input into specific output channel](https://i.imgur.com/MPsU7mG.png "Downmix each input into specific output channel")
+
+Using the amerge and pan filters
+```sh
+ffmpeg \
+-i input0.mp3 \
+-i input1.mp3 \
+-filter_complex "amerge=inputs=2,pan=stereo|c0<c0+c1|c1<c2+c3" \
+output.mp3
+```
+
+Mono + Mono → Stereo
+![mono + mono → stereo](https://i.imgur.com/uhQZYpZ.png "mono + mono → stereo")
+
+Using the join filter
+```sh
+ffmpeg \
+-i input0.mp3 \
+-i input1.mp3 \
+-filter_complex "join=inputs=2:channel_layout=stereo" \
+output.mp3
+```
+
+Using the amerge filter
+```sh
+ffmpeg \
+-i input0.mp3 \
+-i input1.mp3 \
+-filter_complex "amerge=inputs=2" \
+output.mp3
+```
+
+Mono + Mono → Mono
+![mono + mono → mono](https://i.imgur.com/y45Hc6j.png "")
+
+Using the amix filter
+```sh
+ffmpeg \
+-i input0.mp3 \
+-i input1.mp3 \
+-filter_complex "amix=inputs=2:duration=longest" \
+output.mp3
+```
+
+[FFmpeg Wiki: Audio Channels](https://trac.ffmpeg.org/wiki/AudioChannelManipulation)
+[Source](https://stackoverflow.com/a/14528482/218418)
 
 # Video crop factors
 
@@ -532,45 +604,9 @@ From    |  to  | Perc.
 | 239.76|    60|   25% |
 
 
-Install in OS X (Deprecated)
-```bash
-brew install \
-automake \
-fdk-aac \
-git \
-lame \
-libass \
-libtool \
-libvorbis \
-libvpx \
-opus \
-sdl \
-shtool \
-texi2html \
-theora \
-wget \
-x264 \
-xvid \
-libvidstab \
-xvid \
-yasm
-
-brew install ffmpeg \
---with-freetype     \
---with-fdk-aac      \
---with-libass       \
---with-librsvg      \
---with-libsoxr      \
---with-libvidstab   \
---with-tesseract    \
---with-opencore-amr \
---with-openh264     \
---with-openjpeg     \
---with-rtmpdump     \
---with-rubberband   \
---with-webp         \
---with-zimg         \
---with-srt
+Install in maOS
+```sh
+brew install ffmpeg
 ```
 
 Links (Deprecated)
