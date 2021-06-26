@@ -1,5 +1,8 @@
 # FFmpeg cheat sheet
 
+
+## Encoding
+
 AVC/H.264/AAC Encoding
 ```sh
 FFmpeg \
@@ -69,7 +72,6 @@ ffmpeg \
 -codec copy \
 output.m4v
 ```
-
 
 To JPG sequence:
 ```sh
@@ -142,141 +144,20 @@ ProRes with YUV 4444 support
 ffmpeg -i input.mp4 -c:v prores_ks -profile:v 3 -c:a pcm_s16le output.mov
 ```
 
-
 `prores_ks` profiles:
-* `-1`: auto (default)
-* `0`: Proxy ≈ 45Mbps YUV 4:2:2
-* `1`: LT ≈ 102Mbps YUV 4:2:2
-* `2`: Standard ≈ 147Mbps YUV 4:2:2
-* `3`: HQ ≈ 220Mbps YUV 4:2:2
-* `4`: 4444 ≈ 330Mbps YUVA 4:4:4:4
-* `5`: 4444-HQ ≈ 500Mbps YUVA 4:4:4:4
+| #  | Profile        | Mbps      | CS   | Chroma  |
+|---:|:---------------|----------:|:-----|--------:|
+| -1 | auto (default) |           | YUV  |   4:2:2 |
+|  0 | Proxy          |  ≈ 45Mbps | YUV  |   4:2:2 |
+|  1 | LT             | ≈ 102Mbps | YUV  |   4:2:2 |
+|  2 | Standard       | ≈ 147Mbps | YUV  |   4:2:2 |
+|  3 | HQ             | ≈ 220Mbps | YUV  |   4:2:2 |
+|  4 | 4444           | ≈ 330Mbps | YUVA | 4:4:4:4 |
+|  5 | 4444-HQ        | ≈ 500Mbps | YUVA | 4:4:4:4 |
+
+
 
 Source: https://trac.ffmpeg.org/wiki/Encode/VFX#Prores
-
-Add blured bars for vertical video
-```sh
-ffmpeg \
--i "input.mp4" \
--filter_complex "[0:v]scale=ih*16/9:-1,boxblur=luma_radius=min(h\,w)/20:luma_power=1:chroma_radius=min(cw\,ch)/20:chroma_power=1[bg];[bg][0:v]overlay=(W-w)/2:(H-h)/2,crop=h=iw*9/16" \
--pix_fmt yuv420p \
--c:v libx264 \
--preset fast \
--crf 22 \
--c:a aac \
--b:a 128k \
--ar 44100 \
--ac 2 \
--movflags +faststart \
-output.mp4
-```
-
-X264 10bit 4:2:2 Chroma at CRF 20 using X264 10Bit
-```sh
-ffmpeg \
--y \
--hide_banner \
--i UHD_10bit_444_INPUT.mov \
--c:v libx264 \
--profile:v high422 \
--crf 20 \
--pix_fmt yuv422p \
-output.mp4
-```
-
-X264 10bit 4:2:2 Chroma at 135Mbps using X264 10Bit
-```sh
-ffmpeg \
--y \
--hide_banner \
--i UHD_10bit_444_INPUT.mov \
--c:v libx264 \
--profile:v high422 \
--b:v 120000k \
--pix_fmt yuv422p \
-output.mp4
-```
-
-X264 10bit 4:4:4 Chroma at 135Mbps using X264 10Bit
-```sh
-ffmpeg \
--y \
--hide_banner \
--i UHD_10bit_444_INPUT.mov \
--c:v libx264 \
--profile:v high444 \
--crf 20 \
--an \
-output.mp4
-```
-
-Make a time-lapse fom a video, if you have a GoPro video recorded at normal speed (29.97fps) and you want to convert that video to a time-lapse video using the same GoPro time-lapse speed selection style, like a picture each 0.5, 1, 2, 5, 10, 30, 60 seconds, here is the command, the filter `setpts` changet the presentation timestamp (PTS), the `1/0.5/(30000/1001)*PTS` formula goes as follows, one second divided the pictures per second, the result is devided by the input frame rate, having 29.97 being described as `30000/1001`, and the result, multiplied by PTS. More info about video speed [here](https://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video)  
-
-You can also specify the `-filter:v "setpts=0.5*PTS"` to a 2x speed using `0.5`, 4x speed using `0.25`, 8x speed using `0.125`, 16x speed using `0.0625` and so on.
-
-```sh
-ffmpeg \
--y \
--hide_banner \
--i GOPR0001.MP4 \
--filter:v "setpts=1/0.5/(30000/1001)*PTS" \
--c:v libx264 \
--preset medium \
--crf 20 \
--an \
--strict experimental \
-time-lapse.mp4
-```
-
-Time-lapse from GoPro JPGs with crop and resize (`4000×3000` to `1280x720`)
-```sh
-ffmpeg \
--y \
--hide_banner \
--r 30000/1001 \
--f image2 \
--start_number 5523 \
--i G001%04d.JPG \
--pix_fmt yuv420p \
--vf "crop=4000:2250:0:375,scale=1280:720" \
--c:v libx264 \
--preset faster \
--crf 22 \
--an \
--movflags +faststart \
-time-lapse.mp4
-```
-
-Add alpha channel mask encoding to `qtrle`
-```sh
-ffmpeg \
--loop 1 \
--i alpha.png \
--i input.mp4 \
--filter_complex \
-"[0:v]alphaextract[alf]; \
- [1:v][alf]alphamerge" \
--c:v qtrle \
--an \
--t 1 \
-output.mov
-```
-
-Add alpha channel mask encoding to `png`
-```sh
-ffmpeg \
--loop 1 \
--i alpha.png \
--i input.mp4 \
--filter_complex \
-"[0:v]alphaextract[alf]; \
- [1:v][alf]alphamerge" \
--c:v png \
--pix_fmt rgb32 \
--an \
--t 1 \
-output.mov
-```
 
 Premiere DNX to H.264/AAC for YouTube with `hqdn3d` denoise and GOP 30
 ```sh
@@ -329,59 +210,125 @@ ffmpeg \
 output.mp4
 ```
 
+## Chroma subsampling and 10bits
+
+X264 10bit 4:2:2 Chroma at CRF 20 using X264 10Bit
+```sh
+ffmpeg \
+-y \
+-hide_banner \
+-i UHD_10bit_444_INPUT.mov \
+-c:v libx264 \
+-profile:v high422 \
+-crf 20 \
+-pix_fmt yuv422p \
+output.mp4
+```
+
+X264 10bit 4:2:2 Chroma at 135Mbps using X264 10Bit
+```sh
+ffmpeg \
+-y \
+-hide_banner \
+-i UHD_10bit_444_INPUT.mov \
+-c:v libx264 \
+-profile:v high422 \
+-b:v 120000k \
+-pix_fmt yuv422p \
+output.mp4
+```
+
+X264 10bit 4:4:4 Chroma at 135Mbps using X264 10Bit
+```sh
+ffmpeg \
+-y \
+-hide_banner \
+-i UHD_10bit_444_INPUT.mov \
+-c:v libx264 \
+-profile:v high444 \
+-crf 20 \
+-an \
+output.mp4
+```
+
+YouTube "Recomended Settings"
+```sh
+ffmpeg \                # Calling the binary
+-i input.mp4 \          # Input video file
+-r 30000/1001 \         # Set the frame rate - optional
+-vf scale="1920:1080" \ # Resize video - optional
+-codec:v libx264 \      # X264 Video Codec
+-crf 21 \               # Video Quality
+-bf 2 \                 # Maximum 2 B-frames as per guideline
+-flags +cgop \          # Closed GOP as per guideline
+-pix_fmt yuv420p \      # Chroma subsampling 4:2:0 as per guideline
+-c:a aac \              # Fraunhofer FDK AAC codec library
+-b:a 128k \             # Audio Bitrate
+-ac 2 \                 # Audio channels
+-r:a 44100 \            # Audio samplerate
+-map 0:v:0 \            # First file : video : first track
+-map 0:a:0 \            # First file : audio : first track 
+-movflags faststart \   # Put MOOV atom at the front of the file
+output.mp4
+```
+
+## Alpha Channel
+
+Add alpha channel mask encoding to `qtrle`
+```sh
+ffmpeg \
+-loop 1 \
+-i alpha.png \
+-i input.mp4 \
+-filter_complex \
+"[0:v]alphaextract[alf]; \
+ [1:v][alf]alphamerge" \
+-c:v qtrle \
+-an \
+-t 1 \
+output.mov
+```
+
+Add alpha channel mask encoding to `png`
+```sh
+ffmpeg \
+-loop 1 \
+-i alpha.png \
+-i input.mp4 \
+-filter_complex \
+"[0:v]alphaextract[alf]; \
+ [1:v][alf]alphamerge" \
+-c:v png \
+-pix_fmt rgb32 \
+-an \
+-t 1 \
+output.mov
+```
+
+## Filters
+
+Add blured bars for vertical video
+```sh
+ffmpeg \
+-i "input.mp4" \
+-filter_complex "[0:v]scale=ih*16/9:-1,boxblur=luma_radius=min(h\,w)/20:luma_power=1:chroma_radius=min(cw\,ch)/20:chroma_power=1[bg];[bg][0:v]overlay=(W-w)/2:(H-h)/2,crop=h=iw*9/16" \
+-pix_fmt yuv420p \
+-c:v libx264 \
+-preset fast \
+-crf 22 \
+-c:a aac \
+-b:a 128k \
+-ar 44100 \
+-ac 2 \
+-movflags +faststart \
+output.mp4
+```
+
 Test a filter with `ffplay`
 ```sh
 ffplay \
 -filter:v "crop=1920:1080:0:140" \
 input.mp4
-```
-
-YouTube Recomended Settings
-```sh
-ffmpeg \				# Calling the binary
--i input.mp4 \			# Input video file
--r 30000/1001 \			# Set the frame rate - optional
--vf scale="1920:1080" \	# Resize video - optional
--codec:v libx264 \		# X264 Video Codec
--crf 21 \				# Video Quality
--bf 2 \					# Maximum 2 B-frames as per guideline
--flags +cgop \			# Closed GOP as per guideline
--pix_fmt yuv420p \		# Chroma subsampling 4:2:0 as per guideline
--c:a aac \				# Fraunhofer FDK AAC codec library
--b:a 128k \				# Audio Bitrate
--ac 2 \					# Audio channels
--r:a 44100 \			# Audio samplerate
--map 0:v:0 \			# First file : video : first track
--map 0:a:0 \			# First file : audio : first track 
--movflags faststart \	# Put MOOV atom at the front of the file
-output.mp4
-```
-
-GoPro join, first, the `mylist.txt` file:
-```sh
-file 'GOPR5522.MP4'
-file 'GP015522.MP4'
-file 'GP025522.MP4'
-```
-
-Then, the encoding:
-```sh
-ffmpeg -f concat -i mylist.txt -c copy output.mp4
-```
-
-Using the concat protocol:
-```sh
-ffmpeg \
--i 'concat:GOPR5522.MP4|GP015522.MP4|GP025522.MP4' \
--codec copy output.mp4
-```
-
-Split stereo into two mono tracks:
-```sh
-ffmpeg \
--i stereo.wav \
--map_channel 0.0.0 left.wav \
--map_channel 0.0.1 right.wav
 ```
 
 Create blue video with subs
@@ -413,8 +360,6 @@ ffmpeg \
 -movflags +faststart \
 output.mov
 ```
-
-### Filters
 
 Crop
 ```sh
@@ -456,7 +401,75 @@ Change volume
 -filter:a "volume=24dB"
 ```
 
-# Downmixing audio
+## Timelapse
+
+Make a time-lapse fom a video, if you have a GoPro video recorded at normal speed (29.97fps) and you want to convert that video to a time-lapse video using the same GoPro time-lapse speed selection style, like a picture each 0.5, 1, 2, 5, 10, 30, 60 seconds, here is the command, the filter `setpts` changet the presentation timestamp (PTS), the `1/0.5/(30000/1001)*PTS` formula goes as follows, one second divided the pictures per second, the result is devided by the input frame rate, having 29.97 being described as `30000/1001`, and the result, multiplied by PTS. More info about video speed [here](https://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video)  
+
+You can also specify the `-filter:v "setpts=0.5*PTS"` to a 2x speed using `0.5`, 4x speed using `0.25`, 8x speed using `0.125`, 16x speed using `0.0625` and so on.
+
+```sh
+ffmpeg \
+-y \
+-hide_banner \
+-i GOPR0001.MP4 \
+-filter:v "setpts=1/0.5/(30000/1001)*PTS" \
+-c:v libx264 \
+-preset medium \
+-crf 20 \
+-an \
+-strict experimental \
+time-lapse.mp4
+```
+
+Time-lapse from GoPro JPGs with crop and resize (`4000×3000` to `1280x720`)
+```sh
+ffmpeg \
+-y \
+-hide_banner \
+-r 30000/1001 \
+-f image2 \
+-start_number 5523 \
+-i G001%04d.JPG \
+-pix_fmt yuv420p \
+-vf "crop=4000:2250:0:375,scale=1280:720" \
+-c:v libx264 \
+-preset faster \
+-crf 22 \
+-an \
+-movflags +faststart \
+time-lapse.mp4
+```
+
+# Join/Concat video
+
+GoPro join, first, the `mylist.txt` file:
+```sh
+file 'GOPR5522.MP4'
+file 'GP015522.MP4'
+file 'GP025522.MP4'
+```
+
+Then, the encoding:
+```sh
+ffmpeg -f concat -i mylist.txt -c copy output.mp4
+```
+
+Using the concat protocol:
+```sh
+ffmpeg \
+-i 'concat:GOPR5522.MP4|GP015522.MP4|GP025522.MP4' \
+-codec copy output.mp4
+```
+
+Split stereo into two mono tracks:
+```sh
+ffmpeg \
+-i stereo.wav \
+-map_channel 0.0.0 left.wav \
+-map_channel 0.0.1 right.wav
+```
+
+## Downmixing audio
 
 Stereo + Stereo → Stereo  
 ![stereo + stereo → stereo](https://i.imgur.com/AiAGIly.png "stereo + stereo → stereo")
@@ -528,7 +541,7 @@ output.mp3
 [FFmpeg Wiki: Audio Channels](https://trac.ffmpeg.org/wiki/AudioChannelManipulation)
 [Source](https://stackoverflow.com/a/14528482/218418)
 
-# Video crop factors
+## Video crop factors
 
 ### Common Digital Video Formats
 
@@ -603,10 +616,16 @@ From    |  to  | Perc.
 | 119.88|    60|   50% |
 | 239.76|    60|   25% |
 
+## Misc
 
 Install in maOS
 ```sh
 brew install ffmpeg
+```
+
+List streams
+```sh
+ffmpeg -i input.mp4 2>&1 | grep "Stream #"
 ```
 
 Links (Deprecated)
