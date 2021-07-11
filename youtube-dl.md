@@ -107,6 +107,17 @@ JSON playlist
 youtube-dl -j --flat-playlist 'https://www.youtube.com/watch?v=ID' | jq -r '.id' | sed 's_^_https://youtube.com/v/_'
 ```
 
+Download using browser cookie
+1. Using the Developer Tools of your browser, under the `Network` tab, select the first document, and copy the `cookie:` header, save it into a text file named `cookie.txt`.
+2. On the terminal, set the `$COOKIE` variable with the cookie content `COOKIE=$(cat cookie.txt)`.
+3. Run the command adding the `--add-header` flag and variable.
+
+```sh
+youtube-dl \
+<URL> \
+--add-header $COOKIE
+```
+
 Extra options
 ```sh
 --skip-download                  Do not download the video
