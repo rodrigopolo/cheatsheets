@@ -616,6 +616,70 @@ From    |  to  | Perc.
 | 119.88|    60|   50% |
 | 239.76|    60|   25% |
 
+## HDR Video Characteristics
+
+Based on the [QuickTime File Format and ProRes Video Parameter Editing](https://github.com/bbc/qtff-parameter-editor).
+
+
+The colour primaries can be selected from the list:
+
+| No.  | Colour Primaries  |
+| -----| --------------    |
+|0     | Reserved          |
+|1     | ITU-R BT.709      |
+|2     | Unspecified       |
+|3     | Reserved          |
+|4     | ITU-R BT.470M     |
+|5     | ITU-R BT.470BG    |
+|6     | SMPTE 170M        |
+|7     | SMPTE 240M        |
+|8     | FILM              |
+|9     | ITU-R BT.2020     |
+|10    | SMPTE ST 428-1    |
+|11    | DCI P3            |
+|12    | P3 D65            |
+
+The transfer function can be selected from the list:
+
+| No.  | Transfer Function                   |
+| -----| ---------------------------------   |
+|0     | Reserved                            |
+|1     | ITU-R BT.709                        |
+|2     | Unspecified                         |
+|3     | Reserved                            |
+|4     | Gamma 2.2 curve                     |
+|5     | Gamma 2.8 curve                     |
+|6     | SMPTE 170M                          |
+|7     | SMPTE 240M                          |
+|8     | Linear                              |
+|9     | Log                                 |
+|10    | Log Sqrt                            |
+|11    | IEC 61966-2-4                       |
+|12    | ITU-R BT.1361 Extended Colour Gamut |
+|13    | IEC 61966-2-1                       |
+|14    | ITU-R BT.2020 10 bit                |
+|15    | ITU-R BT.2020 12 bit                |
+|16    | SMPTE ST 2084 (PQ)                  |
+|17    | SMPTE ST 428-1                      |
+|18    | ARIB STD-B67 (HLG)                  |
+
+The colour matrix can be selected from the list:
+
+| No.  | Colour Matrix                  |
+| -----| ---------------------------    |
+|0     |GBR                             |
+|1     |BT709                           |
+|2     |Unspecified                     |
+|3     |Reserved                        |
+|4     |FCC                             |
+|5     |BT470BG                         |
+|6     |SMPTE 170M                      |
+|7     |SMPTE 240M                      |
+|8     |YCOCG                           |
+|9     |BT2020 Non-constant Luminance   |
+|10    |BT2020 Constant Luminance       |
+
+
 ## Misc
 
 Install in maOS
