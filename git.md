@@ -1,42 +1,42 @@
 ### Git
 
 List git-ignored files
-```bash
+```sh
 git ls-files . --ignored --exclude-standard --others
 ```
 
 List untracked files
-```bash
+```sh
 git ls-files . --exclude-standard --others
 ```
 
 Reset to last commit
-```bash
+```sh
 git reset --hard
 ```
 
 Add files
-```bash
+```sh
 git add path/file.txt
 ```
 
 Remove file or files
-```bash
+```sh
 git rm file
 git rm -rf files
 ```
 
 Revert Changes to File
-```bash
+```sh
 git checkout -- <file>
 ```
 
 Revert File to Previous Commit
-```bash
+```sh
 $ git checkout <commit_hash> -- <file>
 ```
 
-Diff and Merge, edit ~/.gitconfig
+Diff and Merge, edit `~/.gitconfig`
 ```
 [merge]
         tool = kdiff3
@@ -54,7 +54,7 @@ Diff and Merge, edit ~/.gitconfig
 > KDiff3 [download](http://kdiff3.sourceforge.net/).
 
 Merge
-```bash
+```sh
 git mergetool
 ```
 
@@ -72,12 +72,12 @@ chmod 644 authorized_keys
 ```
 
 View your key
-```bash
+```sh
 cat ~/.ssh/id_ed25519.pub
 ```
 
 Set your identity
-```bash
+```sh
 git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
 ```
@@ -114,7 +114,7 @@ Host bitbucket.org
 ```
 
 GitHub pages
-```bash
+```sh
 git commit -m 'Info'
 git push origin master
 
@@ -128,12 +128,12 @@ git checkout master
 ```
 
 Create patch from last commit, add `~` for extra commits:
-```bash
+```sh
 git format-patch HEAD~
 ```
 
 Apply patch:
-```bash
+```sh
 git am commit-name.patch
 ```
 
@@ -147,3 +147,20 @@ npm publish
 ```
 
 Source: https://codeburst.io/how-to-create-and-publish-your-first-node-js-module-444e7585b738
+
+### Non-git patchs
+
+Create a patch and applying
+```sh
+diff -Naur original modified > patch.txt
+patch original < patch.txt
+```
+
+Create, apply and undo
+```sh
+diff -u OriginalFile UpdatedFile > PatchFile
+patch OriginalFile < PatchFile
+patch -R OriginalFile < PatchFile
+```
+
+Source: https://www.shellhacks.com/create-patch-diff-command-linux/
