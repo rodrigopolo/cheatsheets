@@ -229,3 +229,8 @@ Redirect `stdout` and `stderr` to files
 ```sh
 command > stdout 2> stderr
 ```
+
+Count lines
+```sh
+cat file | wc -l
+```
