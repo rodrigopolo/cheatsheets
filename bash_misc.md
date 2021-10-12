@@ -194,6 +194,18 @@ cat file | sort | uniq | sed -E $'s/\|/\\\n  out=/g' > uris.txt
 aria2c -j 16 -i uris.txt
 ```
 
+Chance prompt
+```sh
+export PS1=">"; clear;
+PROMPT='%/ %# '
+PROMPT='%~ %# '
+PROMPT='%F{blue}%1~%f %# '
+PROMPT='%(?.√.?%?) %1~ %# ' 
+PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{240}%1~%f%b %# ' 
+```
+https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/
+
+
 Check difference between two files
 ```sh
 diff --side-by-side --suppress-common-lines file1.txt file2.txt

@@ -108,14 +108,18 @@ youtube-dl -j --flat-playlist 'https://www.youtube.com/watch?v=ID' | jq -r '.id'
 ```
 
 Download using browser cookie
-1. Using the Developer Tools of your browser, under the `Network` tab, select the first document, and copy the `cookie:` header, save it into a text file named `cookie.txt`.
-2. On the terminal, set the `$COOKIE` variable with the cookie content `COOKIE=$(cat cookie.txt)`.
-3. Run the command adding the `--add-header` flag and variable.
+1. Install the *[Get cookies.txt](https://chrome.google.com/webstore/detail/get-cookiestxt/bgaddhkoddajcdgocldbbfleckgcbcid)* extension.
+2. Visit site logged in, click on the Get Cookies extension ico, and “Export” to a text file.
+3. Save the file in a directory and using the Terminal go to that directory.
+4. Run YouTube-DL including the cookie file.
 
-```sh
+```
 youtube-dl \
-<URL> \
---add-header $COOKIE
+-f bestvideo+bestaudio \
+--merge-output-format mkv \
+--all-subs \
+--cookies youtube.com_cookies.txt \
+[YouTube URL]
 ```
 
 Extra options
