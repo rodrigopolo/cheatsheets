@@ -2,7 +2,7 @@ Create a tab delimited file with focal lengths
 
 Determine the tag name for some information
 ```sh
-exiftool -s image.jpg
+exiftool -s -G image.jpg
 ```
 
 ```sh
@@ -68,6 +68,42 @@ exiftool -ImageDescription x.jpg
 exiftool -s -s -s  -FileName -ImageDescription x.jpg
 ```
 
+Get lens models and focal lengths
+```sh
+exiftool \
+-r \
+-T \
+-filename \
+-make \
+-LensModel  \
+-focallength  \
+-ext CR2 \
+-ext CR3 \
+-ext JPG \
+-ext JPEG \
+/path/to/files
+```
+
+Rename based on CreateDate
+```sh
+exiftool \
+'-filename<CreateDate' \
+-d '%Y-%m-%d %H.%M.%S%%-c.%%le' \
+-r \
+-ext jpg \
+/path/to/files
+```
+
+Rename based on CreateDate and PreservedFileName
+```sh
+exiftool \
+'-filename<${createdate} ${PreservedFileName;}.%e'  \
+-d '%Y-%m-%d %H.%M.%S%%-c.%%le' \
+-r \
+-ext jpg \
+/path/to/files
+```
+
 Generate MD5 from JPG files
 ```sh
 find . -type f -iname "*.jpg" -exec md5sum '{}' \; > md5s.txt
@@ -121,5 +157,5 @@ exiftool -if '$make =~ /apple/i' -p '$filename' .
 ```
 
 
-
 https://exiftool.org/faq.html
+https://ninedegreesbelow.com/photography/exiftool-commands.html
