@@ -69,7 +69,6 @@ Fox News aka Akamai AMP feed (list first)
 youtube-dl -F http://video.foxbusiness.com/v/<id>/
 ```
 
-
 List available subs
 ```sh
 youtube-dl         \
@@ -113,14 +112,43 @@ Download using browser cookie
 3. Save the file in a directory and using the Terminal go to that directory.
 4. Run YouTube-DL including the cookie file.
 
-```
+```sh
 youtube-dl \
--f bestvideo+bestaudio \
---merge-output-format mkv \
---all-subs \
 --cookies youtube.com_cookies.txt \
 [YouTube URL]
 ```
+
+Download using `aria2`
+```sh
+youtube-dl \
+--external-downloader aria2c \
+--external-downloader-args "-j 6 -s 6 -x 6 -k 5M" \
+https://youtu.be/i50Kzm11fLU
+```
+
+Flags in `aria2`
+```
+-j, --max-concurrent-downloads=<N> - maximum number of parallel downloads for every queue item
+-s, --split=<N> - Download a file using N connections
+-x, --max-connection-per-server
+-k, --min-split-size=<SIZE> 
+```
+
+Related
+* https://github.com/ytdl-org/youtube-dl/issues/29326#issuecomment-879256177  
+* https://www.reddit.com/r/DataHoarder/comments/7qpuhn/youtubedl_being_throttled/  
+* https://github.com/CyberShadow/turbotuber  
+* https://news.ycombinator.com/item?id=28322485  
+
+
+Other misc options
+```sh
+-f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
+-f 'bestvideo[height<=480]+bestaudio/best[height<=480]'
+-f 'bestvideo[height<=1080]+bestaudio[ext=m4a]'
+-f 'bestvideo[height<=720]+bestaudio/best[height<=720]'
+```
+
 
 Extra options
 ```sh
