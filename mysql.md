@@ -1,74 +1,142 @@
-### MySQL Cheat Sheet
+## MySQL Cheat Sheet
 
-#### Connect
-```bash
-mysql -h [host] -u [user] -p[pass] [database]
+### Login into a DB
+```sh
+mysql \
+-h host \
+-u user \
+-p \
+database
 ```
 
-#### Dump
+### Dumps
 
 Dump a complete host
-```bash
-mysqldump -h [host] -u [user] -p[pass] --all-databases > [all-database].sql
+```sh
+mysqldump \
+-h host \
+-u user \
+-p \
+--full-databases > full-database.sql
 ```
 
 Dump a complete database
-```bash
-mysqldump -h [host] -u [user] -p[pass] --compact [database] > [database].sql
+```sh
+mysqldump \
+-h host \
+-u user \
+-p \
+--compact database > database.sql
 ```
 
 Dump only database data, without schema
-```bash
--- Dump only data
-mysqldump -h [host] -u [user] -p[pass] --skip-triggers --compact --no-create-info [database-data] > [database-data].sql
+```sh
+mysqldump \
+-h host \
+-u user \
+-p \
+--skip-triggers \
+--compact \
+--no-create-info \
+database_data > database_data.sql
+```
+
+Dump only database schema, without data
+```sh
+mysqldump \
+-h host \
+-u user \
+-p \
+--no-data dbname table > table_schema.sql
 ```
 
 Dump only a table with `add-drop-table` command
-```bash
-mysqldump -h [host] -u [user] -p[pass] --add-drop-table [database] [table] > [table].sql
+```sh
+mysqldump \
+-h host \
+-u user \
+-p \
+--add-drop-table \
+database table > table.sql
 ```
 
 Dump table with `insert-ignore` command
-```bash
-mysqldump -h [host] -u [user] -p[pass] --compact --no-create-info --insert-ignore [database] [table] > [table].sql
+```sh
+mysqldump \
+-h host \
+-u user \
+-p \
+--compact \
+--no-create-info \
+--insert-ignore \
+database table > table.sql
 ```
 
 Dump routines
-```bash
-mysqldump -h [host] -u [user] -p[pass] --routines --no-create-info --no-data --no-create-db --skip-opt --compact [database] > routines.sql
+```sh
+mysqldump \
+-h host \
+-u user \
+-p \
+--routines \
+--no-create-info \
+--no-data \
+--no-create-db \
+--skip-opt \
+--compact database > routines.sql
 ```
 
-#### Restore
+### Restore
 
 Restore from SQL file
-```bash
-mysql -h [host] -u [user] -p[pass] [database] < [script.sql] --default-character-set=utf8
+```sh
+mysql \
+-h host \
+-u user \
+-p database < script.sql \
+--default-character-set=utf8
 ```
 
-#### Misc
+### Misc
 
 Find and Replace
 ```sql
-UPDATE [table_name] SET [field_name] = replace([field_name], 'string_to_find', 'string_to_replace');
+UPDATE 
+  table_name
+SET
+  field_name = replace(field_name, 'string_to_find', 'string_to_replace');
 ```
 
 Rename tables
 ```sql
-RENAME TABLE [some_table] TO [new_name], [other_table] TO [other_new_name];
+RENAME TABLE
+  some_table TO new_name,
+  other_table TO other_new_name;
 ```
 
 Reset `AUTO_INCREMENT` number
 ```sql
-ALTER TABLE [table] AUTO_INCREMENT=0;
+ALTER TABLE table AUTO_INCREMENT=0;
 ```
 
 Fixing double-encoded UTF-8 data 
-```bash
-mysqldump -h [host] -u [user] -p[pass] --opt --quote-names \
-    --skip-set-charset --default-character-set=latin1 [database] > [database].sql
+```sh
+mysqldump \
+-h host \
+-u user \
+-p \
+--opt \
+--quote-names \
+--skip-set-charset \
+--default-character-set=latin1 \
+database > database.sql
 
-mysql -h [host] -u [user] -p[pass] \
-    --default-character-set=utf8 [database] < [database].sql
+mysql \
+-h host \
+-u user \
+-p \
+--default-character-set=utf8 \
+database < database.sql
 ```
 
 Distance function
