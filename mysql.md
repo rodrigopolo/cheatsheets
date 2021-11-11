@@ -29,27 +29,6 @@ mysqldump \
 --compact database > database.sql
 ```
 
-Dump only database data, without schema
-```sh
-mysqldump \
--h host \
--u user \
--p \
---skip-triggers \
---compact \
---no-create-info \
-database_data > database_data.sql
-```
-
-Dump only database schema, without data
-```sh
-mysqldump \
--h host \
--u user \
--p \
---no-data dbname table > table_schema.sql
-```
-
 Dump only a table with `add-drop-table` command
 ```sh
 mysqldump \
@@ -70,6 +49,27 @@ mysqldump \
 --no-create-info \
 --insert-ignore \
 database table > table.sql
+```
+
+Dump only database data, without schema
+```sh
+mysqldump \
+-h host \
+-u user \
+-p \
+--skip-triggers \
+--compact \
+--no-create-info \
+database_data > database_data.sql
+```
+
+Dump only database schema, without data
+```sh
+mysqldump \
+-h host \
+-u user \
+-p \
+--no-data dbname table > table_schema.sql
 ```
 
 Dump routines
