@@ -359,7 +359,7 @@ ffmpeg \
 -y \
 -hide_banner \
 -i input.mkv \
--vf "v360=c3x2:e:cubic:in_forder='lfrdbu':in_frot='000313',scale=3840:1920" \
+-vf "v360=c3x2:e:cubic:in_forder='lfrdbu':in_frot='000313',scale=3840:1920,setsar=1:1" \
 -pix_fmt yuv420p \
 -c:v libx264 \
 -preset faster \
