@@ -347,6 +347,24 @@ ffmpeg \
 subs.mp4
 ```
 
+YouTube's cubemap to equirectangular
+```sh
+ffmpeg \
+-y \
+-hide_banner \
+-i input.mkv \
+-vf "v360=c3x2:e:cubic:in_forder='lfrdbu':in_frot='000313',scale=3840:1920" \
+-pix_fmt yuv420p \
+-c:v libx264 \
+-preset faster \
+-crf 21 \
+-c:a copy \
+-ss 16 \
+-t 10 \
+-movflags +faststart \
+output.mp4
+```
+
 ProRes blue screen with subtitles from SRT
 ```sh
 ffmpeg \
@@ -691,6 +709,12 @@ List streams
 ```sh
 ffmpeg -i input.mp4 2>&1 | grep "Stream #"
 ```
+
+v360 links
+* https://ffmpeg.org/ffmpeg-filters.html#v360
+* https://www.cxyzjd.com/article/qiutiantxwd/107283224
+* https://www.programmersought.com/article/32807747315/
+
 
 Links (Deprecated)
 * [ffmpeg downloads](http://www.videohelp.com/software/ffmpeg)
