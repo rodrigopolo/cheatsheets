@@ -78,11 +78,17 @@ To JPG sequence:
 ffmpeg \
 -y \
 -hide_banner \
--threads 0 \
 -i input.mp4 \
--r 30000/1001 \
 -an \
 -f image2 \
+image%04d.jpg
+```
+
+To JPG sequence alternative:
+```sh
+ffmpeg \
+-i input.mp4 \
+-qscale:v 2 \
 image%04d.jpg
 ```
 
@@ -95,7 +101,7 @@ ffmpeg \
 -i image%04d.jpg \
 -r 12 \
 -an \
-output.m4v
+output.mp4
 ```
 
 GoPro image sequence to DNxHD at 90Mbps
@@ -359,8 +365,6 @@ ffmpeg \
 -preset faster \
 -crf 21 \
 -c:a copy \
--ss 16 \
--t 10 \
 -movflags +faststart \
 output.mp4
 ```

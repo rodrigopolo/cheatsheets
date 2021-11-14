@@ -123,7 +123,7 @@ Download using `aria2`
 youtube-dl \
 --external-downloader aria2c \
 --external-downloader-args "-j 6 -s 6 -x 6 -k 5M" \
-https://youtu.be/i50Kzm11fLU
+VIDEO_URL
 ```
 
 Flags in `aria2`
