@@ -42,3 +42,16 @@ mkvmerge \
 -o output.mkv \
 input.mkv
 ```
+
+Chapters XML format
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE Chapters SYSTEM "matroskachapters.dtd"> -->
+<Chapters>
+  <EditionEntry>
+    <ChapterAtom><ChapterTimeStart>00:00:00.000</ChapterTimeStart><ChapterDisplay><ChapterString>CH1</ChapterString></ChapterDisplay></ChapterAtom>
+    <ChapterAtom><ChapterTimeStart>00:02:30.500</ChapterTimeStart><ChapterDisplay><ChapterString>CH2</ChapterString></ChapterDisplay></ChapterAtom>
+    <ChapterAtom><ChapterTimeStart>00:03:45.750</ChapterTimeStart><ChapterDisplay><ChapterString>CH3</ChapterString></ChapterDisplay></ChapterAtom>
+  </EditionEntry>
+</Chapters>
+```
