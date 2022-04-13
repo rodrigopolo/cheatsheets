@@ -163,3 +163,13 @@ Extra options
                                  This option only worsk with full download
                                  doesn't work with --skip-download 
 ```
+
+### Alternatives
+
+
+[YT-DLP](https://github.com/yt-dlp/yt-dlp#installation)
+```sh
+cd ~/.bin
+wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O aytd
+chmod +x aytd 
+```
