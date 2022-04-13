@@ -33,3 +33,11 @@ Dates on ISO 9075
 
 > [source](http://philquinn.co.uk/sublime-text-2-convert-regex-backreference-case/)   
 > [regext test](http://regex101.com/)
+
+In `Preferences.sublime-settings`
+```
+	"draw_white_space": "all",
+	"open_files_in_new_window": false,
+	"scroll_past_end": true,
+	"show_encoding": true,
+```
