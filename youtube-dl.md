@@ -173,3 +173,10 @@ cd ~/.bin
 wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O aytd
 chmod +x aytd 
 ```
+
+Config `~/.config/yt-dlp/config`
+```sh
+-f 'bestvideo[ext=mp4][vcodec*=avc1.640]+bestaudio[ext=m4a]/best[ext=mp4]/best'
+--restrict-filenames
+--continue
+```
