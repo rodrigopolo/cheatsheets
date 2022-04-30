@@ -168,10 +168,23 @@ Extra options
 
 
 [YT-DLP](https://github.com/yt-dlp/yt-dlp#installation)
+
+Uninstall `youtube-dl`
+```sh
+brew uninstall youtube-dl
+rm -rf ~/.config/youtube-dl/
+```
+
 ```sh
 cd ~/.bin
-wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O aytd
-chmod +x aytd 
+wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O youtube-dl
+chmod +x youtube-dl
+```
+
+Create defaults:
+```sh
+mkdir -p ~/.config/yt-dlp/
+nano ~/.config/yt-dlp/config
 ```
 
 Config `~/.config/yt-dlp/config`

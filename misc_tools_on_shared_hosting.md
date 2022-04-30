@@ -352,3 +352,10 @@ ln -s /Applications/MAMP/bin/php/php7.3.24/bin/php ~/.bin/php
 ln -s ~/.apps/rar/rar ~/.bin/rar
 ln -s ~/.apps/rar/unrar ~/.bin/unrar
 ```
+
+Composer:
+```sh
+cd
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar ~/.bin/composer
+```

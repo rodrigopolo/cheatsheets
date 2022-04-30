@@ -43,11 +43,10 @@ path/to/folder
 
 Install in shared hosting
 ```bash
-cd
-cd apps
+cd ~/.apps
 wget https://www.rarlab.com/rar/rarosx-5.6.1.tar.gz
 tar xzf rarosx-5.6.1.tar.gz
-ln -s ~/apps/rar/rar ~/bin/rar
+ln -s ~/.apps/rar/rar ~/.bin/rar
 ```
 
 > [Download](http://www.rarlab.com/download.htm)

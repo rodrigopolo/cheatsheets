@@ -111,3 +111,14 @@ Speak
 ```sh
 say -v Alex "I'm setting up all the remote connections"
 ```
+
+### Custom `~/.bin`
+
+Symbolic links in ~/.apps/
+```sh
+ln -s /Applications/MAMP/Library/bin/mysql ~/.bin/mysql
+ln -s /Applications/MAMP/Library/bin/mysqldump ~/.bin/mysqldump
+ln -s /Applications/MAMP/bin/php/php7.3.24/bin/php ~/.bin/php
+ln -s ~/.apps/rar/rar ~/.bin/rar
+ln -s ~/.apps/rar/unrar ~/.bin/unrar
+```
