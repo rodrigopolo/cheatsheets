@@ -133,3 +133,4 @@ ls --color=never test*.pdf | sed 's|.pdf||' | xargs -I{} pdftoppm {}.pdf -png {}
 ### Sources
 * [Resize](http://stackoverflow.com/questions/12433300/imagemagick-how-to-resize-proportionally-with-mogrify-without-a-background)  
 * [Combine PDFs](https://jordanelver.co.uk/blog/2021/01/30/combine-pdfs-on-the-command-line-with-pdfunite/)  
+* [Combine PDFs in Linux](https://www.bitslovers.com/how-to-merge-pdf-on-linux/)  
