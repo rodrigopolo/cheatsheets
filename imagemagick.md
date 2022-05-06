@@ -96,10 +96,17 @@ mogrify -format pdf *.jpg
 # Consolidate PDF (OLD)
 pdftk *.pdf cat output ../Doc2.pdf
 
-NEW
+# Before Monterey
 "/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py" -o all.pdf *.pdf
+
+# After Monterey
+brew install poppler
+pdfunite *.pdf output.pdf
+
+# Other
+ls --color=never test*.pdf | sed 's|.pdf||' | xargs -I{} pdftoppm {}.pdf -png {}
 ```
 
-[source](http://stackoverflow.com/questions/12433300/imagemagick-how-to-resize-proportionally-with-mogrify-without-a-background)
-
-
+### Sources
+* [Resize](http://stackoverflow.com/questions/12433300/imagemagick-how-to-resize-proportionally-with-mogrify-without-a-background)  
+* [Combine PDFs](https://jordanelver.co.uk/blog/2021/01/30/combine-pdfs-on-the-command-line-with-pdfunite/)  
