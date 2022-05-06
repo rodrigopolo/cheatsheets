@@ -100,10 +100,33 @@ pdftk *.pdf cat output ../Doc2.pdf
 "/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py" -o all.pdf *.pdf
 
 # After Monterey
+
+# poppler pdfunite
 brew install poppler
+pdfunite fileA.pdf fileB.pdf output.pdf
 pdfunite *.pdf output.pdf
 
-# Other
+# Ghostscript
+gs \
+-dNOPAUSE \
+-sDEVICE=pdfwrite \
+-sOUTPUTFILE=merged.pdf \
+-dBATCH \
+*.pdf
+
+# Reduce PDF Size with Ghostscript
+gs \
+-sDEVICE=pdfwrite \
+-dCompatibilityLevel=1.4 \
+-dPDFSETTINGS=/prepress \
+-dNOPAUSE \
+-dQUIET \
+-dBATCH \
+-sOutputFile=compressed_PDF_file.pdf \
+input_PDF_file.pdf
+
+
+# PDF to PNG
 ls --color=never test*.pdf | sed 's|.pdf||' | xargs -I{} pdftoppm {}.pdf -png {}
 ```
 
