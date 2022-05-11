@@ -15,9 +15,12 @@ mediainfo --Inform="file://template_mediainfo.txt" input.mp4
 
 template_mediainfo.txt
 ```
-General;Name...............: %FileName%.%FileExtension%\r\nSize...............: %FileSize/String%\r\nDuration...........: %Duration/String3%\r\n
-Video;Resolution.........: %Width%x%Height%\r\nCodec..............: %Codec/String% %Format_Profile%\r\nChroma subsampling.: %ChromaSubsampling%\r\nBit depth..........: %BitDepth%\r\nBitrate............: %BitRate/String%\r\nFramerate..........: %FrameRate% fps\r\nAspect Ratio.......: %DisplayAspectRatio/String%\r\n
-Audio;Audio..............: %Language/String% %BitRate/String% %BitRate_Mode% %Channel(s)% chnls %Codec/String%\r\n
+File_Begin;
+File_Middle;
+File_End;\r\n
+General;Name...............: %FileName%.%FileExtension%\r\nSize...............: %FileSize/String% (%FileSize% bytes)\r\nDuration...........: %Duration/String3% (%Duration%ms)\r\n
+Video;Resolution.........: %Width%x%Height%\r\nCodec..............: %InternetMediaType% %Format% %Format_Profile%\r\nColor space........: %ColorSpace%\r\nChroma subsampling.: %ChromaSubsampling%\r\nBit depth..........: %BitDepth%\r\nPrimaries..........: %colour_primaries%\r\nMatrix Coefficients: %matrix_coefficients%\r\nBitrate............: %BitRate/String% (%BitRate% b/s) \r\nFramerate..........: %FrameRate% fps\r\nAspect Ratio.......: %DisplayAspectRatio/String%\r\n
+Audio;Audio..............: %Channel(s)% chnls %Format% %BitRate/String% %BitRate_Mode% %SamplingRate%Hz %Language/String%\r\n
 Text; $if(%Language%,%Language/String%,Unknown)
 Text_Begin;Subs...............:
 Text_Middle;,

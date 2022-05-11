@@ -4,7 +4,7 @@
 brew install goaccess
 ```
 
-Gen report for the zip
+Gen report
 ```sh
 goaccess \
 access.log \
