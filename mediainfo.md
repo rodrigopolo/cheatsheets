@@ -19,7 +19,7 @@ File_Begin;
 File_Middle;
 File_End;\r\n
 General;Name...............: %FileName%.%FileExtension%\r\nSize...............: %FileSize/String% (%FileSize% bytes)\r\nDuration...........: %Duration/String3% (%Duration%ms)\r\n
-Video;Resolution.........: %Width%x%Height%\r\nCodec..............: %InternetMediaType% %Format% %Format_Profile%\r\nColor space........: %ColorSpace%\r\nChroma subsampling.: %ChromaSubsampling%\r\nBit depth..........: %BitDepth%\r\nPrimaries..........: %colour_primaries%\r\nMatrix Coefficients: %matrix_coefficients%\r\nBitrate............: %BitRate/String% (%BitRate% b/s) \r\nFramerate..........: %FrameRate% fps\r\nAspect Ratio.......: %DisplayAspectRatio/String%\r\n
+Video;Resolution.........: %Width%x%Height%\r\nCodec..............: %InternetMediaType% %Format% %Format_Profile%\r\nColor space........: %ColorSpace%\r\nChroma subsampling.: %ChromaSubsampling%\r\nBit depth..........: %BitDepth%\r\nPrimaries..........: %colour_primaries%\r\nMatrix Coefficients: %matrix_coefficients_Original%%matrix_coefficients%\r\nLevels/Range.......: %colour_range%\r\nBitrate............: %BitRate/String% (%BitRate% b/s) \r\nFramerate..........: %FrameRate% fps\r\nAspect Ratio.......: %DisplayAspectRatio/String%\r\n
 Audio;Audio..............: %Channel(s)% chnls %Format% %BitRate/String% %BitRate_Mode% %SamplingRate%Hz %Language/String%\r\n
 Text; $if(%Language%,%Language/String%,Unknown)
 Text_Begin;Subs...............:
@@ -29,16 +29,21 @@ Text_End;.\r\n
 
 Example result:
 ```
-Name...............: A003C004_151124_R00H.mov
-Size...............: 1.41 GiB
-Duration...........: 00:00:15.208
+Name...............: VIDEO.MP4
+Size...............: 16.5 MiB (17317155 bytes)
+Duration...........: 00:00:20.417 (20417ms)
 Resolution.........: 3840x2160
-Codec..............: ap4h
-Chroma subsampling.: 4:4:4
-Bit depth..........:
-Bitrate............: 790 Mbps
+Codec..............: video/H265 HEVC Main@L5@Main
+Color space........: YUV
+Chroma subsampling.: 4:2:0
+Bit depth..........: 8
+Primaries..........: BT.709
+Matrix Coefficients: BT.709
+Levels/Range.......: Limited
+Bitrate............: 6 582 kb/s (6582123 b/s) 
 Framerate..........: 24.000 fps
 Aspect Ratio.......: 16:9
+Audio..............: 2 chnls AAC 196 kb/s CBR 48000Hz 
 ```
 
 Get image resolutions
