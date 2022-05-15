@@ -122,3 +122,16 @@ ln -s /Applications/MAMP/bin/php/php7.3.24/bin/php ~/.bin/php
 ln -s ~/.apps/rar/rar ~/.bin/rar
 ln -s ~/.apps/rar/unrar ~/.bin/unrar
 ```
+
+## File metadata
+```sh
+# List metadata
+xattr <file or folder>
+xattr -l <file or folder>
+
+# List files with metadata
+ls -l@ <file or folder>
+
+# Remove the metadata
+xattr -d "com.apple.lastuseddate#PS" <file or folder>
+```
