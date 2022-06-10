@@ -91,3 +91,20 @@ Text_Middle;,
 Text_End;]\n
 ;
 ```
+
+Short examples
+```sh
+#To get the duration of video stream:
+mediainfo --Inform="Video;%Duration%"  [inputfile]
+
+#To get the duration of the media file:
+mediainfo --Inform="General;%Duration%" [inputfile]
+
+#To get the duration of audio stream only:
+mediainfo --Inform="Audio;%Duration%" [inputfile]
+
+#To get values of more than one parameter:
+#1280,720,3000000,30.0
+
+mediainfo --Inform="Video;%Width%,%Height%,%BitRate%,%FrameRate%" [inputfile]
+```

@@ -5,6 +5,15 @@ Resize and save to 75 quality all JPGs
 mogrify -resize 1296x864 -quality 75 *.jpg
 ```
 
+```
+! = Ignore Aspect Ratio
+> = Only Shrink Larger
+< = Only Enlarge Smaller
+^ = Fill Given Area
+% = Percentage Resize
+@ = Pixel Count Limit
+```
+
 Create thumbnails with letter/pillar boxing
 ```bash
 mogrify -resize 80x80 -background white -gravity center -extent 80x80 -format jpg -quality 75 -path thumbs *.jpg
@@ -23,6 +32,7 @@ mogrify -resize 640x640 -format jpg -quality 75 -path thumbs *.jpg
 Thumbnails 2
 ```bash
 mogrify -resize "160^>" -gravity center -crop 160x160+0+0 -format jpg -quality 75  *.jpg
+mogrify -resize "200x200^" -gravity center -crop 200x200+0+0 -format png *.psd
 ```
 
 Create smaller versions of images only if they are bigger than X dimension and fit inside X dimension:

@@ -145,6 +145,16 @@ ffmpeg \
 output.mov
 ```
 
+Generate 10 thumbnails from a video
+```sh
+THUMBNAIL_NO=10
+DURATION=$(mediainfo --Inform="General;%Duration%" Untitled.mov)
+ffmpeg \
+-i Untitled.mov \
+-vf "fps=${THUMBNAIL_NO}000/${DURATION}" \
+out%d.png
+```
+
 ProRes with YUV 4444 support
 ```sh
 ffmpeg -i input.mp4 -c:v prores_ks -profile:v 3 -c:a pcm_s16le output.mov
