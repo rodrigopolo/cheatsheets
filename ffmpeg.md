@@ -148,9 +148,10 @@ output.mov
 Generate 10 thumbnails from a video
 ```sh
 THUMBNAIL_NO=10
-DURATION=$(mediainfo --Inform="General;%Duration%" Untitled.mov)
+FILE=MyVideoFile.mp4
+DURATION=$(mediainfo --Inform="General;%Duration%" "${FILE}")
 ffmpeg \
--i Untitled.mov \
+-i "${FILE}" \
 -vf "fps=${THUMBNAIL_NO}000/${DURATION}" \
 out%d.png
 ```
