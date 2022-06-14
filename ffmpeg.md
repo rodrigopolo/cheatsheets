@@ -153,7 +153,7 @@ DURATION=$(mediainfo --Inform="General;%Duration%" "${FILE}")
 ffmpeg \
 -i "${FILE}" \
 -vf "fps=${THUMBNAIL_NO}000/${DURATION}" \
-out%d.png
+out%04d.png
 ```
 
 ProRes with YUV 4444 support
