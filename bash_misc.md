@@ -45,7 +45,7 @@ find `pwd` -type f -iname "*.js" -exec grep -i "keyword" -l '{}' \; -print
 Find all HTML files and extract the anchors
 ```sh
 find . -type f -iname "*.html" | \
-xargs -I {} grep -o -E "<a[^>]*>([^<]+)<\/a>" {} | \
+xargs -I {} grep -o -E "<a[^>]*>[^<]*<\/a>" {} | \
 sort | \
 uniq
 ```
@@ -53,7 +53,7 @@ uniq
 Find all HTML files and extract all the URLs
 ```sh
 find . -type f -iname "*.html" | \
-xargs -I {} pcregrep -o1 '<a\s+(?:[^>]*?\s+)?href="([^"]*)"' {} | \
+xargs -I {} pcregrep -o1 '<a\b[^>]?href="([^"]*)"' {} | \
 sort | \
 uniq
 ```
