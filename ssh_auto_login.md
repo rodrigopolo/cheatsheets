@@ -89,6 +89,11 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 ```
 
+Copy to remote
+```
+ssh-copy-id user@host
+```
+
 Add key to a remote server, and set the permissions
 ```sh
 nano authorized_keys
