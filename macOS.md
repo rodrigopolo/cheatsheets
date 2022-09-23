@@ -116,6 +116,7 @@ say -v Alex "I'm setting up all the remote connections"
 
 Symbolic links in ~/.apps/
 ```sh
+ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ~/.bin/sublime
 ln -s /Applications/MAMP/Library/bin/mysql ~/.bin/mysql
 ln -s /Applications/MAMP/Library/bin/mysqldump ~/.bin/mysqldump
 ln -s /Applications/MAMP/bin/php/php7.4.21/bin/php ~/.bin/php
