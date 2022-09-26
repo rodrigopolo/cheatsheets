@@ -29,17 +29,16 @@ export PATH=~/.bin:/usr/local/sbin:$PATH
 export HOMEBREW_EDITOR=/usr/bin/nano
 ```
 
-Generate and add key (Big Sur)
+Generate and add key
 ```sh
 ssh-keygen -t ed25519 -C "your_email@example.com"
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
+# eval "$(ssh-agent -s)"
+# ssh-add ~/.ssh/id_ed25519
 ```
 
 Add key to a remote server, and set the permissions
 ```sh
-nano authorized_keys
-chmod 644 authorized_keys
+ssh-copy-id user@host
 ```
 
 Set defaults of Sublime Text into the `~/Library/Application Support/Sublime Text 3/Packages/User` file:
@@ -120,6 +119,14 @@ ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ~/.bin/sub
 ln -s /Applications/MAMP/Library/bin/mysql ~/.bin/mysql
 ln -s /Applications/MAMP/Library/bin/mysqldump ~/.bin/mysqldump
 ln -s /Applications/MAMP/bin/php/php7.4.21/bin/php ~/.bin/php
+```
+
+### RAR
+```sh
+cd ~/.apps
+wget https://www.win-rar.com/fileadmin/winrar-versions/rarmacos-arm-612.tar.gz
+tar xzf rarmacos-arm-612.tar.gz
+rm rarmacos-arm-612.tar.gz
 ln -s ~/.apps/rar/rar ~/.bin/rar
 ln -s ~/.apps/rar/unrar ~/.bin/unrar
 ```
