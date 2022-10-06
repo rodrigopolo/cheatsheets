@@ -22,7 +22,22 @@ exiftool \
 
 Sort totals
 ```sh
-awk 'BEGIN {FS="\t"}; {print $3, $4}' focals.txt | sort | uniq -c | awk '{print $1, $2}' | sort -nr
+awk 'BEGIN {FS="\t"}; {print $3, $4}' focals.txt | \
+sort | \
+uniq -c | \
+awk '{print $1, $2}' | \
+sort -nr
+```
+
+Different sort
+```sh
+cat focals.txt | \
+grep -i canon | \
+awk 'BEGIN {FS="\t"}; {print $4}' | \
+sort | \
+uniq -c | \
+awk '{print $1, $2}' | \
+sort -nr
 ```
 
 Create a tab delimited file with Camera Models
@@ -131,6 +146,37 @@ MOV
 MP4
 -MediaCreateDate \
 ```
+
+Copy metadata from one file to another
+```sh
+exiftool \
+-TagsFromFile \
+source.jpg \
+"-all:all>all:all" \
+target.jpg
+```
+
+Set [360° metadata](https://www.trekview.org/blog/2022/using-gpano-gspherical-metadata-adjust-roll-pitch-heading/)
+```sh
+exiftool \
+-ProjectionType="equirectangular" \
+-XMP-GPano:InitialViewHeadingDegrees=0 \
+target.jpg
+```
+
+Change date
+```sh
+exiftool \
+"-AllDates=2000:12:31 09:30:25" \
+target.jpg
+```
+
+Excel date format
+```
+yyyy-mm-dd hh:mm:ss;@
+```
+
+
 
 Other tags
 ```sh
