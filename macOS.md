@@ -121,6 +121,12 @@ ln -s /Applications/MAMP/Library/bin/mysqldump ~/.bin/mysqldump
 ln -s /Applications/MAMP/bin/php/php7.4.21/bin/php ~/.bin/php
 ```
 
+### Composer
+```sh
+cd && curl -sS https://getcomposer.org/installer | php
+mv composer.phar ~/.bin/composer
+```
+
 ### RAR
 ```sh
 cd ~/.apps
