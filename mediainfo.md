@@ -19,7 +19,7 @@ File_Begin;
 File_Middle;
 File_End;\r\n
 General;Name...............: %FileName%.%FileExtension%\r\nSize...............: %FileSize/String% (%FileSize% bytes)\r\nDuration...........: %Duration/String3% (%Duration%ms)\r\n
-Video;Resolution.........: %Width%x%Height%\r\nCodec..............: %InternetMediaType% %Format% %Format_Profile%\r\nColor space........: %ColorSpace%\r\nChroma subsampling.: %ChromaSubsampling%\r\nBit depth..........: %BitDepth%\r\nPrimaries..........: %colour_primaries%\r\nMatrix Coefficients: %matrix_coefficients_Original%%matrix_coefficients%\r\nLevels/Range.......: %colour_range%\r\nBitrate............: %BitRate/String% (%BitRate% b/s) \r\nFramerate..........: %FrameRate% fps\r\nAspect Ratio.......: %DisplayAspectRatio/String%\r\n
+Video;Frames.............: %FrameCount%\r\nFramerate..........: %FrameRate% fps\r\nResolution.........: %Width%x%Height%\r\nAspect Ratio.......: %DisplayAspectRatio/String%\r\nLevels/Range.......: %colour_range%\r\nChroma subsampling.: %ChromaSubsampling%\r\nColor space........: %ColorSpace%\r\nPrimaries..........: %colour_primaries%\r\nMatrix Coefficients: %matrix_coefficients_Original%%matrix_coefficients%\r\nCodec..............: %InternetMediaType% %Format% %Format_Profile%\r\nBitrate............: %BitRate/String% (%BitRate% b/s) \r\nBit depth..........: %BitDepth%\r\n
 Audio;Audio..............: %Channel(s)% chnls %Format% %BitRate/String% %BitRate_Mode% %SamplingRate%Hz %Language/String%\r\n
 Text; $if(%Language%,%Language/String%,Unknown)
 Text_Begin;Subs...............:
@@ -30,20 +30,21 @@ Text_End;.\r\n
 Example result:
 ```
 Name...............: VIDEO.MP4
-Size...............: 16.5 MiB (17317155 bytes)
-Duration...........: 00:00:20.417 (20417ms)
-Resolution.........: 3840x2160
-Codec..............: video/H265 HEVC Main@L5@Main
-Color space........: YUV
+Size...............: 12.6 GiB (13481173961 bytes)
+Duration...........: 01:14:10.667 (4450667ms)
+Frames.............: 106814
+Framerate..........: 24.000 fps
+Resolution.........: 4096x2160
+Aspect Ratio.......: 1.896
+Levels/Range.......: Limited
 Chroma subsampling.: 4:2:0
-Bit depth..........: 8
+Color space........: YUV
 Primaries..........: BT.709
 Matrix Coefficients: BT.709
-Levels/Range.......: Limited
-Bitrate............: 6 582 kb/s (6582123 b/s) 
-Framerate..........: 24.000 fps
-Aspect Ratio.......: 16:9
-Audio..............: 2 chnls AAC 196 kb/s CBR 48000Hz 
+Codec..............: video/H265 HEVC Main 10@L5@Main
+Bitrate............: 23.9 Mb/s (23908438 b/s) 
+Bit depth..........: 10
+Audio..............: 2 chnls AAC 320 kb/s CBR 48000Hz 
 ```
 
 Get image resolutions
