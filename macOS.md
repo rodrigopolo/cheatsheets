@@ -149,3 +149,17 @@ ls -l@ <file or folder>
 # Remove the metadata
 xattr -d "com.apple.lastuseddate#PS" <file or folder>
 ```
+
+## Figlet
+```sh
+brew install figlet
+figlet -I2
+figlet -f poison "Rodrigo Polo" 
+figlet -f doom "Rodrigo Polo" 
+figlet -f epic "Rodrigo Polo" 
+figlet -f gothic "Rodrigo Polo" 
+figlet -f larry3d "Rodrigo Polo" 
+figlet -f rectangles "Rodrigo Polo" 
+figlet -f slant "Rodrigo Polo" 
+figlet -f smslant "Rodrigo Polo"
+```
