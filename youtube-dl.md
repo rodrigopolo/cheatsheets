@@ -49,6 +49,13 @@ youtube-dl \
 VIDEO_URL
 ```
 
+Download playlists with template name
+```sh
+youtube-dl \
+-o "%(playlist_index)s-%(title)s.%(ext)s" \
+"https://youtube.com/playlist?list=<id>"
+```
+
 List all available extractors (1126 until now 2018-08-29)
 ```sh
 youtube-dl --list-extractors
