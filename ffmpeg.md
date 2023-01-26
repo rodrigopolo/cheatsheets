@@ -3,7 +3,7 @@
 
 ## Encoding
 
-AVC/H.264/AAC Encoding
+### AVC/H.264/AAC Encoding
 ```sh
 FFmpeg \
 -i input.mp4 \
@@ -21,7 +21,7 @@ output.mp4
 > X264 8-bit CRF: `0-51`, 0=lossless 23=default, 51=worst, 18 almost lossless  
 > X264 10-bit CRF: `0-63`
 
-X264 Presets:
+#### X264 Presets:
 * `ultrafast`
 * `superfast`
 * `veryfast`
@@ -33,7 +33,7 @@ X264 Presets:
 * `veryslow`
 * `placebo`
 
-HEVC/H.265/HE-AAC version 2 Encoding
+### HEVC/H.265/HE-AAC version 2 Encoding
 ```sh
 ffmpeg \
 -i input.mp4 \
@@ -62,7 +62,7 @@ output.mp4
 * `veryslow`
 * `placebo`
 
-Modify rotation metadata without re-encoding.
+### Modify rotation metadata without re-encoding.
 ```sh
 ffmpeg \
 -y \
@@ -73,7 +73,7 @@ ffmpeg \
 output.m4v
 ```
 
-To JPG sequence:
+### To JPG sequence:
 ```sh
 ffmpeg \
 -y \
@@ -84,7 +84,7 @@ ffmpeg \
 image%04d.jpg
 ```
 
-To JPG sequence alternative:
+### To JPG sequence alternative:
 ```sh
 ffmpeg \
 -i input.mp4 \
@@ -92,7 +92,7 @@ ffmpeg \
 image%04d.jpg
 ```
 
-From images
+### Video from images
 ```sh
 ffmpeg \
 -y \
@@ -104,7 +104,7 @@ ffmpeg \
 output.mp4
 ```
 
-GoPro image sequence to DNxHD at 90Mbps
+### GoPro image sequence to DNxHD at 90Mbps
 ```sh
 ffmpeg \
 -y \
@@ -117,7 +117,7 @@ ffmpeg \
 output.mov
 ```
 
-GoPro image sequence to ProRes
+### GoPro image sequence to ProRes
 ```sh
 ffmpeg \
 -y \
@@ -131,7 +131,7 @@ ffmpeg \
 output.mov
 ```
 
-GoPro image sequence to ProRes_ks
+### GoPro image sequence to ProRes_ks
 ```sh
 ffmpeg \
 -y \
@@ -145,7 +145,7 @@ ffmpeg \
 output.mov
 ```
 
-Generate 10 thumbnails from a video
+### Generate 10 thumbnails from a video
 ```sh
 THUMBNAIL_NO=10
 FILE=MyVideoFile.mp4
@@ -156,7 +156,7 @@ ffmpeg \
 out%04d.png
 ```
 
-ProRes with YUV 4444 support
+### ProRes with YUV 4444 support
 ```sh
 ffmpeg -i input.mp4 -c:v prores_ks -profile:v 3 -c:a pcm_s16le output.mov
 ```
@@ -173,10 +173,9 @@ ffmpeg -i input.mp4 -c:v prores_ks -profile:v 3 -c:a pcm_s16le output.mov
 |  5 | 4444-HQ        | ≈ 500Mbps | YUVA | 4:4:4:4 |
 
 
+> Source: https://trac.ffmpeg.org/wiki/Encode/VFX#Prores
 
-Source: https://trac.ffmpeg.org/wiki/Encode/VFX#Prores
-
-Premiere DNX to H.264/AAC for YouTube with `hqdn3d` denoise and GOP 30
+### Premiere DNX to H.264/AAC for YouTube with `hqdn3d` denoise and GOP 30
 ```sh
 ffmpeg \
 -i input.mxf \
@@ -194,7 +193,7 @@ ffmpeg \
 output.mp4
 ```
 
-Premiere DNX to H.264/AAC
+### Premiere DNX to H.264/AAC
 ```sh
 ffmpeg \
 -i input.mxf \
@@ -210,7 +209,7 @@ ffmpeg \
 output.mp4
 ```
 
-Premiere DNX to H.265/AAC
+### Premiere DNX to H.265/AAC
 ```sh
 ffmpeg \
 -i input.mxf \
@@ -229,7 +228,7 @@ output.mp4
 
 ## Chroma subsampling and 10bits
 
-X264 10bit 4:2:2 Chroma at CRF 20 using X264 10Bit
+### X264 10bit 4:2:2 Chroma at CRF 20 using X264 10Bit
 ```sh
 ffmpeg \
 -y \
@@ -242,7 +241,7 @@ ffmpeg \
 output.mp4
 ```
 
-X264 10bit 4:2:2 Chroma at 135Mbps using X264 10Bit
+### X264 10bit 4:2:2 Chroma at 135Mbps using X264 10Bit
 ```sh
 ffmpeg \
 -y \
@@ -255,7 +254,7 @@ ffmpeg \
 output.mp4
 ```
 
-X264 10bit 4:4:4 Chroma at 135Mbps using X264 10Bit
+### X264 10bit 4:4:4 Chroma at 135Mbps using X264 10Bit
 ```sh
 ffmpeg \
 -y \
@@ -268,7 +267,7 @@ ffmpeg \
 output.mp4
 ```
 
-YouTube "Recomended Settings"
+### YouTube "Recomended Settings"
 ```sh
 ffmpeg \                # Calling the binary
 -i input.mp4 \          # Input video file
@@ -291,7 +290,7 @@ output.mp4
 
 ## Alpha Channel
 
-Add alpha channel mask encoding to `qtrle`
+### Add alpha channel mask encoding to `qtrle`
 ```sh
 ffmpeg \
 -loop 1 \
@@ -306,7 +305,7 @@ ffmpeg \
 output.mov
 ```
 
-Add alpha channel mask encoding to `png`
+### Add alpha channel mask encoding to `png`
 ```sh
 ffmpeg \
 -loop 1 \
@@ -324,7 +323,7 @@ output.mov
 
 ## Filters
 
-Add blured bars for vertical video
+### Add blured bars for vertical video
 ```sh
 ffmpeg \
 -i "input.mp4" \
@@ -341,14 +340,14 @@ ffmpeg \
 output.mp4
 ```
 
-Test a filter with `ffplay`
+### Test a filter with `ffplay`
 ```sh
 ffplay \
 -filter:v "crop=1920:1080:0:140" \
 input.mp4
 ```
 
-Create blue video with subs
+### Create blue video with subs
 ```sh
 ffmpeg \
 -f lavfi \
@@ -364,7 +363,7 @@ ffmpeg \
 subs.mp4
 ```
 
-YouTube's cubemap to equirectangular
+### YouTube's cubemap to equirectangular
 ```sh
 ffmpeg \
 -y \
@@ -380,7 +379,7 @@ ffmpeg \
 output.mp4
 ```
 
-ProRes blue screen with subtitles from SRT
+### ProRes blue screen with subtitles from SRT
 ```sh
 ffmpeg \
 -f lavfi \
@@ -393,6 +392,8 @@ ffmpeg \
 -movflags +faststart \
 output.mov
 ```
+
+### Other filter flags
 
 Crop
 ```sh
@@ -473,7 +474,7 @@ ffmpeg \
 time-lapse.mp4
 ```
 
-# Join/Concat video
+## Join/Concat and plit video
 
 GoPro join, first, the `mylist.txt` file:
 ```sh
@@ -502,9 +503,26 @@ ffmpeg \
 -map_channel 0.0.1 right.wav
 ```
 
-## Downmixing audio
+## Audio
 
-Stereo + Stereo → Stereo  
+### 5.1 AC3 to 5.1 AAC
+```sh
+ffmpeg \
+-y \
+-i input.ac3 \
+-channel_layout "5.1" \
+-c:a aac \
+-b:a 384k \
+-movflags +faststart \
+output.m4v
+```
+
+### 5.1 AC3 to 5.1 AAC with [eac3to](https://www.videohelp.com/software/eac3to) and [Nero AAC Codec](https://www.videohelp.com/software/Nero-AAC-Codec)
+```sh
+eac3to input.ac3 output.m4a -progressnumbers -384 -log=NUL
+```
+
+### Stereo + Stereo → Stereo
 ![stereo + stereo → stereo](https://i.imgur.com/AiAGIly.png "stereo + stereo → stereo")
 
 Using the amix filter
@@ -525,8 +543,7 @@ ffmpeg \
 -ac 2 \
 output.mp3
 ```
-
-Downmix each input into specific output channel  
+### Downmix each input into specific output channel
 ![Downmix each input into specific output channel](https://i.imgur.com/MPsU7mG.png "Downmix each input into specific output channel")
 
 Using the amerge and pan filters
@@ -538,7 +555,7 @@ ffmpeg \
 output.mp3
 ```
 
-Mono + Mono → Stereo  
+### Mono + Mono → Stereo
 ![mono + mono → stereo](https://i.imgur.com/uhQZYpZ.png "mono + mono → stereo")
 
 Using the join filter
@@ -559,7 +576,7 @@ ffmpeg \
 output.mp3
 ```
 
-Mono + Mono → Mono  
+### Mono + Mono → Mono
 ![mono + mono → mono](https://i.imgur.com/y45Hc6j.png "")
 
 Using the amix filter
@@ -571,8 +588,8 @@ ffmpeg \
 output.mp3
 ```
 
-[FFmpeg Wiki: Audio Channels](https://trac.ffmpeg.org/wiki/AudioChannelManipulation)
-[Source](https://stackoverflow.com/a/14528482/218418)
+> [FFmpeg Wiki: Audio Channels](https://trac.ffmpeg.org/wiki/AudioChannelManipulation)
+> [Source](https://stackoverflow.com/a/14528482/218418)
 
 ## Video crop factors
 
@@ -652,7 +669,6 @@ From    |  to  | Perc.
 ## HDR Video Characteristics
 
 Based on the [QuickTime File Format and ProRes Video Parameter Editing](https://github.com/bbc/qtff-parameter-editor).
-
 
 The colour primaries can be selected from the list:
 
