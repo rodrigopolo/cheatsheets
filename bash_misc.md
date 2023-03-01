@@ -226,6 +226,22 @@ Check difference between two files
 diff --side-by-side --suppress-common-lines file1.txt file2.txt
 ```
 
+Create patch file
+```sh
+diff -u OriginalFile UpdatedFile > PatchFile
+```
+
+Apply patch
+```sh
+patch OriginalFile < PatchFile
+```
+
+Undo patch
+```sh
+$ patch -R OriginalFile < PatchFile
+```
+
+https://www.shellhacks.com/create-patch-diff-command-linux/
 https://www.cyberciti.biz/faq/bash-prepend-text-lines-to-file/
 https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/
 

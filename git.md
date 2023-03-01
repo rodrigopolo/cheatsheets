@@ -15,6 +15,11 @@ Reset to last commit
 git reset --hard
 ```
 
+Reset specified file to last state
+```sh
+git checkout -- file.php 
+```
+
 Add files
 ```sh
 git add path/file.txt
