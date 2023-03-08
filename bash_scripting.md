@@ -24,6 +24,39 @@ done
 IFS="$IFSbkp"
 ```
 
+```sh
+FILE="example.tar.gz"
+
+echo "${FILE%%.*}"
+# example
+
+echo "${FILE%.*}"
+# example.tar
+
+echo "${FILE#*.}"
+# tar.gz
+
+echo "${FILE##*.}"
+# gz
+```
+
+https://stackoverflow.com/a/965069/218418
+
+Sequences
+```sh
+#!/usr/bin/env zsh
+
+# Sequence
+list=$( echo {10..100..10} )
+echo $list
+
+# loop Sequence
+for num in {10..100..10}
+do
+	echo $num
+done
+```
+
 A backup `backup.sh` script
 ```sh
 #!/usr/bin/env bash
