@@ -364,6 +364,16 @@ Delete history and exit
 cat /dev/null > ~/.bash_history && history -c && exit
 ```
 
+Securely delete files inside a directory and ensure that they cannot be recovered
+```sh
+shred -u -n 5 /path/to/directory/*
+```
+
+Alternative
+```sh
+srm -r mydir
+```
+
 Redirect `stdout` and `stderr` to files
 ```sh
 command > stdout 2> stderr
