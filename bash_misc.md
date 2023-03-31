@@ -1,10 +1,18 @@
 ### Bash misc
 
-Compress file or folder to file.tar.gz
+Compress file or folder to archive.tar.gz
 ```sh
 tar -czf file.tar.gz directory/
 tar -czf file.tar.gz file.txt
 ```
+
+* `tar`: the command for creating a tar archive
+* `-c`: create a new archive
+* `-z`: compress the archive using gzip
+* `-v`: show verbose output (optional)
+* `-f`: specify the output filename
+* `archive.tar.gz`: the name of the output file
+* `directory/`: the directory to be compressed
 
 Tar without compression
 ```sh
@@ -37,9 +45,19 @@ ZIP without OS X Files
 zip -r -X file.zip folder
 ```
 
-Find inside files
+Find a string inside files, getting only the files matchinig
 ```sh
-find `pwd` -type f -iname "*.js" -exec grep -i "keyword" -l '{}' \; -print
+# With xargs
+find "$(pwd)" -type f -iname "*.md" -print0 | xargs -0 grep -l -i "keyword"
+find "$(pwd)" -type f -iname "*.md" -print0 | xargs -0 grep -zi "keyword" --files-with-matches
+
+# Using exec, getting duplicate lines
+find "$(pwd)" -type f -iname "*.js" -exec grep -i "keyword" -l '{}' \; -print
+```
+
+Find a string inside files, getting only the files matchinig, with the line and match text
+```sh
+find "$(pwd)" -type f -iname "*.md" -print0 | xargs -0 grep -n -H -i "keyword"
 ```
 
 Find all HTML files and extract the anchors
@@ -50,12 +68,32 @@ sort | \
 uniq
 ```
 
+Untested Alternative via ChatGPT
+```sh
+grep -o '<a[^>]*href="[^"]*"' file.html | sed -e 's/<a[^>]*href="//' -e 's/"//' 
+```
+
 Find all HTML files and extract all the URLs
 ```sh
 find . -type f -iname "*.html" | \
 xargs -I {} pcregrep -o1 '<a\b[^>]?href="([^"]*)"' {} | \
 sort | \
 uniq
+```
+
+Untested Alternative 1 via ChatGPT
+```sh
+find . -type f -name '*.html' \
+-exec grep -Eo 'href="[^"]*"' {} \; | \
+sed -e 's/href="//g' -e 's/"//g'
+```
+
+Untested Alternative 2 via ChatGPT
+```sh
+find . -type f -iname "*.html" -print0 | \
+xargs -0 grep -Eo '<a[^>]+href="([^"]+)"' | \
+sed -E 's/<a[^>]+href="([^"]+)"/\1/g' | \
+sort -u
 ```
 
 Remove a folder
@@ -90,6 +128,24 @@ Change file or permissions
 chmod 777 file
 chmod -R 777 ./dir
 ```
+
+The chmod command is used to change the permissions of a file or directory. The three numbers that follow the "chmod" command represent the permissions for the owner, the group, and others.
+
+Each number is a combination of three digits, ranging from 0 to 7. Each digit represents a different permission:
+
+The first digit represents the permissions for the owner of the file.
+The second digit represents the permissions for the group that the file belongs to.
+The third digit represents the permissions for all other users.
+Each digit can be a combination of the following values:
+
+* 0: No permission
+* 1: Execute permission
+* 2: Write permission
+* 3: Write and execute permissions
+* 4: Read permission
+* 5: Read and execute permissions
+* 6: Read and write permissions
+* 7: Read, write, and execute permissions
 
 Change to executable
 ```sh
@@ -130,7 +186,9 @@ Timestamps with [ISO 8601](http://www.w3.org/TR/NOTE-datetime)
 With timezone
 ```sh
 date +%Y-%m-%dT%H:%M:%S%:z
+date +"%Y-%m-%dT%H:%M:%S%z"
 ```
+
 UTC
 ```sh
 date -u +%Y-%m-%dT%H:%M:%SZ
@@ -156,6 +214,11 @@ Get folder size on OS X by file size, NOT disk usage
 find . -type f -print0 | xargs -0 stat -f%z | awk '{b+=$1} END {print b}'
 ```
 
+Untested ChatGPT alternative
+```sh
+find . -type f -exec stat -c%s {} + | awk '{b+=$1} END {print b}'
+```
+
 Get folder size on Linux by file size, NOT disk usage
 ```sh
 find . -type f -print0 | xargs -0 stat -c%s | awk '{b+=$1} END {print b}'
@@ -164,6 +227,11 @@ find . -type f -print0 | xargs -0 stat -c%s | awk '{b+=$1} END {print b}'
 Clear history and logout
 ```sh
 rm ~/.bash_history; history -c; logout
+```
+
+Open nano in line 10
+```sh
+nano +10 example.txt
 ```
 
 Replace text using `sed`
@@ -180,6 +248,13 @@ for i in *.md; do echo "$i" "`sed -e 's/\.md$/.txt/g' <<< $i`"; done
 Remove file in paths, sort, inque, grep results
 ```sh
 cat todo.txt | sed 's:[^/]*$::' | sort | uniq |grep -i keyword
+```
+
+Untested ChatGPT alternative
+```sh
+awk -F/ '/keyword/ {print $1"/"}' todo.txt | sort -u
+grep -r -i -l keyword todo.txt | xargs -I{} dirname {} | sort -u
+find . -name "todo.txt" -exec dirname {} \; | sort -u | xargs -I{} grep -li keyword {}/todo.txt
 ```
 
 Replace `./` with `md5sum`
@@ -209,7 +284,22 @@ cat file | sort | uniq | sed -E $'s/\|/\\\n  out=/g' > uris.txt
 aria2c -j 16 -i uris.txt
 ```
 
-Chance prompt
+Split files
+```sh
+gsplit -l 500 -d -a 6 file.txt newname_ --additional-suffix=.txt
+```
+
+Pass the 3 argument from a file to xargs and then execute echo
+```sh
+cut -f3 < file.txt | xargs -P 5 -I {} mycommand "?{}?"
+```
+
+Untested ChatGPT alternative
+```sh
+cut -f3 < file.txt | parallel -j 5 mycommand "?{}?"
+```
+
+Change prompt
 ```sh
 export PS1=">"; clear;
 PROMPT='%/ %# '
@@ -256,6 +346,12 @@ Redirects:
 Run command in the background, discard stdout and stderr
 ```sh
 command > /dev/null 2>&1 &
+```
+
+Alternatives
+```sh
+./my_script.sh &
+nohup ./my_script.sh &
 ```
 
 Run command and append stdout and stderr to a log file.
