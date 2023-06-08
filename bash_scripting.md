@@ -161,6 +161,47 @@ echo "Puede consultar la documentacion de la distribucion en: $SUPPORT_URL"
 
 ```
 
+## Crontab
+
+> On macOS you should give full disk access permissions to Terminal.app and `/usr/sbin/cron` in System Settings, Privacy.
+
+Commands
+```sh
+# List crontab
+crontab -l
+
+# Clean the crontab
+crontab -r
+
+# Replace crontab with a contab file
+crontab CrontabFile.txt
+
+# Edit crontab manualy
+crontab -e
+```
+
+Set the shell, and an email to receive cron output
+```
+SHELL="/bin/bash"
+# Mail for errors and output
+# MAILTO="email@domain.com"
+```
+
+Run every day at 4am at Guatemala local time
+```
+TZ=America/Guatemala
+0 4 * * * your_command
+```
+
+Run every 5 minutes, detaching the process from the crontab
+```
+# Time Zone
+TZ=America/Guatemala
+
+# Command to run every 5 minutes
+*/5 * * * * nohup /path/to/script.sh & disown
+```
+
 A crontab example
 > At minute 0 past every hour from 15 through 17 on Wednesday, Thursday, and Friday in every month from August through December.
 ```

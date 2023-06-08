@@ -129,6 +129,11 @@ chmod 777 file
 chmod -R 777 ./dir
 ```
 
+Create a symbolic link
+```sh
+ln -s /path/to/original ~/.bin/symlink
+```
+
 The chmod command is used to change the permissions of a file or directory. The three numbers that follow the "chmod" command represent the permissions for the owner, the group, and others.
 
 Each number is a combination of three digits, ranging from 0 to 7. Each digit represents a different permission:
@@ -346,6 +351,11 @@ Redirects:
 Run command in the background, discard stdout and stderr
 ```sh
 command > /dev/null 2>&1 &
+```
+
+Run command in the background using `nohup` and `disown`
+```sh
+nohup /path/to/script.sh &; disown; exit
 ```
 
 Alternatives

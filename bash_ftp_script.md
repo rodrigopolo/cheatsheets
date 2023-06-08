@@ -2,7 +2,7 @@
 
 Automated FTP upload on Linux
 ```bash
-#!/bin/bash
+#!/usr/bin/env bash
 
 ####################
 # Set FTP Settings

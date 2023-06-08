@@ -4,7 +4,7 @@
 
 
 ```bash
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Cron Script Path
 CRON_PATH=/the_working_directory_of_your_cronjob_where_logs_will_be_saved

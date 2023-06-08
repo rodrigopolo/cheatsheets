@@ -63,7 +63,7 @@ defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 
 Script `label` to change Finder color tag:
 ```sh
-#!/bin/bash
+#!/usr/bin/env bash
 if [[ $# -le 1 || ! "$1" =~ ^[0-7]$ ]]; then
   echo "Usage: label 01234567 file ..." 1>&2
   exit 1

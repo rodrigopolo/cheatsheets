@@ -1,6 +1,6 @@
 
 `cron.txt`
-```
+```sh
 SHELL="/bin/bash"
 # Mail
 MAILTO="email@example.com"
@@ -10,8 +10,8 @@ MAILTO="email@example.com"
 ```
 
 `script.sh`
-```
-#!/bin/bash
+```sh
+#!/usr/bin/env bash
 
 # Make a list of the files
 phantomjs /home/user/phantom_script.js > /home/user/current.txt
@@ -24,7 +24,7 @@ cp /home/user/current.txt /home/user/prev.txt
 ```
 
 `phantom_script.js`
-```
+```js
 var system = require('system');
 var page = require('webpage').create();
 page.onConsoleMessage = function(msg) {
