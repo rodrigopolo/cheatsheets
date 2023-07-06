@@ -289,6 +289,32 @@ cat file | sort | uniq | sed -E $'s/\|/\\\n  out=/g' > uris.txt
 aria2c -j 16 -i uris.txt
 ```
 
+Loop with numbered sequence, with and without leading zeros
+```sh
+for i in {1..50}; do printf "image%02d.jpg\n" "$i"; done
+for i in {1..50}; do printf "image%d.jpg\n" "$i"; done
+```
+
+Using `seq` command
+```sh
+for i in $(seq 10); do echo "image$i.jpg"; done
+```
+
+Every 3rd number from 5 to 20:
+```sh
+seq 5 3 20
+```
+
+Separate the output with a space instead of a newline:
+```sh
+seq -s " " 5 3 20
+```
+
+Format output width to a minimum of 4 digits padding with zeros as necessary:
+```sh
+seq -f "%04g" 5 3 20
+```
+
 Split files
 ```sh
 gsplit -l 500 -d -a 6 file.txt newname_ --additional-suffix=.txt
@@ -392,4 +418,15 @@ command > stdout 2> stderr
 Count lines
 ```sh
 cat file | wc -l
+```
+
+Benford's Law in [trep.gt](https://trep.gt/ext/jsonData_gtm2023/1687736870/1688050101/GTM-pruebas.zip)
+```sh
+tail -n +6 gtm2023_e1.csv | \
+awk -F',' '{print $26}' | \
+grep -Eo '[0-9]+' | \
+cut -c 1 | \
+sort | \
+uniq -c | \
+awk '{print $2"\t"$1}'
 ```
