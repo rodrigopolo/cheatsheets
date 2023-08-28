@@ -430,3 +430,10 @@ sort | \
 uniq -c | \
 awk '{print $2"\t"$1}'
 ```
+
+Checksums
+```sh
+shasum file.txt
+md5 file.txt
+```
+
