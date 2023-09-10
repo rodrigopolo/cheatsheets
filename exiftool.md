@@ -238,7 +238,7 @@ exiftool \
 -RegionAreaW \
 -RegionAreaH \
 -RegionAreaUnit \
-"2023-09-10 02.25.05 - IMG_20171231_183315_00_019.jpg" 
+file.jpg 
 ```
 
 Result
