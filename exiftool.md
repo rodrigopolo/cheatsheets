@@ -255,8 +255,6 @@ Region Area H                    : 0.0710526, 0.104934
 Region Area Unit                 : normalized, normalized
 ```
 
-
-
-
-https://exiftool.org/faq.html
+Sources:
+https://exiftool.org/faq.html  
 https://ninedegreesbelow.com/photography/exiftool-commands.html
