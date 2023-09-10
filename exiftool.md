@@ -5,6 +5,7 @@ Determine the tag name for some information
 exiftool -s -G image.jpg
 ```
 
+Get the focal length in a directory
 ```sh
 exiftool \
 -r \
@@ -176,8 +177,6 @@ Excel date format
 yyyy-mm-dd hh:mm:ss;@
 ```
 
-
-
 Other tags
 ```sh
 exiftool \
@@ -201,6 +200,62 @@ List files with maker 'apple'
 ```sh
 exiftool -if '$make =~ /apple/i' -p '$filename' .
 ```
+
+Get file description
+```sh
+exiftool -Description file.jpg
+exiftool -Caption-Abstract file.jpg
+```
+
+Result
+```
+Description                     : A file description
+Caption-Abstract                : A file description
+```
+
+Get file keywords
+```sh
+exiftool -Keywords file.jpg
+exiftool -Subject file.jpg
+```
+
+Result
+```
+Keywords                        : 360
+Subject                         : 360
+```
+
+Get regions
+```sh
+exiftool \
+-RegionAppliedToDimensionsW \
+-RegionAppliedToDimensionsH \
+-RegionAppliedToDimensionsUnit \
+-RegionName \
+-RegionType \
+-RegionAreaX \
+-RegionAreaY \
+-RegionAreaW \
+-RegionAreaH \
+-RegionAreaUnit \
+"2023-09-10 02.25.05 - IMG_20171231_183315_00_019.jpg" 
+```
+
+Result
+```
+Region Applied To Dimensions W   : 6080
+Region Applied To Dimensions H   : 3040
+Region Applied To Dimensions Unit: pixel
+Region Name                      : Name 1, Name 2
+Region Type                      : Face, Face
+Region Area X                    : 0.452796, 0.496217
+Region Area Y                    : 0.500658, 0.483717
+Region Area W                    : 0.0292763, 0.04375
+Region Area H                    : 0.0710526, 0.104934
+Region Area Unit                 : normalized, normalized
+```
+
+
 
 
 https://exiftool.org/faq.html
