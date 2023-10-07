@@ -255,6 +255,8 @@ Region Area H                    : 0.0710526, 0.104934
 Region Area Unit                 : normalized, normalized
 ```
 
+## File Renaming
+
 Rename all Canon files in a path to have the date prefix with time offset
 ```sh
 exiftool \
