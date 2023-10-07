@@ -255,7 +255,9 @@ Region Area H                    : 0.0710526, 0.104934
 Region Area Unit                 : normalized, normalized
 ```
 
-## File Renaming
+## Media File Renaming
+
+> Following these steps will rename your videos to a compatible filename convention for use in a media pool alongside files from any of this camera brands.
 
 Rename all Canon files in a path to have the date prefix with time offset
 ```sh
@@ -289,9 +291,26 @@ exiftool \
 -r \
 -p '$filename' '-FileName<CreateDate' \
 -d "%Y-%m-%d %H.%M.%S - %%f.%%e" \
-/Volumes/Untitled/DCIM
+/path/to/files
 ```
 
-Sources:
+Rename all Insta360 X3 videos
+> Insta360 videos do not handle time offset and [do not have a typical video extension](https://archive.ph/cxpMz). Therefore, the workflow to rename the files to have a name convention compatible with other cameras does not require using `exiftool` or `mediainfo`. Instead, it utilizes `sed` replacements. Ensure you have Insta360 Studio installed and that the videos have already been processed in it. This is important as Insta360 Studio provides date-time information in the filename convention. Then follow the script bellow:
+
+```sh
+# Navigate to the directory containing the video files:
+cd /path/to/files
+
+# Using ls and grep create the ren.sh script:
+ls | grep -i -E "(mp4|mov)$" | \
+sed -En 's/^(([a-z]{3})_([0-9]{4})([0-9]{2})([0-9]{2})_([0-9]{2})([0-9]{2})([0-9]{2})_[0-9]{2}_([0-9]{3})[^.]*\.(mov|mp4))$/mv "\1" "\3-\4-\5 \6.\7.\8 - \2_\9"/ip' | \
+sed -En 's/^(mv \"[a-z]{3}_[0-9]{8}_[0-9]{6}_[0-9]{2}_[0-9]{3}([^.]*)\.([^"]+)") "([^"]+)"$/\1 "\4\2.\3"/ip' \
+> ren.sh
+
+# Review the ren.sh script, and then execute it
+bash ren.sh
+```
+
+Sources:  
 https://exiftool.org/faq.html  
 https://ninedegreesbelow.com/photography/exiftool-commands.html
