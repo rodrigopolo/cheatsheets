@@ -255,6 +255,41 @@ Region Area H                    : 0.0710526, 0.104934
 Region Area Unit                 : normalized, normalized
 ```
 
+Rename all Canon files in a path to have the date prefix with time offset
+```sh
+exiftool \
+-ext mp4 \
+-ext crm \
+-ext mov \
+-r \
+-if '$make =~ /canon/i' \
+-p '$filename' '-FileName<SubSecDateTimeOriginal' \
+-d "%Y-%m-%d %H.%M.%S%z - %%f.%%e" \
+/path/to/files
+```
+
+Rename all iPhone files to have the date prefix with time offset
+```sh
+exiftool \
+-ext mp4 \
+-ext mov \
+-r \
+-if '$make =~ /apple/i' \
+-p '$filename' '-FileName<CreationDate' \
+-d "%Y-%m-%d %H.%M.%S%z - %%f.%%e" \
+/path/to/files
+```
+
+Rename all GoPro files to have the date prefix, GoPro doesn't handle time offset
+```sh
+exiftool \
+-ext mp4 \
+-r \
+-p '$filename' '-FileName<CreateDate' \
+-d "%Y-%m-%d %H.%M.%S - %%f.%%e" \
+/Volumes/Untitled/DCIM
+```
+
 Sources:
 https://exiftool.org/faq.html  
 https://ninedegreesbelow.com/photography/exiftool-commands.html
