@@ -118,7 +118,7 @@ Host bitbucket.org
         Port 443
 ```
 
-GitHub pages
+Sync GitHub pages method 1
 ```sh
 git commit -m 'Info'
 git push origin master
@@ -128,6 +128,19 @@ git checkout -b gh-pages
 git checkout gh-pages
 
 git merge master
+git push origin gh-pages
+git checkout master
+```
+
+Sync GitHub pages method 2
+1. Go to the gh-pages branch
+2. Bring gh-pages up to date with master
+3. Commit the changes
+4. Return to the master branch
+
+```sh
+git checkout gh-pages
+git rebase master
 git push origin gh-pages
 git checkout master
 ```
