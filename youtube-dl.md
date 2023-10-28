@@ -56,6 +56,13 @@ youtube-dl \
 "https://youtube.com/playlist?list=<id>"
 ```
 
+Download video with date, channel, title, id and extension template
+```sh
+youtube-dl \
+-o "%(upload_date)s - %(channel)s-%(title)s.%(id)s.%(ext)s" \
+https://youtu.be/ID
+```
+
 List all available extractors (1126 until now 2018-08-29)
 ```sh
 youtube-dl --list-extractors

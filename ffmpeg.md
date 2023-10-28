@@ -741,6 +741,12 @@ List streams
 ffmpeg -i input.mp4 2>&1 | grep "Stream #"
 ```
 
+Split a FLAC file into separate tracks based on the CUE file, or just use [flacon](http://flacon.github.io/)
+```sh
+brew install shntool
+shnsplit -f file.cue -o flac file.flac
+```
+
 v360 links
 * https://ffmpeg.org/ffmpeg-filters.html#v360
 * https://www.cxyzjd.com/article/qiutiantxwd/107283224

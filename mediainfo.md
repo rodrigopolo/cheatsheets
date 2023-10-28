@@ -93,6 +93,15 @@ Text_End;]\n
 ;
 ```
 
+Get color primaries and transfer characteristics from videos
+```sh
+mediainfo --Inform="File_Begin;
+File_Middle;
+File_End;\r\n
+General;%FileName%.%FileExtension%	
+Video;%colour_primaries%	%transfer_characteristics%" *.MOV > reco.txt
+```
+
 Short examples
 ```sh
 #To get the duration of video stream:

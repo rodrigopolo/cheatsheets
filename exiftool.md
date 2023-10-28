@@ -165,6 +165,40 @@ exiftool \
 target.jpg
 ```
 
+Find all 360 photos based in width and height relation
+```sh
+exiftool \
+-q \
+-r \
+-if '$ImageWidth == 2 * $ImageHeight' \
+-p '$Directory/$FileName' \
+/path/to/directory
+```
+
+Find all 360 photos based in width and height relation, add its 360 metadata, and add the keyword 360
+```sh
+exiftool \
+-q \
+-r \
+-if '$ImageWidth == 2 * $ImageHeight' \
+-ProjectionType="equirectangular" \
+-XMP-GPano:InitialViewHeadingDegrees=0 \
+-Keywords+=360i \
+/path/to/directory
+```
+
+Find all 360 photos based in width and height relation and expecting NOT to jave a projection type, then add its 360 metadata, and add the keyword 360
+```sh
+exiftool \
+-q \
+-r \
+-if '$ImageWidth == 2 * $ImageHeight and not $ProjectionType' \
+-ProjectionType="equirectangular" \
+-XMP-GPano:InitialViewHeadingDegrees=0 \
+-Keywords+=360i \
+/path/to/directory
+```
+
 Change date
 ```sh
 exiftool \
@@ -259,7 +293,7 @@ Region Area Unit                 : normalized, normalized
 
 > Following these steps will rename your videos to a compatible filename convention for use in a media pool alongside files from any of this camera brands.
 
-Rename all Canon files in a path to have the date prefix with time offset
+Rename all Canon video files in a path to have the date prefix with time offset
 ```sh
 exiftool \
 -ext mp4 \
@@ -272,7 +306,7 @@ exiftool \
 /path/to/files
 ```
 
-Rename all iPhone files to have the date prefix with time offset
+Rename all iPhone video files to have the date prefix with time offset
 ```sh
 exiftool \
 -ext mp4 \
@@ -284,7 +318,7 @@ exiftool \
 /path/to/files
 ```
 
-Rename all GoPro files to have the date prefix, GoPro doesn't handle time offset
+Rename all GoPro video files to have the date prefix, GoPro doesn't handle time offset
 ```sh
 exiftool \
 -ext mp4 \
@@ -294,7 +328,7 @@ exiftool \
 /path/to/files
 ```
 
-Rename all Mavic Pro 2 files to have the date prefix, DJI uses UTC, input your own time offset
+Rename all Mavic Pro 2 video files to have the date prefix, DJI uses UTC, input your own time offset
 ```sh
 exiftool \
 -ext mp4 \
@@ -323,6 +357,59 @@ sed -En 's/^(mv \"[a-z]{3}_[0-9]{8}_[0-9]{6}_[0-9]{2}_[0-9]{3}([^.]*)\.([^"]+)")
 
 # Review the ren.sh script, and then execute it
 bash ren.sh
+```
+
+## Media Database with MongoDB
+
+Create a JSON file
+```sh
+exiftool \
+-j \
+-n \
+-r \
+-ext MP4 \
+-ext M4V \
+-ext MOV \
+-ext MKV \
+-ext OGG \
+-ext OGV \
+/path/to/files  > allmediainfo.json
+```
+
+Import it to MongoDB
+```sh
+mongoimport \
+--db mydb \
+--collection videos \
+--type json \
+--file allmediainfo.json \
+--jsonArray
+```
+
+You can do a search based in the properties like SourceFile
+```js
+db.getCollection('videos').find({
+   'SourceFile':/keyboard/i
+})
+```
+
+You can also search based on codec
+```js
+db.getCollection('videos').find({
+    "Encoder" : "Lavf58.45.100",
+}).forEach(function(i){
+    print(i.SourceFile)
+})
+```
+
+And on vertical videos, with size higher than 50MiB
+```js
+db.getCollection('videos').find({
+	$where: "this.ImageHeight > this.ImageWidth",
+	FileSize: {$lte: 52428800}
+}).forEach(function(i){
+    print(i.SourceFile)
+})
 ```
 
 Sources:  
