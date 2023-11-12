@@ -522,6 +522,16 @@ output.m4v
 eac3to input.ac3 output.m4a -progressnumbers -384 -log=NUL
 ```
 
+### 5.1 to Stereo
+```sh
+ffmpeg \
+-i "Audio.mkv" \
+-vn \
+-ac 2 \
+-af "pan=stereo|FL=FC+0.30*FL+0.30*BL|FR=FC+0.30*FR+0.30*BR" \
+stereo.wav
+```
+
 ### Stereo + Stereo → Stereo
 ![stereo + stereo → stereo](https://i.imgur.com/AiAGIly.png "stereo + stereo → stereo")
 
