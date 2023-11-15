@@ -379,6 +379,24 @@ ffmpeg \
 output.mp4
 ```
 
+### Equirectangular PNG to Cubemap
+```sh
+ffmpeg \
+-y \
+-i "equirectangular-input.png" \
+-vf "v360=equirect:c3x2" \
+cubemap3x2-output.png
+```
+
+### Cubemap PNG to Equirectangular
+```sh
+ffmpeg \
+-y \
+-i "cubemap3x2-input.png" \
+-vf "v360=c3x2:e:cubic" \
+equirectangular-output.png
+```
+
 ### ProRes blue screen with subtitles from SRT
 ```sh
 ffmpeg \
