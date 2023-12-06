@@ -77,7 +77,7 @@ solve-field \
 -T file.xyls
 ```
 
-Fake `solve-field` for trully blind platesolving
+Fake `solve-field` for truly blind plate solving
 ```sh
 #!/usr/bin/env bash
 
