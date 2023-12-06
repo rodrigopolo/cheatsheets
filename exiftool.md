@@ -68,6 +68,38 @@ Remove metadata
 exiftool -all= file.pdf
 ```
 
+Copy metadata
+```sh
+exiftool \
+-tagsFromFile source.tif \
+target.tif
+```
+
+Copy selected metadata
+```sh
+exiftool \
+-tagsFromFile source.tif \
+-DateTimeOriginal \
+-ApertureValue \
+-ShutterSpeedValue \
+-FocalLength \
+-ISO \
+-Make \
+-Model \
+-LensInfo \
+-LensModel \
+-LensSerialNumber \
+-SerialNumber \
+-Artist \
+-Copyright \
+-ExposureTime \
+-ExposureProgram \
+-ISO \
+-Creator \
+-Rights \
+target.tif
+```
+
 Get GPS decimal location
 ```sh
 exiftool -m -c "%+.10f" -p '$GPSlatitude,$GPSlongitude' file.jpg
