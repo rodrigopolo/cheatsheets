@@ -4,12 +4,6 @@
 * Shortcuts: https://siril.readthedocs.io/en/stable/GUI/shortcuts.html  
 * Documentation: https://siril.readthedocs.io/en/stable/
 
-Building Siril for macOS
-```sh
-ulimit -n 10000
-brew install siril
-```
-
 ## Download Preprocessing Scripts
 ```sh
 mkdir -p ~/.siril/scriptsiril/scripts
@@ -118,3 +112,21 @@ Extra info:
 https://siril.readthedocs.io/en/stable/astrometry/platesolving.html#using-the-local-astrometry-net-solver  
 https://siril.readthedocs.io/en/stable/astrometry/platesolving.html#index-files
 
+
+## CLI StarNet2 for MacOS
+```sh
+mkdir -p ~/.apps
+cd ~/.apps
+wget https://www.starnetastro.com/wp-content/uploads/2023/02/StarNet2T_MacOS.zip
+unzip StarNet2T_MacOS.zip && rm -rf StarNet2T_MacOS.zip __MACOSX
+cd StarNet2T_MacOS
+./install.sh
+```
+
+# Optional installation
+
+Building Siril for macOS (Doesn't show in Applications folder and macOS Launchpad)
+```sh
+ulimit -n 10000
+brew install siril
+```
