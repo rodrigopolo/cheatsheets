@@ -4,6 +4,32 @@
 * Shortcuts: https://siril.readthedocs.io/en/stable/GUI/shortcuts.html  
 * Documentation: https://siril.readthedocs.io/en/stable/
 
+Building Siril for macOS
+```sh
+ulimit -n 10000
+brew install siril
+```
+
+## Download Preprocessing Scripts
+```sh
+mkdir -p ~/.siril/scriptsiril/scripts
+cd ~/.siril/scriptsiril/scripts
+wget "https://gitlab.com/free-astro/siril-scripts/-/raw/main/preprocessing/DSA-StarTrails-WithoutDBF.ssf?ref_type=heads" -O DSA-StarTrails-WithoutDBF.ssf
+wget "https://gitlab.com/free-astro/siril-scripts/-/raw/main/preprocessing/Mono_Preprocessing_WithoutDBF.ssf?ref_type=heads" -O Mono_Preprocessing_WithoutDBF.ssf
+wget "https://gitlab.com/free-astro/siril-scripts/-/raw/main/preprocessing/Mono_Preprocessing_WithoutDark.ssf?ref_type=heads" -O Mono_Preprocessing_WithoutDark.ssf
+wget "https://gitlab.com/free-astro/siril-scripts/-/raw/main/preprocessing/Mono_Preprocessing_WithoutFlat.ssf?ref_type=heads" -O Mono_Preprocessing_WithoutFlat.ssf
+wget "https://gitlab.com/free-astro/siril-scripts/-/raw/main/preprocessing/Mono_Preprocessing_withbackgroundextraction.ssf?ref_type=heads" -O Mono_Preprocessing_withbackgroundextraction.ssf
+wget "https://gitlab.com/free-astro/siril-scripts/-/raw/main/preprocessing/OSC_Preprocessing_WithoutDBF.ssf?ref_type=heads" -O OSC_Preprocessing_WithoutDBF.ssf
+wget "https://gitlab.com/free-astro/siril-scripts/-/raw/main/preprocessing/OSC_Preprocessing_WithoutDark.ssf?ref_type=heads" -O OSC_Preprocessing_WithoutDark.ssf
+wget "https://gitlab.com/free-astro/siril-scripts/-/raw/main/preprocessing/OSC_Preprocessing_WithoutFlat.ssf?ref_type=heads" -O OSC_Preprocessing_WithoutFlat.ssf
+wget "https://gitlab.com/free-astro/siril-scripts/-/raw/main/preprocessing/OSC_Preprocessing_withbackgroundextraction.ssf?ref_type=heads" -O OSC_Preprocessing_withbackgroundextraction.ssf
+wget "https://gitlab.com/free-astro/siril-scripts/-/raw/main/preprocessing/OSC_Startrail.ssf?ref_type=heads" -O OSC_Startrail.ssf
+```
+
+Extra info:  
+https://gitlab.com/free-astro/siril-scripts/-/tree/main?ref_type=heads
+
+
 ## Using local catalogues in Siril
 
 ```sh
@@ -21,6 +47,7 @@ xz -d USNO-NOMAD-1e8.dat.xz
 
 Extra info:  
 https://siril.readthedocs.io/en/stable/astrometry/platesolving.html#using-local-catalogues
+
 
 ## Installing local Astrometry.net for Siril in macOS
 
