@@ -260,14 +260,19 @@ for i in *.md; do echo "$i" "`sed -e 's/\.md$/.txt/g' <<< $i`"; done
 
 Remove file in paths, sort, inque, grep results
 ```sh
-cat todo.txt | sed 's:[^/]*$::' | sort | uniq |grep -i keyword
+cat all.txt | sed 's:[^/]*$::' | sort | uniq |grep -i keyword
 ```
 
 Untested ChatGPT alternative
 ```sh
-awk -F/ '/keyword/ {print $1"/"}' todo.txt | sort -u
-grep -r -i -l keyword todo.txt | xargs -I{} dirname {} | sort -u
-find . -name "todo.txt" -exec dirname {} \; | sort -u | xargs -I{} grep -li keyword {}/todo.txt
+awk -F/ '/keyword/ {print $1"/"}' all.txt | sort -u
+grep -r -i -l keyword all.txt | xargs -I{} dirname {} | sort -u
+find . -name "all.txt" -exec dirname {} \; | sort -u | xargs -I{} grep -li keyword {}/all.txt
+```
+
+Find a regex
+```sh
+cat all.txt | grep -E "[0-9]{2} - [0-9]{2} [A-Z][a-z]{2} [0-9]{4}" 
 ```
 
 Replace `./` with `md5sum`
