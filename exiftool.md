@@ -360,7 +360,20 @@ exiftool \
 /path/to/files
 ```
 
-Rename all Mavic Pro 2 video files to have the date prefix, DJI uses UTC, input your own time offset
+Rename all Mavic Pro 2 video files to have the date prefix
+```sh
+exiftool \
+-ext mp4 \
+-ext mov \
+-ext jpg \
+-ext dng \
+-r \
+-p '$filename' '-FileName<CreateDate' \
+-d "%Y-%m-%d %H.%M.%S - %%f.%%e" \
+/path/to/files
+```
+
+Set a time offset
 ```sh
 exiftool \
 -ext mp4 \
@@ -371,8 +384,9 @@ exiftool \
 -GlobalTimeShift "-6:0:0" \
 -p '$filename' '-FileName<CreateDate' \
 -d "%Y-%m-%d %H.%M.%S - %%f.%%e" \
-/Volumes/Untitled/DCIM/100MEDIA
+/path/to/files
 ```
+
 
 Rename all Insta360 X3 videos
 > Insta360 videos do not handle time offset and [do not have a typical video extension](https://archive.ph/cxpMz). Therefore, the workflow to rename the files to have a name convention compatible with other cameras does not require using `exiftool` or `mediainfo`. Instead, it utilizes `sed` replacements. Ensure you have Insta360 Studio installed and that the videos have already been processed in it. This is important as Insta360 Studio provides date-time information in the filename convention. Then follow the script bellow:
