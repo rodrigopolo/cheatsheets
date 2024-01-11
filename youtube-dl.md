@@ -189,10 +189,16 @@ brew uninstall youtube-dl
 rm -rf ~/.config/youtube-dl/
 ```
 
+Install `yt-dpl`
 ```sh
 cd ~/.bin
-wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O youtube-dl
-chmod +x youtube-dl
+wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O yt-dlp
+chmod +x yt-dlp
+```
+
+And in case you want to keep using the `youtube-dl` command with `yt-dlp`
+```sh
+ln -s ~/.bin/yt-dlp ~/.bin/youtube-dl
 ```
 
 Create defaults:
