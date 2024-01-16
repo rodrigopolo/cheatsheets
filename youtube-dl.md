@@ -68,11 +68,6 @@ List all available extractors (1126 until now 2018-08-29)
 youtube-dl --list-extractors
 ```
 
-Periscope download (list first)
-```sh
-youtube-dl -F https://www.pscp.tv/w/<id>
-```
-
 Twitter download (list first)
 ```sh
 youtube-dl -F https://twitter.com/<user>/status/<tw-id>
@@ -117,10 +112,12 @@ ffmpeg -i foo.vtt foo.srt
 
 JSON playlist
 ```sh
-youtube-dl -j --flat-playlist 'https://www.youtube.com/watch?v=ID' | jq -r '.id' | sed 's_^_https://youtube.com/v/_'
+youtube-dl -j --flat-playlist 'https://www.youtube.com/watch?v=ID' | \
+jq -r '.id' | \
+sed 's_^_https://youtube.com/v/_'
 ```
 
-Download using browser cookie
+Download using saved cookie
 1. Install the *[Get cookies.txt](https://chrome.google.com/webstore/detail/get-cookiestxt/bgaddhkoddajcdgocldbbfleckgcbcid)* extension.
 2. Visit site logged in, click on the Get Cookies extension ico, and “Export” to a text file.
 3. Save the file in a directory and using the Terminal go to that directory.
@@ -130,6 +127,12 @@ Download using browser cookie
 youtube-dl \
 --cookies youtube.com_cookies.txt \
 [YouTube URL]
+```
+
+Download using browser cookies:
+```sh
+yt-dlp \
+--cookies-from-browser chrome
 ```
 
 Download using `aria2`
@@ -212,4 +215,17 @@ Config `~/.config/yt-dlp/config`
 -f 'bestvideo[ext=mp4][vcodec*=avc1.640]+bestaudio[ext=m4a]/best[ext=mp4]/best'
 --restrict-filenames
 --continue
+```
+
+Download trough proxy like `socks5://user:pass@127.0.0.1:1080/`
+```sh
+youtube-dl \
+-f "136+140" \
+--proxy socks5://127.0.0.1:1080/ \
+'https://www.youtube.com/watch?v=GZlGdRI78Sk'
+```
+
+Tunnel
+```sh
+ssh -D 1080 -q -C -N user@domain.com
 ```

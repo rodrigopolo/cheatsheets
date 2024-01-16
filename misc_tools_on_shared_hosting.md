@@ -359,3 +359,26 @@ cd
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar ~/.bin/composer
 ```
+
+Install Python on a shared hosting
+```sh
+cd
+mkdir ~/apps/python
+curl -k -O https://www.python.org/ftp/python/3.8.1/Python-3.8.1.tgz
+tar zxfv Python-3.8.1.tgz
+cd Python-3.8.1
+./configure --prefix=~/apps/python
+make
+make altinstall
+
+cd ~/apps/python
+ln -s python3.8 python
+ln -s python3.8 python3
+ln -s pip3.8 pip
+
+export PATH=~/apps/python/bin:$PATH
+
+cd
+rm Python-3.8.1.tgz
+rm Python-3.8.1
+```
