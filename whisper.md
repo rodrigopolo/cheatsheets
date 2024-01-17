@@ -140,3 +140,32 @@ else
 fi
 
 ```
+
+## Alternative
+
+Install Vosk
+```sh
+conda activate
+pip install vosk
+```
+
+Help and models
+```sh
+vosk-transcriber --help
+vosk-transcriber --list-model
+```
+
+Do a transcription to SRT, using the Espanish module, with `warn` log level
+```sh
+vosk-transcriber \
+-n vosk-model-es-0.42 \
+--log-level warn \
+-i "audio.m4a" \
+-t srt \
+-o transcription.srt
+```
+
+Extra notes:
+* [9 free AI tools that run locally on your PC](https://www.pcworld.com/article/2064105/9-free-ai-tools-that-run-locally-on-the-pc.html)
+* [Benchmarking Top Open Source Speech Recognition Models: Whisper, Facebook wav2vec2, and Kaldi](https://deepgram.com/learn/benchmarking-top-open-source-speech-models)
+
