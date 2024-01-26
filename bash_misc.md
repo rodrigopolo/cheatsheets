@@ -60,6 +60,14 @@ Find a string inside files, getting only the files matchinig, with the line and 
 find "$(pwd)" -type f -iname "*.md" -print0 | xargs -0 grep -n -H -i "keyword"
 ```
 
+Filter a list of files, and then, search inside each file
+```sh
+cat indexed.txt | \
+grep -i -E ".md$" | \
+tr '\n' '\0' | \
+xargs -0 grep -l -i "keyword"
+```
+
 Read a file with a list of files, only get the ones with the file extension, replace breaklines with NULL, and with xargs, find a string using grep
 ```sh
 cat files.txt | \
