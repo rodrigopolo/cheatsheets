@@ -61,6 +61,11 @@ Reset defaults Launchpad
 defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 ```
 
+Remove [ugly blue capslock indicator](https://discussions.apple.com/thread/255191086?sortBy=best)
+```sh
+sudo defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist redesigned_text_cursor -dict-add Enabled -bool NO
+```
+
 Script `label` to change Finder color tag:
 ```sh
 #!/usr/bin/env bash
