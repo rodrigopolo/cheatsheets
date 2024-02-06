@@ -112,6 +112,14 @@ sed -E 's/<a[^>]+href="([^"]+)"/\1/g' | \
 sort -u
 ```
 
+Get the average size of DNGs files in a folder
+```sh
+ls -la | \
+grep -E "dng$" | \
+awk -F' ' '{print $5}' | \
+awk '{sum += $1} END {printf "Average size: %.2f bytes\n", sum/NR}'
+```
+
 Remove a folder
 ```sh
 rm -rf folder/
