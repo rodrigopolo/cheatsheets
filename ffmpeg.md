@@ -175,7 +175,7 @@ ffmpeg -i input.mp4 -c:v prores_ks -profile:v 3 -c:a pcm_s16le output.mov
 
 > Source: https://trac.ffmpeg.org/wiki/Encode/VFX#Prores
 
-### Premiere DNX to H.264/AAC for YouTube with `hqdn3d` denoise and GOP 30
+### DNX to H.264/AAC for YouTube with `hqdn3d` denoise and GOP 30
 ```sh
 ffmpeg \
 -i input.mxf \
@@ -193,7 +193,7 @@ ffmpeg \
 output.mp4
 ```
 
-### Premiere DNX to H.264/AAC
+### DNX to H.264/AAC
 ```sh
 ffmpeg \
 -i input.mxf \
@@ -209,7 +209,7 @@ ffmpeg \
 output.mp4
 ```
 
-### Premiere DNX to H.265/AAC
+### DNX to H.265/AAC
 ```sh
 ffmpeg \
 -i input.mxf \
@@ -618,144 +618,6 @@ output.mp3
 
 > [FFmpeg Wiki: Audio Channels](https://trac.ffmpeg.org/wiki/AudioChannelManipulation)
 > [Source](https://stackoverflow.com/a/14528482/218418)
-
-## Video crop factors
-
-### Common Digital Video Formats
-
-Format | Dimensions | Aspect Ratio
-|----- |:----------:| -----------:|
-|HD    |   1280x720 |         16:9|
-|FHD   |  1920x1080 |         16:9|
-|4K-UHD|  3840x2160 |         16:9|
-|4K-DCI|  4096x2160 |      256:135|
-|5K.   |  5120x2880 |         16:9|
-|6K    |  6144x3456 |         16:9|
-|8K    |  7680x4320 |         16:9|
-
-### Cinemascope (2.35:1)
-
-Format  | 2.35:1 (47:20) | Letterbox |   FFmpeg Crop
-| ----- |---------------:|----------:|---------------:|
-|HD     |       1280x544 |        88 |   1280:544:0:88|
-|FHD    |       1920x816 |       132 |  1920:816:0:132|
-|4K-UHD |      3840x1632 |       264 | 3840:1632:0:264|
-|4K-DCI |      4096x1744 |       208 | 4096:1744:0:208|
-|5K     |      5120x2176 |       352 | 5120:2176:0:352|
-|6K     |      6144x2608 |       424 | 6144:2608:0:424|
-|8K     |      7680x3264 |       528 | 7680:3264:0:528|
-
-### Cinemascope (2.40:1)
-
-Format  | 2.40:1 (12:5) | Letterbox |   FFmpeg Crop
-| ----- |--------------:|----------:|---------------:|
-|HD     |      1280x528 |        96 |   1280:528:0:96|
-|FHD    |      1920x800 |       140 |  1920:800:0:140|
-|4K-UHD |     3840x1600 |       280 | 3840:1600:0:280|
-|4K-DCI |     4096x1712 |       224 | 4096:1712:0:224|
-|5K     |     5120x2128 |       376 | 5120:2128:0:376|
-|6K     |     6144x2560 |       448 | 6144:2560:0:448|
-|8K     |     7680x3200 |       560 | 7680:3200:0:560|
-
-### Ultra Panavision 70 (2.76:1)
-
-Format  | 2.76:1/69:25 | Letterbox |  FFmpeg Crop
-| ----- |-------------:|----------:|---------------:|
-|HD     |     1280x464 |       128 |  1280:464:0:128|
-|FHD    |     1920x688 |       196 |  1920:688:0:196|
-|4K-UHD |    3840x1382 |       384 | 3840:1382:0:384|
-|4K-DCI |    4096x1488 |       336 | 4096:1488:0:336|
-|5K     |    5120x1856 |       512 | 5120:1856:0:512|
-|6K     |    6144x2224 |       616 | 6144:2224:0:616|
-|8K     |    7680x2784 |       768 | 7680:2784:0:768|
-
-### 4K-DCI
-
-Format  | 4K-DCI (256:135) | 2.35:1 Letterbox |   FFmpeg Crop
-| ----- | ----------------:|-----------------:|---------------:|
-|HD     |         1280x672 |               24 |   1280:672:0:24|
-|FHD    |        1920x1008 |               36 |  1920:1008:0:36|
-|4K-UHD |        3840x2032 |               64 |  3840:2032:0:64|
-|4K-DCI |        4096x2160 |                0 |   4096:2160:0:0|
-|5K     |        5120x2704 |               88 |  5120:2704:0:88|
-|6K     |        6144x3248 |              104 | 6144:3248:0:104|
-|8K     |        7680x4048 |              136 | 7680:4048:0:136|
-
-### Slow motion percentage
-From    |  to  | Perc.
-|------:|-----:|------:|
-|  59.94|    24|   40% |
-| 119.88|    24|   20% |
-| 239.76|    24|   10% |
-|  59.94| 29.97|   50% |
-| 119.88| 29.97|   25% |
-| 239.76| 29.97| 12.5% |
-|  59.94|    60|  100% |
-| 119.88|    60|   50% |
-| 239.76|    60|   25% |
-
-## HDR Video Characteristics
-
-Based on the [QuickTime File Format and ProRes Video Parameter Editing](https://github.com/bbc/qtff-parameter-editor).
-
-The colour primaries can be selected from the list:
-
-| No.  | Colour Primaries  |
-| -----| --------------    |
-|0     | Reserved          |
-|1     | ITU-R BT.709      |
-|2     | Unspecified       |
-|3     | Reserved          |
-|4     | ITU-R BT.470M     |
-|5     | ITU-R BT.470BG    |
-|6     | SMPTE 170M        |
-|7     | SMPTE 240M        |
-|8     | FILM              |
-|9     | ITU-R BT.2020     |
-|10    | SMPTE ST 428-1    |
-|11    | DCI P3            |
-|12    | P3 D65            |
-
-The transfer function can be selected from the list:
-
-| No.  | Transfer Function                   |
-| -----| ---------------------------------   |
-|0     | Reserved                            |
-|1     | ITU-R BT.709                        |
-|2     | Unspecified                         |
-|3     | Reserved                            |
-|4     | Gamma 2.2 curve                     |
-|5     | Gamma 2.8 curve                     |
-|6     | SMPTE 170M                          |
-|7     | SMPTE 240M                          |
-|8     | Linear                              |
-|9     | Log                                 |
-|10    | Log Sqrt                            |
-|11    | IEC 61966-2-4                       |
-|12    | ITU-R BT.1361 Extended Colour Gamut |
-|13    | IEC 61966-2-1                       |
-|14    | ITU-R BT.2020 10 bit                |
-|15    | ITU-R BT.2020 12 bit                |
-|16    | SMPTE ST 2084 (PQ)                  |
-|17    | SMPTE ST 428-1                      |
-|18    | ARIB STD-B67 (HLG)                  |
-
-The colour matrix can be selected from the list:
-
-| No.  | Colour Matrix                  |
-| -----| ---------------------------    |
-|0     |GBR                             |
-|1     |BT709                           |
-|2     |Unspecified                     |
-|3     |Reserved                        |
-|4     |FCC                             |
-|5     |BT470BG                         |
-|6     |SMPTE 170M                      |
-|7     |SMPTE 240M                      |
-|8     |YCOCG                           |
-|9     |BT2020 Non-constant Luminance   |
-|10    |BT2020 Constant Luminance       |
-
 
 ## Misc
 
