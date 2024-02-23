@@ -492,6 +492,43 @@ ffmpeg \
 time-lapse.mp4
 ```
 
+Time-lapse from a JPEG image sequence with 5 digits, to an HEVC/H265 file.
+```sh
+ffmpeg \
+-y \
+-hide_banner \
+-r 24 \
+-f image2 \
+-start_number 1 \
+-i x%05d.jpg \
+-pix_fmt yuv420p \
+-c:v libx265 \
+-tag:v hvc1 \
+-preset superfast \
+-crf 22 \
+-an \
+-movflags +faststart \
+time-lapse.mp4
+```
+
+Time-lapse from a JPEG image sequence with 5 digits, to an ProRes file.
+```sh
+ffmpeg \
+-y \
+-hide_banner \
+-r 24 \
+-f image2 \
+-start_number 1 \
+-i x%05d.jpg \
+-pix_fmt yuv422p10le \
+-c:v prores_ks \
+-profile:v 3 \
+-vendor apl0 \
+-an \
+-movflags +faststart \
+time-lapse.mov
+```
+
 ## Join/Concat and plit video
 
 GoPro join, first, the `mylist.txt` file:
