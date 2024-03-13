@@ -577,6 +577,18 @@ output.m4v
 eac3to input.ac3 output.m4a -progressnumbers -384 -log=NUL
 ```
 
+### 5.1 EAC3 or AAC to 5.1 AC3
+```sh
+ffmpeg \
+-hwaccel auto \
+-y \
+-i input.aac \
+-map 0 \
+-c:a ac3 \
+-b:a 640k \
+out.ac3
+```
+
 ### 5.1 to Stereo
 ```sh
 ffmpeg \
