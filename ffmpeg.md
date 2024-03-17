@@ -267,6 +267,44 @@ ffmpeg \
 output.mp4
 ```
 
+### H.265 for BluRay
+```sh
+ffmpeg \
+-hwaccel auto \
+-y \
+-hide_banner \
+-i input.mkv \
+-pix_fmt yuv420p \
+-c:v libx265 \
+-tag:v hvc1 \
+-preset medium \
+-crf 18 \
+-x265-params aq-mode=3:psy-rd=1.0:aq-strength=1.0 \
+-an \
+-movflags +faststart \
+output.mp4
+```
+
+Explaination:
+* `ffmpeg`: This is the command to invoke FFmpeg.
+* `-hwaccel auto`: Enables automatic hardware acceleration for decoding tasks, allowing FFmpeg to use available hardware acceleration capabilities.
+* `-y`: Overwrites output files without asking for confirmation. Useful for batch processing where you don't want to manually confirm each overwrite.
+* `-hide_banner`: Hides the banner information (version, configuration, copyright notice, etc.) displayed by FFmpeg at the beginning of execution for a cleaner output.
+* `-i input.mkv`: Specifies the input file (input.mkv in this case).
+* `-pix_fmt yuv420p`: Specifies the pixel format for the output video as YUV 4:2:0, which is commonly used for H.265 encoding and is compatible with most devices and players.
+* `-c:v libx265`: Sets the video codec to H.265/HEVC using the libx265 encoder.
+* `-tag:v hvc1`: Adds the necessary hvc1 tag to indicate HEVC video content in MP4 container format.
+* `-preset medium`: Sets the encoding preset to medium, which balances encoding speed and compression efficiency.
+* `-crf 18`: Sets the constant rate factor (CRF) to 18, controlling the trade-off between video quality and file size. Lower values result in higher quality but larger file sizes.
+* `-x265-params`: Allows you to specify additional parameters that are passed directly to the x265 encoder. These parameters provide fine-grained control over various aspects of the encoding process to achieve desired compression efficiency and visual quality.
+  * `aq-mode=3`: Adaptive Quantization (AQ) mode controls how x265 dynamically adjusts the quantization levels based on the complexity of each frame. Setting it to `3` activates AQ mode 3, which is a spatial AQ mode that adjusts quantization based on local spatial complexity. This helps allocate more bits to visually important areas, improving overall visual quality.
+  * `psy-rd=1.0`: Psycho-Visual Rate Distortion (Psy-RD) is a parameter that balances visual quality against bitrate allocation by considering the perceptual impact of compression. A value of `1.0` for `psy-rd` indicates a balanced approach, where both visual quality and compression efficiency are given equal importance. Adjusting this parameter allows fine-tuning of the trade-off between visual quality and file size.
+  * `aq-strength=1.0`: Adaptive Quantization (AQ) strength controls the aggressiveness of adaptive quantization. A value of `1.0` indicates full strength, meaning that the quantization levels are adjusted aggressively based on the perceived complexity of each frame. This parameter influences the granularity of quantization adjustments and can impact visual quality and compression efficiency.
+* `-an`: Disables audio encoding, resulting in a video-only output.
+* `-movflags +faststart`: Optimizes the MP4 output file for web streaming by rearranging the file's internal structure, allowing for faster playback start times when streaming over HTTP.
+* `output.mp4`: Specifies the output filename and format.
+
+
 ### YouTube "Recomended Settings"
 ```sh
 ffmpeg \                # Calling the binary
