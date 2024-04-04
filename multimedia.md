@@ -205,45 +205,53 @@ The colour matrix can be selected from the list:
 
 ## Custom LUT for the FX30 with the Ninja V and Resolve
 
-### Set the FX30 to output S-Log 3
+* [Set the FX30 to output S-Log3](#set-the-fx30-to-output-s-log3)
+* [Download and fix the Technical LUTs](#download-and-fix-the-technical-luts)
+* [Loading the Technical LUT into the Ninja V](#atomos-ninja-v-settings)
+* [White balance and exposure using the Ninja V](#white-balance-and-exposure)
+* [DaVinci Resolve Grading and LUT Creation](#davinci-resolve-grading-and-lut-creation)
+* [Loading the custom LUT in the FX30](#custom-lut-in-the-fx30)
+* [Display the Custom LUT](#display-the-custom-lut)
 
-Pres the `MENU` button, go to `2` `Main2`, and enter in the `Log Shooting Setting`
+### Set the FX30 to output S-Log3
+
+1. Press the `MENU` button, go to `2` `Main2`, and enter the `Log Shooting Setting`.
 
 ![Main](FX30/01-Main2.png "Main")
 ![Log Shooting](FX30/02-Log.png "Log Shooting")
 ![Shooting Setting](FX30/03-Log_Shooting_Setting.png "Shooting Setting")
 
-Select `Log Shooting` and set it to `Cine EI`
+2. Select `Log Shooting` and set it to `Cine EI`.
 
 ![CineEI](FX30/04-CineEI.png "CineEI")
 ![Gamut](FX30/05-S-Gamut2-S-Log3.png "Gamut")
 
-On `Color Gamut` select `S-Gamut3.Cine/S-Log3`
+3. Under `Color Gamut`, select `S-Gamut3.Cine/S-Log3`.
 
 ![Gamut](FX30/05-S-Gamut2-S-Log3.png "Gamut")
 
-Go to `Main1` menu, and to the `Select LUT` option
+4. Go to `Main1` menu, and select the `Select LUT` option.
 
 ![Main1](FX30/06-Main1.png "Main1")
 ![Select LUT](FX30/07-s709.png "Select LUT")
 
-Under `Select LUT`, select `S-Log3`
+5. Under `Select LUT`, choose `S-Log3`.
 
 ![S-Log3](FX30/08-S-Log3.png "S-Log3")
 
-Under the `Display LUT` option, select `Off`
+6. Under the `Display LUT` option, select `Off`.
 
 ![LUT-ON](FX30/09-LUT-ON.png "LUT-ON")
 ![LUT Off](FX30/10-Off.png "LUT Off")
 
 ### Download and fix the Technical LUTs
 
-The Sony FX30 Technical LUTs are [available on their official website](https://alphauniverse.sony-asia.com/learn/fx-30/luts-library), and can be direclty downloaded following this link:
-https://alphauniverse.sony-asia.com/sites/default/files/2024-01/Technical%20LUT_Standard.zip
+The Sony FX30 Technical LUTs are [available on their official website](https://alphauniverse.sony-asia.com/learn/fx-30/luts-library) and can be directly downloaded following this link:
+[Technical LUT_Standard.zip](https://alphauniverse.sony-asia.com/sites/default/files/2024-01/Technical%20LUT_Standard.zip)
 
-> Notice that the `slog3_sgamut3_cine_to_rec709.cube`, `slog3_sgamut3_cine_to_rec709_-1stop.cube`, `slog3_sgamut3_cine_to_rec709_-2stop.cube` and `slog3_sgamut3_cine_to_rec709_-3stop.cube` use the `[TAB]` character to define the LUT size, you'll have to edit each file to replace the tab character to space in order to load the LUTs into the Atomos Nina V.
+> Note that the `slog3_sgamut3_cine_to_rec709.cube`, `slog3_sgamut3_cine_to_rec709_-1stop.cube`, `slog3_sgamut3_cine_to_rec709_-2stop.cube`, and `slog3_sgamut3_cine_to_rec709_-3stop.cube` files use the `[TAB]` character to define the LUT size. You'll need to edit each file to replace the tab character with a space in order to load the LUTs into the Atomos Ninja V.
 
-Original `slog3_sgamut3_cine_to_rec709.cube` file, with `[Tab]`:
+Original `slog3_sgamut3_cine_to_rec709.cube` file with `[Tab]`:
 ```
 # HDLINK 3D LOOKUP TABLE
 # BlackMagic cube from Truelight v4.0
@@ -255,7 +263,7 @@ LUT_3D_SIZE 16
 ...
 ```
 
-Modified with space `slog3_sgamut3_cine_to_rec709.cube` file, with `[Space]`:
+Modified file `slog3_sgamut3_cine_to_rec709.cube` with `[Space]`:
 ```
 # HDLINK 3D LOOKUP TABLE
 # BlackMagic cube from Truelight v4.0
@@ -271,33 +279,43 @@ LUT_3D_SIZE 16
 
 #### Loading the Technical LUT
 
-1. Copy the `slog3_sgamut3_cine_to_rec709.cube` into the Ninja V SD Sata Drive, then, plug it into the Ninja V.
-2. Select the gear icon on the button right screen.
-3. Select the `LUTs` tab.
-4. Select your LUT slot to load the LUT, and then, tap in the folder icon.
+1. Copy the `slog3_sgamut3_cine_to_rec709.cube` file onto the Ninja V's SD Sata Drive, then plug it into the Ninja V.
+2. Select the gear icon on the bottom right of the screen.
+3. Navigate to the `LUTs` tab.
+4. Choose the desired LUT slot to load the LUT, then tap on the folder icon.
 5. Select the `slog3_sgamut3_cine_to_rec709.cube` LUT.
-6. Go to the `Monitor` setting and select `LUT`.
+6. Navigate to the `Monitor` setting and select `LUT`.
 
 #### White balance and exposure
-1. Do NOT enable any toggle under the `Input` tab.
-2. Enable the False Colors for exposure, adjusting the exposure on the FX30 shooting at a 18% Grey Card.
-3. Using the RGB Parade, set your White Balance shooting at a 18% Grey Card.
-3. Record a sample footage using an X-Rite/Calibrite ColorChecker Video or similar card for your custom grading.
+1. Do NOT enable any toggles under the `Input` tab.
+2. Enable False Colors for exposure, adjusting the exposure on the FX30 while shooting at an 18% Grey Card.
+3. Using the RGB Parade, set your White Balance while shooting at an 18% Grey Card.
+4. Record a sample footage using an X-Rite/Calibrite ColorChecker Video or a similar card for custom grading.
 
-### DaVinci Resolve grading and LUT creation
-1. Load the Technical LUT into Resolve by copying the file into Resolve's LUT folder, which is located in the `/Library/Application Support/Blackmagic Design/DaVinci Resolve/LUT` diretory on macOS, and `C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\LUT` in Windows.
-2. After copying the `slog3_sgamut3_cine_to_rec709.cube` Technical LUT, under the `Color` tab, right click in the back of the LUTs pannel to get the contextual menu, and refresh, this will show the Technical LUT in the list.
-3. Under the `Edit` tab, Import your Atomos Ninja V ProRes HQ footage and create a timeline with the footage.
+### DaVinci Resolve Grading and LUT Creation
+1. Load the Technical LUT into Resolve by copying the file into Resolve's LUT folder, located in `/Library/Application Support/Blackmagic Design/DaVinci Resolve/LUT` on macOS, and `C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\LUT` on Windows.
+
+2. After copying the `slog3_sgamut3_cine_to_rec709.cube` Technical LUT, navigate to the `Color` tab. Right-click in the LUTs panel to access the contextual menu, then refresh to display the Technical LUT in the list.
+
+3. Under the `Edit` tab, import your Atomos Ninja V ProRes HQ footage and create a timeline with the footage.
+
 4. Set the `Data Levels` of each clip to `Full`.
-5. Under the `Color` tab, apply the Technical LUT to your clips, and do your custom grading with the Color Wheels, Curves, Color Wraper etc, but notice, effects and Color Space Transforms do NOT play well while creating LUTs.
-6. After doing the grading, right click on the clip, select `Generate LUT` and choose `33 Point Cube`, which is the maximun number of points the FX 30 allows, then, save the `.cube` LUT.
+
+![Attributes](FX30/B01-Attributes.png "Attributes")
+![Levels](FX30/B02-Levels.png "Levels")
+
+5. Under the `Color` tab, apply the Technical LUT to your clips, and perform your custom grading using Color Wheels, Curves, Color Wraper, etc. Note that effects and Color Space Transforms may not work well while creating LUTs.
+
+6. After grading, right-click on the clip, select `Generate LUT`, and choose `33 Point Cube`, which **is the maximum number of points the FX 30 allows**. Save the `.cube` LUT.
+
+![Levels](FX30/B03-ExportLUT.png "Levels")
 
 ### Custom LUT in the FX30
 
 #### Loading the custom LUT from memory
-Copy your `.cube` LUT into your SD or CF card, for SD the path for the LUTs is `PRIVATE/SONY/PRO/LUT`, for CF the path is `SONY/PRO/LUT`, put the memory card into your Sony FX30, and then go to the `Exposure/Color` pink menu
 
-On the CF Express Card
+1. Copy your `.cube` LUT onto your SD or CF card. For SD cards, the path for the LUTs is `PRIVATE/SONY/PRO/LUT`. For CF cards, the path is `SONY/PRO/LUT`.
+
 ```
 CF root
 └── SONY
@@ -314,58 +332,61 @@ SD root
             └── LUT
 ```
 
+2. Insert the memory card into your Sony FX30 camera. Go to the `Exposure/Color` pink menu.
+
 ![ExposureColor](FX30/C01-ExposureColor.png "ExposureColor")
 
-Select the `5` `Color/Tone` menu
+3. Select the `5` `Color/Tone` menu.
 
 ![ColorTone](FX30/C02-ColorTone.png "ColorTone")
 
-Select `Manage User LUTs`
+4. Choose `Manage User LUTs`.
 
 ![ManageUserLUTs](FX30/C03-ManageUserLUTs.png "ManageUserLUTs")
 
-Select `Import/Edit`
+5. Select `Import/Edit`.
 
 ![ImportEdit](FX30/C04-ImportEdit.png "ImportEdit")
 
-Select the slot to load the LUT
+6. Choose the slot to load the LUT.
 
 ![Slot](FX30/C05-User.png "Slot")
 
-Select `Media`
+7. Select `Media`.
 
 ![Media](FX30/C06-Media.png "Media")
 
-Select media slot
+8. Choose the media slot.
 
 ![Media](FX30/C07-SelectMedia.png "Media")
 
-Select the LUT file
+9. Select the LUT file.
 
 ![Media](FX30/C08-SelectLUT.png "Media")
 ![Confirmation](FX30/C09-Confirmation.png "Confirmation")
 ![List](FX30/C10-List.png "List")
 
+#### Display the Custom LUT
 
-#### Display the custom LUT
-Go to `Main1` menu
+1. Navigate to the `Main1` menu.
 
 ![Main1](FX30/C11-Main1.png "Main1")
 
-Enter to `Select LUT`
+2. Enter `Select LUT`.
 
 ![S-Log](FX30/C12-S-Log.png "S-Log")
 
-Choose your custom LUT
+3. Choose your custom LUT.
 
 ![SelectLUT](FX30/C13-SelectLUT.png "SelectLUT")
 
-Enable the `Display LUT`
+4. Enable the `Display LUT` option.
 
 ![Display LUT](FX30/C14-LutON.png "Display LUT")
 ![LUT On](FX30/C15-LUT.png "LUT On")
 
-*Voilà* Now you can preview and output your custom LUT trough HDMI, and record in `S-Gamut3.Cine/S-Log3` internally.
+*Voilà!* Now you can preview and output your custom LUT through HDMI and record internally in `S-Gamut3.Cine/S-Log3`.
+
 
 
 
