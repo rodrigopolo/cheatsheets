@@ -19,6 +19,11 @@ Create thumbnails with letter/pillar boxing
 mogrify -resize 80x80 -background white -gravity center -extent 80x80 -format jpg -quality 75 -path thumbs *.jpg
 ```
 
+Resize all images to fit inside 640x480px and strip the metadata
+```sh
+mogrify -resize '640x480>' -strip *.jpg
+```
+
 Convert all BMPs to JPG
 ```sh
 mogrify -format jpg -quality 90 *.bmp
