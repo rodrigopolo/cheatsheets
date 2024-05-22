@@ -193,6 +193,23 @@ The colour matrix can be selected from the list:
 |9     |BT2020 Non-constant Luminance   |
 |10    |BT2020 Constant Luminance       |
 
+## YouTube Chapters with Resolve.
+1. Create markers in your timeline using the same color.
+2. Open the index panel.
+3. Clic on the three dot button and select to view only your color markers.
+4. Clic on the three dot button and select `Export Edit Index` to save your CSV file.
+5. Using the macOS Terminal, run this command replacing your CVS file name:
+
+```sh
+{
+  echo "00:00 - Start"
+  tail -n +2 Timeline\ 1.csv | \
+  awk -F',' '{print $10 " - " $21}' | \
+  grep -v "Marker 1" | \
+  awk -F'[:, -"]+' '{printf "%02d:%02d - %s\n", $2, $3, $7}'
+} > output.txt
+```
+
 ## Sony Codecs
 |   Sony Format   | Resolution |    Codec   |    CM    |
 |:---------------:|:----------:|:----------:|:--------:|
