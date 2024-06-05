@@ -449,6 +449,18 @@ ffmpeg \
 output.mov
 ```
 
+### Add SRT subtitles to a MP4 file
+```sh
+ffmpeg \
+-i input.mp4 \
+-i subtitle.srt \
+-c:v copy \
+-c:a copy \
+-c:s mov_text \
+-metadata:s:s:0 language=eng \
+output.mp4
+```
+
 ### Other filter flags
 
 Crop
