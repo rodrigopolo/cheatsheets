@@ -83,6 +83,39 @@ httpProxyServer.on('error', (err, req, res) => {
 	handleProxyError(err, res);
 });
 
+httpServer.on('upgrade', (req, socket, head) => {
+	handleUpgrade(req, socket, head);
+});
+
+httpsServer.on('upgrade', (req, socket, head) => {
+	handleUpgrade(req, socket, head);
+});
+
+function handleUpgrade(req, socket, head) {
+	const host = req.headers.host;
+	if (proxyTable.hasOwnProperty(host)) {
+		const target = proxyTable[host];
+		httpProxyServer.ws(req, socket, head, { target }, (err) => {
+			if (err) {
+				console.error('WebSocket proxy error:', err);
+				socket.write('HTTP/1.1 500 Internal Server Error\r\n' +
+							 'Content-Type: text/plain\r\n' +
+							 'Connection: close\r\n' +
+							 '\r\n' +
+							 'Internal Server Error\r\n');
+				socket.destroy();
+			}
+		});
+	} else {
+		socket.write('HTTP/1.1 404 Not Found\r\n' +
+					 'Content-Type: text/plain\r\n' +
+					 'Connection: close\r\n' +
+					 '\r\n' +
+					 'Not Found\r\n');
+		socket.destroy();
+	}
+}
+
 httpServer.listen(PORT, () => {
 	console.log(`HTTP Proxy server is listening on port ${PORT}`);
 });
