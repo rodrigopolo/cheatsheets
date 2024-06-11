@@ -44,7 +44,13 @@ const fs = require('fs');
 const httpProxyServer = httpProxy.createProxyServer({});
 
 const httpServer = http.createServer((req, res) => {
+	// Normal
 	handleRequest(req, res);
+
+	// Redirect all HTTP requests to HTTPS
+	// const host = req.headers.host;
+	// res.writeHead(301, { "Location": `https://${host}${req.url}` });
+	// res.end();
 });
 
 const httpsServer = https.createServer({
@@ -84,7 +90,13 @@ httpProxyServer.on('error', (err, req, res) => {
 });
 
 httpServer.on('upgrade', (req, socket, head) => {
+	// Normal
 	handleUpgrade(req, socket, head);
+
+	// Redirect WebSocket upgrades to HTTPS
+	// const host = req.headers.host;
+	// socket.write(`HTTP/1.1 301 Moved Permanently\r\nLocation: wss://${host}${req.url}\r\n\r\n`);
+	// socket.end();
 });
 
 httpsServer.on('upgrade', (req, socket, head) => {
