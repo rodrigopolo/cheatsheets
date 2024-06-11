@@ -56,15 +56,32 @@ const httpsServer = https.createServer({
 
 function handleRequest(req, res) {
 	const host = req.headers.host;
-
 	if (proxyTable.hasOwnProperty(host)) {
 		const target = proxyTable[host];
-		httpProxyServer.web(req, res, { target });
+		httpProxyServer.web(req, res, { target }, (err) => {
+			if (err) {
+				handleProxyError(err, res);
+			}
+		});
 	} else {
 		res.writeHead(404, { 'Content-Type': 'text/plain' });
 		res.end('Not Found');
 	}
 }
+
+function handleProxyError(err, res) {
+	if (err.code === 'ECONNRESET') {
+		console.error('Connection reset by peer:', err);
+	} else {
+		console.error('Proxy error:', err);
+	}
+	res.writeHead(500, { 'Content-Type': 'text/plain' });
+	res.end('Server error or connection error');
+}
+
+httpProxyServer.on('error', (err, req, res) => {
+	handleProxyError(err, res);
+});
 
 httpServer.listen(PORT, () => {
 	console.log(`HTTP Proxy server is listening on port ${PORT}`);
