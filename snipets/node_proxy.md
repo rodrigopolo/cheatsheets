@@ -226,3 +226,8 @@ To list the service
 ```sh
 launchctl list | grep -i com.yourcompany.proxy
 ```
+
+Check if any port is alredy in use
+```sh
+sudo lsof -i -P | grep LISTEN
+```

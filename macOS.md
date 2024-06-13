@@ -18,6 +18,11 @@ sudo \
 --nointeraction
 ```
 
+Prevent external disks from sleeping
+```sh
+sudo pmset -a disksleep 0
+```
+
 Add paths to system:
 ```sh
 touch ~/.zshrc

@@ -117,6 +117,39 @@ jq -r '.id' | \
 sed 's_^_https://youtube.com/v/_'
 ```
 
+Get filenames from a playlist
+```sh
+youtube-dl \
+--get-filename \
+-o "%(playlist_index)s-%(title)s.%(id)s.%(ext)s" \
+"https://youtube.com/playlist?list=<id>"
+```
+
+Get playlist info into JSON
+```sh
+youtube-dl \
+--print-json \
+--get-filename \
+-o "%(playlist_index)s-%(title)s.%(id)s.%(ext)s" \
+"https://youtube.com/playlist?list=PLqifZi_0bBnv7PoPLN4W8vkBotkRlRobh" > playlist_info.txt
+```
+
+Get title parsing JSON
+```sh
+cat playlist_info.txt | \
+grep -E "^\{\"id" | \
+jq -s "." | \
+jq -r '.[] | .title'
+```
+
+Get title, thumbnail and description into CSV pasting JSON
+```sh
+cat playlist_info.txt | \
+grep -E "^\{\"id" | \
+jq -s "." | \
+jq -r '.[] | [.title, .thumbnail, .description] | @tsv'
+```
+
 Download using saved cookie
 1. Install the *[Get cookies.txt](https://chrome.google.com/webstore/detail/get-cookiestxt/bgaddhkoddajcdgocldbbfleckgcbcid)* extension.
 2. Visit site logged in, click on the Get Cookies extension ico, and “Export” to a text file.

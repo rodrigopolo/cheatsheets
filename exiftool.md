@@ -461,3 +461,51 @@ db.getCollection('videos').find({
 Sources:  
 https://exiftool.org/faq.html  
 https://ninedegreesbelow.com/photography/exiftool-commands.html
+
+`setlocation.sh` bash script, `./setlocation.sh image.jpg 40.75914 -73.97707`
+```sh
+#!/bin/bash
+
+# Modifying the internal field separator
+IFS=$'\t\n'
+
+# Check if the correct number of arguments are provided
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <filename> <latitude> <longitude>"
+    exit 1
+fi
+
+# Assign arguments to variables
+filename="$1"
+latitude="$2"
+longitude="$3"
+
+# Convert latitude and longitude to degrees, minutes, and seconds format
+lat_deg=$(echo "$latitude" | cut -d '.' -f 1)
+lat_min=$(echo "scale=6; (${latitude} - ${lat_deg}) * 60" | bc | cut -d '.' -f 1)
+lat_sec=$(echo "scale=6; (${latitude} - ${lat_deg} - ${lat_min}/60) * 3600" | bc | cut -d '.' -f 1)
+
+long_deg=$(echo "$longitude" | cut -d '.' -f 1)
+long_min=$(echo "scale=6; (${longitude} - ${long_deg}) * 60" | bc | cut -d '.' -f 1)
+long_sec=$(echo "scale=6; (${longitude} - ${long_deg} - ${long_min}/60) * 3600" | bc | cut -d '.' -f 1)
+
+# Set the appropriate reference directions
+if (( $(echo "$latitude >= 0" | bc -l) )); then
+    lat_ref="North"
+else
+    lat_ref="South"
+fi
+
+if (( $(echo "$longitude >= 0" | bc -l) )); then
+    long_ref="East"
+else
+    long_ref="West"
+fi
+
+# Use ExifTool to set GPS coordinates
+exiftool -GPSLatitude="$lat_deg $lat_min $lat_sec" -GPSLatitudeRef="$lat_ref" \
+         -GPSLongitude="$long_deg $long_min $long_sec" -GPSLongitudeRef="$long_ref" "$filename"
+
+echo "GPS coordinates set for $filename"
+
+```
