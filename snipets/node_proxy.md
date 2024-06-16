@@ -236,3 +236,29 @@ Check if any port is alredy in use
 ```sh
 sudo lsof -i -P | grep LISTEN
 ```
+
+## Let's Encrypt certificate
+Creating your own SSL/HTTPS certificate with Let's Encrypt using Certbot on a macOS computer:
+
+1. Ensure your firewall allows traffic on ports 80 (HTTP) and 443 (HTTPS).
+2. Install Certbot
+3. Stop Your Web Server
+4. Run Certbot to Obtain the Certificate, following the prompts
+5. Start Your Web Server
+6. Set Up Automatic Renewal with a cronjob
+
+Install and run Certbot to create your certificates
+```sh
+brew install certbot
+sudo certbot certonly --standalone -d yourdomain.com -d www.yourdomain.com
+```
+
+`Crontab.txt` for easy edition of crons
+```sh
+0 0,12 * * * /opt/homebrew/bin/certbot renew --quiet
+```
+
+Add/replace all cronjobs in the crontab
+```sh
+crontab crontab.txt
+```
