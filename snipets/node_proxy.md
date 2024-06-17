@@ -6,7 +6,7 @@ mkdir ~/.apps/proxy && cd ~/.apps/proxy
 npm install http http-proxy
 ```
 
-Generate Private Key, generate Certificate Signing Request (CSR) following the prompts, and generate Self-Signed Certificate
+Self signed certificate: Generate Private Key, generate Certificate Signing Request (CSR) following the prompts, and generate Self-Signed Certificate
 ```sh
 openssl genpkey -algorithm RSA -out private-key.pem
 openssl req -new -key private-key.pem -out csr.pem
@@ -155,25 +155,12 @@ sudo node proxy.js
 
 ## Daemonizing the script (keep it running in background)
 
-Remove authentication for the script in qustion
+Create `com.yourcompany.proxy.plist`
 ```sh
-sudo visudo
+nano sudo nano /Library/LaunchDaemons/com.yourcompany.proxy.plist
 ```
 
-Go to the last line, press `i` to enter insert mode, paste the following line replacing `USER` with your username
-```
-# Allow USER to run Node.js proxy script without a password
-USER ALL=(ALL) NOPASSWD: /opt/homebrew/bin/node /Users/USER/.apps/proxy/proxy.js
-
-```
-
-After inserting the line, press `Esc` to return to normal mode. Save the changes and exit by typeing `:wq` and press `Enter`, alternatively, you can use `ZZ` (press `Shift` + `zz`) to save and exit.
-
-Create `com.yourcompany.proxy.plist` and replace `USER` with your user
-```sh
-nano ~/Library/LaunchAgents/com.yourcompany.proxy.plist
-```
-
+Edit your `USER` path, 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -191,13 +178,13 @@ nano ~/Library/LaunchAgents/com.yourcompany.proxy.plist
 	<key>KeepAlive</key>
 	<true/>
 	<key>StandardOutPath</key>
-	<string>/Users/USER/.apps/proxy/proxy.log</string>
+	<string>/Users/USER/.apps/proxy/output.log</string>
 	<key>StandardErrorPath</key>
-	<string>/Users/USER/.apps/proxy/proxy_error.log</string>
+	<string>/Users/USER/.apps/proxy/error.log</string>
 	<key>UserName</key>
-	<string>USER</string>
+	<string>root</string>
 	<key>GroupName</key>
-	<string>admin</string>
+	<string>wheel</string>
 	<key>Sockets</key>
 	<dict>
 		<key>Listeners</key>
@@ -219,12 +206,12 @@ nano ~/Library/LaunchAgents/com.yourcompany.proxy.plist
 
 Load the Launch Agent to start the service
 ```sh
-launchctl load ~/Library/LaunchAgents/com.yourcompany.proxy.plist
+sudo launchctl load /Library/LaunchDaemons/com.yourcompany.proxy.plist
 ```
 
 Unloading the Launch Agent to stop the service
 ```sh
-launchctl unload ~/Library/LaunchAgents/com.yourcompany.proxy.plist
+sudo launchctl unload /Library/LaunchDaemons/com.yourcompany.proxy.plist
 ```
 
 To list the service
@@ -242,10 +229,10 @@ Creating your own SSL/HTTPS certificate with Let's Encrypt using Certbot on a ma
 
 1. Ensure your firewall allows traffic on ports 80 (HTTP) and 443 (HTTPS).
 2. Install Certbot
-3. Stop Your Web Server
-4. Run Certbot to Obtain the Certificate, following the prompts
-5. Start Your Web Server
-6. Set Up Automatic Renewal with a cronjob
+3. Stop your web server
+4. Run Certbot to obtain the certificate, following the prompts
+5. Start your web server
+6. Set up automatic renewal with a cronjob
 
 Install and run Certbot to create your certificates
 ```sh
