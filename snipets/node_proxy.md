@@ -60,8 +60,13 @@ const httpsServer = https.createServer({
 	handleRequest(req, res);
 });
 
-function logWithTimestamp(logFn, message) {
-	const timestamp = new Date().toISOString();
+function logWithTimestamp(logFn, message, offsetHours) {
+	if (typeof offsetHours === 'undefined') {
+		offsetHours = -6; // Default offset in hours
+	}
+	const now = new Date();
+	now.setHours(now.getHours() + offsetHours);
+	const timestamp = now.toISOString();
 	logFn(`[${timestamp}] ${message}`);
 }
 
