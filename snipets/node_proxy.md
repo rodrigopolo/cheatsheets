@@ -252,5 +252,17 @@ sudo certbot certonly --standalone -d yourdomain.com -d www.yourdomain.com
 
 Add/replace all cronjobs in the crontab
 ```sh
-crontab crontab.txt
+sudo crontab crontab.txt
+```
+
+Considering using `certbot` custom paths:
+```
+--config-dir
+/etc/letsencrypt
+
+--work-dir
+/var/lib/letsencrypt
+
+--logs-dir
+/var/log/letsencrypt
 ```
