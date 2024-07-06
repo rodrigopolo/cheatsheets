@@ -1,9 +1,9 @@
 # Node Proxy
 
-1. Setting the certificates and main script
-2. Daemonizing the script
-3. Let's Encrypt certificate
-4. Alternatives
+1. [Setting the certificates and main script](#setting-the-certificates-and-main-script)
+2. [Daemonizing the script](#daemonizing-the-script-keep-it-running-in-background)
+3. [Let's Encrypt certificate](#lets-encrypt-certificate)
+4. [Alternatives](#alternatives)
 
 ## Setting the certificates and main script
 
