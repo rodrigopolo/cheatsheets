@@ -74,7 +74,16 @@ function handleRequest(req, res) {
 	const host = req.headers.host;
 	if (proxyTable.hasOwnProperty(host)) {
 		const target = proxyTable[host];
-		httpProxyServer.web(req, res, { target }, (err) => {
+		const proxyOptions = {
+			target,
+			changeOrigin: true,
+			headers: {
+				'X-Forwarded-For': req.connection.remoteAddress || req.socket.remoteAddress,
+				'X-Forwarded-Proto': req.connection.encrypted ? 'https' : 'http',
+				'Host': req.headers.host
+			}
+		};
+		httpProxyServer.web(req, res, proxyOptions, (err) => {
 			if (err) {
 				handleProxyError(err, res);
 			}
@@ -117,7 +126,15 @@ function handleUpgrade(req, socket, head) {
 	const host = req.headers.host;
 	if (proxyTable.hasOwnProperty(host)) {
 		const target = proxyTable[host];
-		httpProxyServer.ws(req, socket, head, { target }, (err) => {
+		const proxyOptions = {
+			target,
+			headers: {
+				'X-Forwarded-For': req.connection.remoteAddress || req.socket.remoteAddress,
+				'X-Forwarded-Proto': req.connection.encrypted ? 'https' : 'http',
+				'Host': req.headers.host
+			}
+		};
+		httpProxyServer.ws(req, socket, head, proxyOptions, (err) => {
 			if (err) {
 				logWithTimestamp(console.error, 'WebSocket proxy error: ' + err.message);
 				socket.write('HTTP/1.1 500 Internal Server Error\r\n' +
