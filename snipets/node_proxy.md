@@ -1,5 +1,12 @@
 # Node Proxy
 
+1. Setting the certificates and main script
+2. Daemonizing the script
+3. Let's Encrypt certificate
+4. Alternatives
+
+## Setting the certificates and main script
+
 Create app path and install dependencies
 ```sh
 mkdir ~/.apps/proxy && cd ~/.apps/proxy
@@ -283,3 +290,68 @@ Considering using `certbot` custom paths:
 --logs-dir
 /var/log/letsencrypt
 ```
+
+## Alternatives
+
+
+### Nginx Proxy Manager
+1. Install Docker Desktop or Docker Compose
+2. Create folder with your `docker-compose.yml`
+3. Pull the images
+4. Setup your proxy
+
+The `docker-compose.yml` file:
+```yaml
+name: nginx_proxy_manager
+
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: NPM
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "npm_user"
+      DB_MYSQL_PASSWORD: "npm_pass"
+      DB_MYSQL_NAME: "npm_db"
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+  db:
+    image: 'jc21/mariadb-aria:latest'
+    container_name: MariaDB
+    environment:
+      MYSQL_ROOT_PASSWORD: 'mysqlroot'
+      MYSQL_DATABASE: 'npm_db'
+      MYSQL_USER: 'npm_user'
+      MYSQL_PASSWORD: 'npm_pass'
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+```
+
+Pulling and starting the service from the terminal
+```sh
+docker-compose pull
+docker-compose up -d
+```
+
+Default user name and password for http://localhost:81/login
+```
+Email:    admin@example.com
+Password: changeme
+```
+
+
+To stop the service
+```sh
+docker-compose stop
+```
+
+Sources:
+* https://github.com/christianlempa/videos/tree/main/nginxproxymanager-tutorial#2-set-up-nginx-proxy-manager
+
