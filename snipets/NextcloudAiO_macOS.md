@@ -1,11 +1,11 @@
 # Nextcloud All-in-One in macOS
 
 For this setup to work you need:
-. A public ip
-. A fully qualified domain name (FQDN) pointing to the public ip
-. Your ports `80` and `443` open in your router
-. Nginx Proxy Manager already running behind the router
-. Docker Desktop installed and running
+1. A public ip
+2. A fully qualified domain name (FQDN) pointing to the public ip
+3. Your ports `80` and `443` open in your router
+4. Nginx Proxy Manager already running behind the router
+5. Docker Desktop installed and running
 
 The following script is based in the official [all-in-one/compose.yaml](https://github.com/nextcloud/all-in-one/blob/main/compose.yaml).
 
