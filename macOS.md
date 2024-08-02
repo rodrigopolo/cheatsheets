@@ -173,3 +173,49 @@ figlet -f rectangles "Rodrigo Polo"
 figlet -f slant "Rodrigo Polo" 
 figlet -f smslant "Rodrigo Polo"
 ```
+
+## Enable color in the Terminal app
+
+Install `nano`
+```sh
+brew install nano
+```
+
+Edit `~/.nanorc` and add:
+```sh
+include "/opt/homebrew/share/nano/*.nanorc" # M1 CPU
+include "/usr/local/share/nano/*.nanorc" # For Intel CPU
+```
+
+Change the prompt in `~/.zshrc`
+```sh
+PROMPT='%F{cyan}%n@%m %F{yellow}%~ %f%F{green}$%f ' # With user
+PROMPT='%F{yellow}%~ %f%F{green}$%f ' # Without user
+```
+
+Enable color support in other apps adding this to `~/.zshrc`
+```sh
+# Enable color support
+autoload -U colors && colors
+export TERM=xterm-256color
+
+# Enable color
+alias ls='ls -G'
+alias tree='tree -C'
+alias grep='grep --color=auto'
+
+# Man pages color settings
+export LESS_TERMCAP_mb=$'\e[1;31m'
+export LESS_TERMCAP_md=$'\e[1;31m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[1;44;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;32m'
+
+# Git color settings
+git config --global color.ui auto
+git config --global color.branch auto
+git config --global color.diff auto
+git config --global color.status auto
+```

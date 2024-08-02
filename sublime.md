@@ -18,6 +18,8 @@ href\="(\S+)"
 href="#"
 ```
 
+Find `(¿[a-z])` and replace with uppercase `\U\1`
+
 Dates on ISO 9075
 ```
 \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}

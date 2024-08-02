@@ -367,7 +367,7 @@ Restore DB
 ```sh
 mongorestore \
 --nsFrom='DB.*' \
---nsTo='NewDB.*' gotwme/
+--nsTo='NewDB.*' db/
 ```
 
 Sources
@@ -379,12 +379,9 @@ brew tap mongodb/brew && brew install mongodb-community@4.2
 ```
 
 Locations
-```sh
-# Config
-/usr/local/etc/mongod.conf
-
-# Data
-/usr/local/var/mongodb
+1. Run the `mongo` shell and then:
+```js
+db.adminCommand({ getCmdLineOpts: 1 }).parsed.storage.dbPath
 ```
 
 Brew message
