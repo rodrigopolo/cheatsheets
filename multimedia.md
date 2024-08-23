@@ -404,6 +404,18 @@ SD root
 
 *Voilà!* Now you can preview and output your custom LUT through HDMI and record internally in `S-Gamut3.Cine/S-Log3`.
 
+### OCR for VobSub2SRT in macOS
 
+Install
+```sh
+brew install tesseract
+brew install tesseract-lang
+wget https://raw.githubusercontent.com/leonard-slass/VobSub2SRT/master/packaging/vobsub2srt.rb
+sed -i '' 's/ruediger/leonard-slass/;s/git:/https:/' vobsub2srt.rb
+brew install --HEAD vobsub2srt.rb
+```
 
-
+OCR
+```sh
+vobsub2srt --tesseract-lang spa "File.SPA"
+```
