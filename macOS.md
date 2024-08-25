@@ -219,3 +219,20 @@ git config --global color.branch auto
 git config --global color.diff auto
 git config --global color.status auto
 ```
+
+## Matrix
+```sh
+cmatrix
+unimatrix -s 90
+```
+https://github.com/will8211/unimatrix
+
+## Weather
+Cols 125, rows 40
+```sh
+curl wttr.in
+curl wttr.in/:help
+curl wttr.in/Guatemala\?format=2
+curl wttr.in/Guatemala\?format=3
+```
+https://github.com/chubin/wttr.in
