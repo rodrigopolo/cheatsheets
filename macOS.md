@@ -236,3 +236,93 @@ curl wttr.in/Guatemala\?format=2
 curl wttr.in/Guatemala\?format=3
 ```
 https://github.com/chubin/wttr.in
+
+## Hollywood
+```sh
+docker run --rm -it bcbcarl/hollywood
+```
+
+## Utils
+```sh
+brew install \
+fastfetch \
+ncdu \
+btop \
+starship \
+tmux \
+bat \
+multitail
+```
+
+Extra sources:
+* https://starship.rs/guide/#🚀-installation  
+* https://starship.rs/presets/pastel-powerline  
+* https://starship.rs/presets/tokyo-night  
+* https://starship.rs/presets/gruvbox-rainbow  
+* https://docs.warp.dev/appearance/prompt#starship  
+* https://www.youtube.com/watch?v=cPWEX2446B4  
+* https://github.com/ChrisTitusTech/mybash  
+
+## Warp theme `~/.warp/themes/rodrigopolo.yaml`
+```yaml
+---
+background: '#222222' # Terminal background color
+accent: '#268bd2' # Accent color for UI elements
+foreground: '#839496' # The foreground color
+details: darker # Whether the theme is lighter or darker
+#cursor: '#d3a964' # The cursor color (optional; defaults to accent color if omitted)
+terminal_colors: # Ansi escape colors
+  bright:
+    black: '#073642'
+    blue: '#268bd2'
+    cyan: '#2aa198'
+    green: '#859900'
+    magenta: '#d33682'
+    red: '#dc322f'
+    white: '#eee8d5'
+    yellow: '#b58900'
+  normal:
+    black: '#333437'
+    blue: '#1081d6'
+    cyan: '#0f7ddb'
+    green: '#1dd361'
+    magenta: '#a911eb'
+    red: '#de352e'
+    white: '#ffffff'
+    yellow: '#f3bd09'
+name: Rodrigo Polo
+```
+
+## Disable starship on Apple Terminal
+```sh
+if [[ $TERM_PROGRAM == "Apple_Terminal" ]]; then
+    PROMPT='%B%F{green}%n@%m%b %F{yellow}%~ %f$ '
+else
+    eval "$(starship init zsh)"
+fi
+```
+
+WezTerm settings `~/.wezterm.lua`
+```lua
+local wezterm = require 'wezterm'
+
+return {
+  font = wezterm.font("FiraCode Nerd Font"),
+  font_size = 12.0,
+  harfbuzz_features = {"calt=0", "clig=0", "liga=0"},
+  initial_cols = 125,
+  initial_rows = 40,
+  window_background_opacity = 0.8,
+  macos_window_background_blur = 20,
+  scrollback_lines = 10000,
+  enable_tab_bar = true,
+  hide_tab_bar_if_only_one_tab = true,
+  use_fancy_tab_bar = false,
+  window_padding = {
+    left = 8,
+    right = 8,
+    top = 4,
+    bottom = 3,
+  },
+}
+```
