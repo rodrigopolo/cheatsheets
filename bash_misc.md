@@ -466,3 +466,72 @@ shasum file.txt
 md5 file.txt
 ```
 
+Check open ports
+```sh
+sudo lsof -i -P | grep LISTEN
+```
+
+Get the path of a proccess
+```sh
+ps -p 825 -o args=
+```
+
+Querying DNS
+```sh
+nslookup google.com
+nslookup google.com 9.9.9.9
+```
+
+Deal with duplicate files
+```sh
+# Install
+brew install fdupes
+
+# Find duplicates
+fdupes -r -n ./
+
+# Find and delete duplicates 
+fdupes -dN -r -n ./
+fdupes -rdN .
+```
+
+Use file lists with `xargs`
+```sh
+# Create the file list
+find . -type f -iname "*.mp4" > list.txt
+
+# Add color label to the list of files using a custom `label` bash script, it works with paths with white spaces
+while IFS= read -r file; do
+  label 2 "$file"
+done < list.txt
+```
+
+List comparison
+```sh
+# Only different lines between two files
+comm -3 <(sort list_a.txt | uniq) <(sort list_b.txt | uniq) | tr -d '\t'
+
+# Only what is not in list b
+comm -23 <(sort list_a.txt) <(sort list_b.txt)
+
+# Only what appears in both files
+comm -12 <(sort list_a.txt) <(sort list_b.txt)
+```
+
+Rename all files without extension to have the `.mp4` extension
+```sh
+ls -1 | grep -v '\.' | while read file; do
+    mv "$file" "$file.mp4"
+done
+```
+
+Change process priority
+```sh
+ps aux | grep -i ffmpeg
+sudo renice 19 -p <PID>
+```
+
+Ollama AI
+```sh
+ollama run llama3.1
+```
