@@ -14,41 +14,38 @@
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
 
-# Check if exactly two arguments are provided
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <input_file> <output_file>"
-    exit 1
-fi
 
-# Check if the first argument (input file) exists
-if [ ! -f "$1" ]; then
-    echo "Error: Input file $1 does not exist."
-    exit 1
-fi
+# Modifying the internal field separator
+IFS=$'\t\n'
 
-# Execute ImageMagick command
-magick "$1" \
-    -quality 90 \
-    "$2"
+for f in $@; do
 
-# Check if the ImageMagick command was successful
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to convert image."
-    exit 1
-fi
+    OUTPUT="${f%.*}.jpg"
 
-# Execute exiftool command
-exiftool \
-    -overwrite_original \
-    -ProjectionType="equirectangular" \
-    -XMP-GPano:InitialViewHeadingDegrees=0 \
-    -Keywords+=360i \
-    "$2"
+    # Execute ImageMagick command
+    magick "$f" \
+        -quality 90 \
+        "$OUTPUT"
 
-# Check if exiftool command was successful
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to modify EXIF data."
-    exit 1
-fi
+    # Check if the ImageMagick command was successful
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to convert image."
+        exit 1
+    fi
 
-echo "Process completed successfully."
+    # Execute exiftool command
+    exiftool \
+        -overwrite_original \
+        -ProjectionType="equirectangular" \
+        -XMP-GPano:InitialViewHeadingDegrees=0 \
+        -Keywords+=360i \
+        "$OUTPUT"
+
+    # Check if exiftool command was successful
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to modify EXIF data."
+        exit 1
+    fi
+
+done
+
