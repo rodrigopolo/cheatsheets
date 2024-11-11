@@ -82,6 +82,16 @@ mogrify -format png -resize 128x128 -path 128 folder/*.png
 mogrify -format png -resize 40x40 -path 40 folder/*.png
 ```
 
+Join a mosaic image
+```sh
+montage  \
+0000000000-0000066619.jpg \
+0000066620-0000130186.jpg \
+0000130187-0000163987.jpg \
+0000163988-0000197124.jpg \
+-tile 2x2 -geometry 512x512+0+0 Left.tif
+```
+
 Change DPI
 ```sh
 mogrify -resample 150 *.tiff

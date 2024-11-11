@@ -1,5 +1,36 @@
 #!/usr/bin/env bash
 
+# Copyright (c) 2024 Rodrigo Polo
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+
+real_path () {
+    TARGET_FILE=$1
+    cd `dirname $TARGET_FILE`
+    TARGET_FILE=`basename $TARGET_FILE`
+
+    while [ -L "$TARGET_FILE" ]
+    do
+        TARGET_FILE=`readlink $TARGET_FILE`
+        cd `dirname $TARGET_FILE`
+        TARGET_FILE=`basename $TARGET_FILE`
+    done
+    
+    PHYS_DIR=`pwd -P`
+    RESULT=$PHYS_DIR/$TARGET_FILE
+    echo $RESULT
+}
+
 # Check if the number of arguments is correct
 if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
     echo "Usage: $0 <path_to_tifs> <output_filename> [pi]"
@@ -7,8 +38,8 @@ if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
 fi
 
 # Path to the TIFF files
-tif_path="$1"
-outfile="$2"
+tif_path=$(real_path $1)
+outfile=$(real_path $2)
 
 # Optional pi argument
 pi_arg=""
@@ -18,14 +49,14 @@ if [ "$#" -eq 3 ]; then
     pi_arg="$3"
 fi
 
+
 # Construct the command to call cubemap2er.sh
-# Assuming your TIFF files are named exactly like this in the directory
-cubemap2er.sh \
+./cubemap2er.sh \
 "$tif_path/Left.tif" \
 "$tif_path/Right.tif" \
 "$tif_path/Up.tif" \
 "$tif_path/Down.tif" \
 "$tif_path/Front.tif" \
 "$tif_path/Back.tif" \
-"$tif_path/$outfile" \
+"$outfile" \
 $pi_arg
