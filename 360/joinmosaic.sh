@@ -46,7 +46,7 @@ files=("${files[@]:0:$((total_files-6))}")
 
 # Define tile size and sides
 tilesize=512
-sides=("Left" "Right" "Up" "Down" "Front" "Back")
+sides=("Right" "Left" "Up" "Down" "Back" "Front")
 
 # Check tile size and set variables
 if [ ${#files[@]} -eq 504 ]; then
