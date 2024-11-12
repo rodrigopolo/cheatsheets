@@ -14,6 +14,9 @@
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
 
+# Modifying the internal field separator
+IFS=$'\t\n'
+
 real_path () {
     TARGET_FILE=$1
     cd `dirname $TARGET_FILE`
@@ -32,8 +35,8 @@ real_path () {
 }
 
 # Check if the number of arguments is correct
-if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
-    echo "Usage: $0 <path_to_tifs> <output_filename> [pi]"
+if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
+    echo "Usage: $0 <path_to_tifs> <output_filename> [fb cubemap optional] [pi calc optional]"
     exit 1
 fi
 
@@ -49,6 +52,15 @@ if [ "$#" -eq 3 ]; then
     pi_arg="$3"
 fi
 
+# Optional pi argument
+pi_arg=""
+
+# Check if the fb argument is provided
+if [ "$#" -eq 3 ]; then
+    fb_arg="$3"
+fi
+
+
 
 # Construct the command to call cubemap2er.sh
 ./cubemap2er.sh \
@@ -59,4 +71,5 @@ fi
 "$tif_path/Front.tif" \
 "$tif_path/Back.tif" \
 "$outfile" \
-$pi_arg
+$pi_arg \
+$fb_arg \
