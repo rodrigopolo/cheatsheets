@@ -57,20 +57,20 @@ pi=$(echo "scale=10; 4*a(1)" | bc -l)
 pi_width=$(echo "scale=0; ($tile_width * $pi + 1)/1" | bc)
 pi_height=$(echo "scale=0; (($pi_width + 1) / 2)" | bc)
 
-# Use the pi calculations if the 8th argument is provided and equals "pi"
+# Use the fb calculations if the 8th argument is provided and equals "pi"
+if [ "$8" = "fb" ]; then
+    udrot=180
+else
+    udrot=0
+fi
+
+# Use the pi calculations if the 9th argument is provided and equals "pi"
 if [ "$9" = "pi" ]; then
     width=$pi_width
     height=$pi_height
 else
     width=$er_width
     height=$er_height
-fi
-
-# Use the pi calculations if the 8th argument is provided and equals "pi"
-if [ "$8" = "fb" ]; then
-    udrot=180
-else
-    udrot=0
 fi
 
 # Output the pto file with the correct dimensions

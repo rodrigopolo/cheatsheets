@@ -48,19 +48,17 @@ outfile=$(real_path $2)
 pi_arg=""
 
 # Check if the pi argument is provided
-if [ "$#" -eq 3 ]; then
+if [ "$#" -ge 3 ]; then
     pi_arg="$3"
 fi
 
 # Optional pi argument
-pi_arg=""
+fb_arg=""
 
 # Check if the fb argument is provided
-if [ "$#" -eq 3 ]; then
+if [ "$#" -eq 4 ]; then
     fb_arg="$3"
 fi
-
-
 
 # Construct the command to call cubemap2er.sh
 ./cubemap2er.sh \
