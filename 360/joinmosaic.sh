@@ -20,7 +20,7 @@ script_name=$(basename "$0")
 
 # Check if directory argument is provided
 if [ $# -lt 1 ]; then
-    echo "Usage: $script_name <directory> <panoname>"
+    echo "Usage: $script_name <jpg_directory> <path_and_prefix_to_tifs>"
     exit 1
 fi
 
@@ -82,7 +82,7 @@ process_side() {
         ((counter++))
     done
     
-    montage $group_files -tile "${imtile}x${imtile}" -geometry "${tilesize}x${tilesize}+0+0" "${panoname}/${side}.tif"
+    montage $group_files -tile "${imtile}x${imtile}" -geometry "${tilesize}x${tilesize}+0+0" "${panoname}_${side}.tif"
 }
 
 # Process each side

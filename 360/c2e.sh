@@ -36,13 +36,25 @@ real_path () {
 
 # Check if the number of arguments is correct
 if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
-    echo "Usage: $0 <path_to_tifs> <output_filename> [fb cubemap optional] [pi calc optional]"
+    echo "Usage: $0 <path_and_prefix_to_tifs> <output_filename> [fb cubemap optional] [pi calc optional]"
     exit 1
 fi
 
 # Path to the TIFF files
 tif_path=$(real_path $1)
 outfile=$(real_path $2)
+
+# Side names
+sides=("Right" "Left" "Up" "Down" "Back" "Front")
+
+# Check if each input file exists
+for file in "${sides[@]}"; do
+    side="${tif_path}_${file}.tif"
+    if [ ! -f "$side" ]; then
+        echo "Error: The file '$side' does not exist."
+        exit 1
+    fi
+done
 
 # Optional pi argument
 pi_arg=""
@@ -62,12 +74,12 @@ fi
 
 # Construct the command to call cubemap2er.sh
 ./cubemap2er.sh \
-"$tif_path/Left.tif" \
-"$tif_path/Right.tif" \
-"$tif_path/Up.tif" \
-"$tif_path/Down.tif" \
-"$tif_path/Front.tif" \
-"$tif_path/Back.tif" \
+"${tif_path}_Left.tif" \
+"${tif_path}_Right.tif" \
+"${tif_path}_Up.tif" \
+"${tif_path}_Down.tif" \
+"${tif_path}_Front.tif" \
+"${tif_path}_Back.tif" \
 "$outfile" \
 $pi_arg \
 $fb_arg \
