@@ -2,10 +2,18 @@
 
 ## Equirectangular to Cubemap
 
-To convert any equirectangular image to cubemap, you'll need `imagemagick`, `exiftool` and `convert360`, at the end how to install this dependencies. `convert360` requires the input image to be png.
+To convert any equirectangular image to cubemap, you'll need `imagemagick`, `exiftool` and either Hugin's `nona` or `convert360`, at the end how to install this dependencies. `convert360` requires the input image to be png.
 
-> **Note:** `convert360` has an image limit size up to 13,376px x 6,688px, while Facebook has an image limit of 16,000px x 8,000px.
+> **Note:** `convert360` has an image limit size up to 13,376px x 6,688px, while Facebook has an image limit of 16,000px x 8,000px. Hugin's `nona` can process bigger images.
 
+### Using Hugin's `nona` and `exiftool`
+
+Just run `tocubemap_nona.sh` with each image you want to process, making shure that `nona` is in the `$PATH` and all dependencies installed, see dependencies at the end.
+```sh
+./tocubemap_nona.sh pano1.jpg pano2.jpg pano3.jpg...
+```
+
+### Using `convert360`
 1. Convert the equirectangular image to a flat PNG file
 ```sh
 magick equirectangular.tif -flatten -alpha off equirectangular.png
@@ -38,8 +46,21 @@ mv output_5.tif Back.tif
 
 ## Cubemap to Equirectangular
 
-For this task, we need Hugin, see dependencies at the end.
+For this task, we need Hugin, make shure that `nona` is in the `$PATH` and all dependencies installed, see dependencies at the end.
 
+### With `c2e.sh`
+
+Just run `c2e.sh` setting the path and prefix of the cubemap sides (`ImagePrefix_Back.tif`, `ImagePrefix_Down.tif`, `ImagePrefix_Front.tif`, `ImagePrefix_Left.tif`, `ImagePrefix_Right.tif`, `ImagePrefix_Up.tif`), and the output file.
+```sh
+./c2e.sh /Path/To/ImagePrefix /Path/To/FinalImage.tif
+```
+
+Then you can convert the tif to jpg with `tif2jpg.sh`, which adds the 360° metadata
+```sh
+./tif2jpg.sh /Path/To/FinalImage.tif
+```
+
+### Manually
 1. Create a `.pto` as in the following example, and set the filename of each cube face, in this example the images are `Back.tif`, `Front.tif`, `Down.tif`, `Left.tif`, `Right.tif`, `Up.tif`, also set the dimensions of the final equirectangular image, and the dimensions of each side of the cube.
 
 > In the following example of a `.pto` file, the final equirectangular image has a width of `16384px` by a height of `8192px`, based on a `4096px` cube size. To get the width, we multiply `4` by the cube size, and for the height, `2` by the cube size. Hugin has another "optimized" version of this calculation, where it multiplies the width of the cube by π (pi), rounds up to the nearest integer, and then divides the result by two to get the height.
@@ -108,14 +129,16 @@ pano0005.tif \
 ```
 
 ## Download a Facebook 360 image
-Check the `360` directory for the Bash and Python scripts.
+
 1. View the 360 image in a webbrowser by clicking in it until it is in its maximum size, NOT full screen.
 2. Open the browser Developer Tools and reload the page.
 3. In the tab Network, righ clic any requested file, select `Copy` and then `Copy all as cURL`.
 4. Paste the curls into a `curls.txt` file.
 5. Run `curls2uris.py`.
 6. Run `aria2c` to download the images.
-7. Join the images with `joinmosaic.sh`
+7. Join the images with `joinmosaic.sh`.
+8. Convert the 6 mosaics to equirectangular with `c2e`.
+9. Convert the tif to jpg with `tif2jpg.sh`
 
 ```sh
 ./curls2uris.py curls.txt downloadfolder
@@ -126,14 +149,18 @@ mkdir mosaic && ./joinmosaic.sh ./downloadfolder ./mosaic
 tif2jpg.sh finalimage.tif
 ```
 
-A simple script can be `./fbdown.sh curls.txt panoname`
-
 ## Dependencies
 
-### ImageMagick and Exiftool
+### For image processing and download
 ```sh
 brew install imagemagick exiftool aria2
 ```
+
+### Hugin
+The official download links for Hugin are obsolete, user Dannephoto provided a more recent builds for Intel and Apple Silicon macs:
+https://bitbucket.org/Dannephoto/hugin/downloads/
+
+> macOS "protects" its users from "unwanted binaries" that are downloaded, a trick to avoid this issues is to use a `cat Hugin-2023.0.0_GPUFIX.dmg > Hugin-2023.0.0_GPUFIX_noquarantine.dmg` and then install the DMG files.
 
 ### `convert360`
 1. Install `conda` to have a working Python enviroment
@@ -164,8 +191,3 @@ To this:
 #!/usr/bin/env python
 ```
 
-# Hugin
-The official download links for Hugin are obsolete, user Dannephoto provided a more recent builds for Intel and Apple Silicon macs:
-https://bitbucket.org/Dannephoto/hugin/downloads/
-
-> macOS "protects" its users from "unwanted binaries" that are downloaded, a trick to avoid this issues is to use a `cat Hugin-2023.0.0_GPUFIX.dmg > Hugin-2023.0.0_GPUFIX_noquarantine.dmg` and then install the DMG files.

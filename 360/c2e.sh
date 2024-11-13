@@ -17,6 +17,8 @@
 # Modifying the internal field separator
 IFS=$'\t\n'
 
+scriptpath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 real_path () {
     TARGET_FILE=$1
     cd `dirname $TARGET_FILE`
@@ -73,7 +75,7 @@ if [ "$#" -eq 4 ]; then
 fi
 
 # Construct the command to call cubemap2er.sh
-./cubemap2er.sh \
+${scriptpath}/cubemap2er.sh \
 "${tif_path}_Left.tif" \
 "${tif_path}_Right.tif" \
 "${tif_path}_Up.tif" \
