@@ -144,8 +144,8 @@ pano0005.tif \
 ./curls2uris.py curls.txt downloadfolder
 cd downloadfolder && aria2c -j 16 --continue=true --auto-file-renaming=false -i uris.txt && cd ..
 mkdir mosaic && ./joinmosaic.sh ./downloadfolder ./mosaic
-./joinmosaic.sh ./downloadfolder ./fromfb
-./c2e.sh fromfb finalimage.tif fb
+./joinmosaic.sh ./downloadfolder ./mosaic
+./c2e.sh mosaic finalimage.tif fb
 tif2jpg.sh finalimage.tif
 ```
 

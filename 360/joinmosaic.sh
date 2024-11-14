@@ -57,6 +57,10 @@ elif [ ${#files[@]} -eq 120 ]; then
     imtile=4
     ctile=20
     ctlimit=15
+elif [ ${#files[@]} -eq 24 ]; then
+    imtile=2
+    ctile=4
+    ctlimit=4
 else
     echo "Not the right amount of images."
     exit 1
