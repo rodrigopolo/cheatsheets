@@ -133,20 +133,50 @@ pano0005.tif \
 1. View the 360 image in a webbrowser by clicking in it until it is in its maximum size, NOT full screen.
 2. Open the browser Developer Tools and reload the page.
 3. In the tab Network, righ clic any requested file, select `Copy` and then `Copy all as cURL`.
-4. Paste the curls into a `curls.txt` file.
-5. Run `curls2uris.py`.
-6. Run `aria2c` to download the images.
-7. Join the images with `joinmosaic.sh`.
-8. Convert the 6 mosaics to equirectangular with `c2e`.
-9. Convert the tif to jpg with `tif2jpg.sh`
+4. Paste the curls into a `curls.txt` file, and save it into a folder, then:
 
 ```sh
+# Create the download script into the downloadfolder
 ./curls2uris.py curls.txt downloadfolder
-cd downloadfolder && aria2c -j 16 --continue=true --auto-file-renaming=false -i uris.txt && cd ..
-mkdir mosaic && ./joinmosaic.sh ./downloadfolder ./mosaic
+
+# Download the images
+aria2c -j 16 --continue=true --auto-file-renaming=false -d ./downloadfolder/ -i ./downloadfolder/uris.txt
+
+# Create the cube faces
 ./joinmosaic.sh ./downloadfolder ./mosaic
+
+# Assemble the cuve to equirectangular
 ./c2e.sh mosaic finalimage.tif fb
+
+# Convert it to JPG
 tif2jpg.sh finalimage.tif
+```
+
+## Download a panorama from 360cities.net
+```sh
+# Create download directory
+mkdir download
+
+# Create download and metadata scripts
+node 360cities.js \
+https://www.360cities.net/image/URL \
+./download/uris.txt \
+./download/exiftool.sh
+
+# Download the images
+aria2c -j 16 --continue=true --auto-file-renaming=false -d ./download/ -i ./download/uris.txt
+
+# Create the cube faces
+./process_cubemap_360cities.sh ./download pano
+
+# Assemble the cuve to equirectangular
+./c2e.sh ./download/pano finalimage.tif
+
+# Convert it to JPG
+./tif2jpg.sh finalimage.tif
+
+# Add its metadata
+bash ./download/exiftool.sh finalimage.jpg
 ```
 
 ## Dependencies
