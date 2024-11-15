@@ -164,7 +164,7 @@ https://www.360cities.net/image/URL \
 ./download/exiftool.sh
 
 # Download the images
-aria2c -j 16 --continue=true --auto-file-renaming=false -d ./download/ -i ./download/uris.txt
+aria2c -j 16 --continue=true --auto-file-renaming=false -d ./download -i ./download/uris.txt
 
 # Create the cube faces
 ./process_cubemap_360cities.sh ./download pano
@@ -177,6 +177,11 @@ aria2c -j 16 --continue=true --auto-file-renaming=false -d ./download/ -i ./down
 
 # Add its metadata
 bash ./download/exiftool.sh finalimage.jpg
+```
+
+Or just run
+```sh
+./360cities.sh https://www.360cities.net/image/URL
 ```
 
 ## Dependencies

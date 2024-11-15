@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /*
 npm install axios cheerio fast-xml-parser
 
@@ -218,7 +219,10 @@ extractXML(url).then(XMLData => {
     extractData(url, XMLData).then(data => {
         if (data) {
 
-            var panoBaseURL = data.XMLData.leftUrl.split('/cube')[0];
+            var panoBaseURL = data.XMLData.leftUrl.replace(/\%t/g, 'LEFT').split('/cube')[0];
+
+            const zoom = data.XMLData.leftUrl.match(/\/512\/(\d+)\//)[1];
+
             var sides = ['back','down','front','left','right','up']
 
             //var maxloop = data.height/2/512; // FIX
@@ -237,7 +241,7 @@ extractXML(url).then(XMLData => {
                 for (var j = 0; j < maxloop; j++) {
                     for (var i = 0; i < maxloop; i++) {
                         currentSide.push(`${sides[k]}-${j}-${i}.jpg`)
-                        urisWriteStream.write(`${panoBaseURL}/cube/${sides[k]}/tile/512/3/${j}/${i}.jpg?orig=\n  out=${sides[k]}-${j}-${i}.jpg\n`);
+                        urisWriteStream.write(`${panoBaseURL}/cube/${sides[k]}/tile/512/${zoom}/${j}/${i}.jpg?orig=\n  out=${sides[k]}-${j}-${i}.jpg\n`);
                     }
                 }
             }
