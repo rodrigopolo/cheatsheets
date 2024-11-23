@@ -58,6 +58,11 @@ exiftool \
 > models.txt
 ```
 
+Create a tab table of the image widths and heights
+```sh
+exiftool -T -FileName -ImageWidth -ImageHeight *.jpg
+```
+
 Sort totals
 ```sh
 awk 'BEGIN {FS="\t"}; {print $3}' models.txt | sort | uniq -c | sort -nr
@@ -195,6 +200,19 @@ exiftool \
 -ProjectionType="equirectangular" \
 -XMP-GPano:InitialViewHeadingDegrees=0 \
 target.jpg
+```
+
+Full settings for a 360 image
+```sh
+exiftool \
+-overwrite_original \
+-AllDates="2024:11:19 23:09:46-06:00" \
+-ProjectionType="equirectangular" \
+-XMP-GPano:InitialViewHeadingDegrees=0 \
+-Make="Arashi Vision" \
+-Model="Insta360 Camera" \
+-Keywords+=360i \
+"2024-11-19 23.09.46 - IMG_001.jpg"
 ```
 
 Find all 360 photos based in width and height relation

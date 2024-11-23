@@ -14,40 +14,89 @@ mogrify -resize 1296x864 -quality 75 *.jpg
 @ = Pixel Count Limit
 ```
 
+From tif to jpg
+```sh
+magick \
+image.tif \
+-quality 90 \
+image.jpg
+```
+
 Create thumbnails with letter/pillar boxing
 ```sh
-mogrify -resize 80x80 -background white -gravity center -extent 80x80 -format jpg -quality 75 -path thumbs *.jpg
+mogrify \
+-resize 80x80 \
+-background white \
+-gravity center \
+-extent 80x80 \
+-format jpg \
+-quality 75 \
+-path thumbs \
+*.jpg
 ```
 
 Resize all images to fit inside 640x480px and strip the metadata
 ```sh
-mogrify -resize '640x480>' -strip *.jpg
+mogrify \
+-resize '640x480>' \
+-strip \
+*.jpg
 ```
 
 Convert all BMPs to JPG
 ```sh
-mogrify -format jpg -quality 90 *.bmp
+mogrify \
+-format jpg \
+-quality 90 \
+*.bmp
 ```
 
 Create thumbnails without extended spaces
 ```sh
-mogrify -resize 640x640 -format jpg -quality 75 -path thumbs *.jpg
+mogrify \
+-resize 640x640 \
+-format jpg \
+-quality 75 \
+-path thumbs \
+*.jpg
 ```
 
 Thumbnails 2
 ```sh
-mogrify -resize "160^>" -gravity center -crop 160x160+0+0 -format jpg -quality 75  *.jpg
-mogrify -resize "200x200^" -gravity center -crop 200x200+0+0 -format png *.psd
+mogrify \
+-resize "160^>" \
+-gravity center \
+-crop 160x160+0+0 \
+-format jpg \
+-quality 75  \
+*.jpg
+
+mogrify \
+-resize "200x200^" \
+-gravity center \
+-crop 200x200+0+0 \
+-format png \
+*.psd
 ```
 
 Create smaller versions of images only if they are bigger than X dimension and fit inside X dimension:
 ```sh
-mogrify -resize "1024x1024^>" -format jpg -quality 75 -path thumbs *.jpg
+mogrify \
+-resize "1024x1024^>" \
+-format jpg \
+-quality 75 \
+-path thumbs \
+*.jpg
 ```
 
 Crop
 ```sh
-mogrify -crop "1920x1080+320-0"  +repage -format jpg -quality 75 *.jpg
+mogrify \
+-crop "1920x1080+320-0" \
++repage \
+-format jpg \
+-quality 75 \
+*.jpg
 ```
 
 Watermark
@@ -63,23 +112,44 @@ mogrify \
 
 Slice image
 ```sh
-convert tocut.png -crop 265x265 +repage +adjoin %d.png
+mogrify \
+tocut.png \
+-crop 265x265 \
++repage \
++adjoin \
+%d.png
 ```
 
 Remove padding
 ```sh
-mogrify -trim +repage *.png
+mogrify \
+-trim \
++repage \
+*.png
 ```
 
 Add padding
 ```sh
-mogrify -background none -gravity center -extent 162x162 *.png
+mogrify \
+-background none \
+-gravity center \
+-extent 162x162 \
+*.png
 ```
 
 Create thumbnails
 ```sh
-mogrify -format png -resize 128x128 -path 128 folder/*.png
-mogrify -format png -resize 40x40 -path 40 folder/*.png
+mogrify \
+-format png \
+-resize 128x128 \
+-path 128 \
+folder/*.png
+
+mogrify \
+-format png \
+-resize 40x40 \
+-path 40 \
+folder/*.png
 ```
 
 Join a mosaic image
@@ -109,19 +179,32 @@ mogrify -format jpg -quality 90 -set colorspace Gray -separate -average *.tiff
 
 PDF to PNG
 ```sh
-convert -density 150 file.pdf file.png
+magick \
+-density 150 \
+file.pdf \
+file.png
 ```
 
 Create PDF from BMP
 ```sh
 # Pad and crop
-mogrify -background white -gravity NorthWest -extent 2550x3300 -crop 2550x3300+0+0 *.bmp
+mogrify \
+-background white \
+-gravity NorthWest \
+-extent 2550x3300 \
+-crop 2550x3300+0+0 \
+*.bmp
 
 # To JPG
-mogrify -format jpg -quality 75 *.bmp
+mogrify \
+-format jpg \
+-quality 75 \
+*.bmp
 
 # To PDF
-mogrify -format pdf *.jpg
+mogrify \
+-format pdf \
+*.jpg
 
 # Consolidate PDF (OLD)
 pdftk *.pdf cat output ../Doc2.pdf

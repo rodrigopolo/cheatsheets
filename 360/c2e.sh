@@ -42,12 +42,21 @@ if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
     exit 1
 fi
 
+# Side names
+sides=("Right" "Left" "Up" "Down" "Back" "Front")
+
 # Path to the TIFF files
 tif_path=$(real_path $1)
 outfile=$(real_path $2)
 
-# Side names
-sides=("Right" "Left" "Up" "Down" "Back" "Front")
+stripped_name=$tif_path
+for side in "${sides[@]}"; do
+    if [[ $tif_path == *"_${side}.tif" ]]; then
+        stripped_name=${tif_path%"_${side}.tif"}
+        break
+    fi
+done
+tif_path=$stripped_name
 
 # Check if each input file exists
 for file in "${sides[@]}"; do

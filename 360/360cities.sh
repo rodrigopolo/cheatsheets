@@ -7,7 +7,6 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-
 # Extract the last part of the URL
 url=$1
 panoname="${url##*/}"

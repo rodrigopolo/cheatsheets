@@ -1,4 +1,4 @@
-# 360 image and video manipulation
+# 360° image and video manipulation
 
 ## Equirectangular to Cubemap
 
@@ -128,7 +128,18 @@ pano0005.tif \
 -o pano_equirectangular.tif
 ```
 
-## Download a Facebook 360 image
+## Superscale Insta360 x4 image
+1. Convert the original dual-fisheye DNG to TIF with Photoshop or ImageMagick.
+2. Resize the TIF to 2 or 4x using Topaz Gigapixel AI or similar tools.
+3. Load the resized TIF into Hugin, twice.
+4. In Hugin, select `File` -> `Apply Template...`, and choose `Insta360Template.pto`
+5. In "Sticher" tab, select "Calculate oprimal size" and then export the image.
+
+> **Denoise:** You can use Topaz DeNoise AI before Topaz Gigapixel AI, and use Affinity Photo 2 to refine the horizon.
+> **Object removal:** You can use `tocubemap_nona.sh` to convert the equirectangular image to cubemap, then with Photoshop Generative Fill, remove objects, and then with `c2e.sh` convert it back to equirectangular.
+> **Metadata:** You can copy the metadata from an already exported image and copy it to the new image with `exiftool -overwrite_original -tagsFromFile source.tif target.tif`
+
+## Download a Facebook 360° image
 
 1. View the 360 image in a webbrowser by clicking in it until it is in its maximum size, NOT full screen.
 2. Open the browser Developer Tools and reload the page.

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Copyright (c) 2024 Rodrigo Polo
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy

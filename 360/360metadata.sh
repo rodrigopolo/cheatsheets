@@ -19,26 +19,12 @@ IFS=$'\t\n'
 
 for f in $@; do
 
-    OUTPUT="${f%.*}.jpg"
-
-    # Execute ImageMagick command
-    magick "$f" \
-        -quality 90 \
-        "$OUTPUT"
-
-    # Check if the ImageMagick command was successful
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to convert image."
-        exit 1
-    fi
-
     # Execute exiftool command
     exiftool \
         -overwrite_original \
         -ProjectionType="equirectangular" \
         -XMP-GPano:InitialViewHeadingDegrees=0 \
-        -Keywords+=360i \
-        "$OUTPUT"
+        "$f"
 
     # Check if exiftool command was successful
     if [ $? -ne 0 ]; then
