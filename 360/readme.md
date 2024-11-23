@@ -156,7 +156,7 @@ aria2c -j 16 --continue=true --auto-file-renaming=false -d ./downloadfolder/ -i 
 # Create the cube faces
 ./joinmosaic.sh ./downloadfolder ./mosaic
 
-# Assemble the cuve to equirectangular
+# Assemble the cube to equirectangular
 ./c2e.sh mosaic finalimage.tif fb
 
 # Convert it to JPG
@@ -180,7 +180,7 @@ aria2c -j 16 --continue=true --auto-file-renaming=false -d ./download -i ./downl
 # Create the cube faces
 ./process_cubemap_360cities.sh ./download pano
 
-# Assemble the cuve to equirectangular
+# Assemble the cube to equirectangular
 ./c2e.sh ./download/pano finalimage.tif
 
 # Convert it to JPG
