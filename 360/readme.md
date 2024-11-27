@@ -259,3 +259,16 @@ To this:
 #!/usr/bin/env python
 ```
 
+### Publishing
+
+Convert your 360 equirectangular panorama in a cubemap HTML with the following libraries
+```sh
+# Avansel
+./Avansel.sh panorama.jpg
+
+# Marzipano
+./Marzipano.sh panorama.jpg
+
+# Pannellum
+./Pannellum.sh panorama.jpg
+```
