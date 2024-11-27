@@ -25,6 +25,24 @@
 #    Fina.tif      \
 #    pi (Optional)
 
+# Divisor calc
+round_to_closest_divisor() {
+    local number=$1
+    local divisor=$2
+
+    # Ensure both inputs are valid
+    if [[ -z "$number" || -z "$divisor" || "$divisor" -eq 0 ]]; then
+        echo "Error: Invalid input. Usage: round_to_closest_divisor <number> <divisor>"
+        return 1
+    fi
+
+    # Calculate the rounded value
+    local half_divisor=$(echo "$divisor / 2" | bc)
+    local rounded=$(echo "scale=0; (($number + $half_divisor) / $divisor) * $divisor" | bc)
+
+    echo "$rounded"
+}
+
 # Check if exactly 7 arguments are provided
 if [ "$#" -lt 7 ] || [ "$#" -gt 9 ]; then
    echo "Error: 7 arguments are required."
@@ -54,8 +72,8 @@ er_width=$((tile_width * 4))
 er_height=$((tile_width * 2))
 
 pi=$(echo "scale=10; 4*a(1)" | bc -l)
-pi_width=$(echo "scale=0; ($tile_width * $pi + 1)/1" | bc)
-pi_height=$(echo "scale=0; (($pi_width + 1) / 2)" | bc)
+pi_width=$(round_to_closest_divisor $(echo "$tile_width * $pi" | bc) 16)
+pi_height=$(echo "$pi_width / 2" | bc)
 
 # Use the fb calculations if the 8th argument is provided and equals "pi"
 if [ "$8" = "fb" ]; then
@@ -64,8 +82,8 @@ else
     udrot=0
 fi
 
-# Use the pi calculations if the 9th argument is provided and equals "pi"
-if [ "$9" = "pi" ]; then
+# Use the pi calculations by default, if the 9th argument is provided it uses *4x*2
+if [ -z "$9" ]; then
     width=$pi_width
     height=$pi_height
 else

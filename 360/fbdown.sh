@@ -16,7 +16,8 @@
 
 # Check if exactly two arguments are provided
 if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <input_file> <output_file>"
+    echo "Usage: $0 <urls.txt> <imageprefix>"
+    echo "Ex: ./fbdown.sh urls.txt myimage"
     exit 1
 fi
 
@@ -26,11 +27,17 @@ if [ ! -f "$1" ]; then
     exit 1
 fi
 
+# Create the download script into the downloadfolder
 ./curls2uris.py $1 downloadfolder
-cd downloadfolder
-aria2c -j 16 --continue=true --auto-file-renaming=false -i uris.txt
-cd ..
-mkdir mosaic
-./joinmosaic.sh ./downloadfolder ./mosaic
-./c2e.sh ./mosaic $2.tif
-tif2jpg.sh $2.tif $2.jpg
+
+# Download the images
+aria2c -j 16 --continue=true --auto-file-renaming=false -d ./downloadfolder/ -i ./downloadfolder/uris.txt
+
+# Create the cube faces
+./joinmosaic.sh ./downloadfolder ./$2
+
+# Assemble the cube to equirectangular
+./c2e.sh $2 $2.tif fb
+
+# Convert it to JPG
+tif2jpg.sh $2.tif

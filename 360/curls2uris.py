@@ -54,31 +54,27 @@ def main():
         with open(input_file, 'r', encoding='utf-8') as f:
             data = f.read()
         
-        # Remove backslash followed by newline
-        data = data.replace('\\\n', '')
-        
         # Process lines
         processed_lines = []
         for line in data.split('\n'):
             if "bytestart" not in line:
                 continue
+            if ".mp4" in line:
+                continue
                 
             # Extract URL using string operations since we're converting from JS regex
             try:
-                url_start = line.index("curl '") + 6
-                url_end = line.index("'", url_start)
-                url = line[url_start:url_end]
                 
                 # Extract bytestart and byteend
-                bytestart = url.split('bytestart=')[1].split('&')[0]
-                byteend = url.split('byteend=')[1].split('&')[0]
+                bytestart = line.split('bytestart=')[1].split('&')[0]
+                byteend = line.split('byteend=')[1].split('&')[0]
                 
                 # Add leading zeros
                 bytestart = add_leading_zeros(bytestart, 10)
                 byteend = add_leading_zeros(byteend, 10)
                 
                 # Format the new line
-                processed_lines.append(f"{url}\n  out={bytestart}-{byteend}.jpg")
+                processed_lines.append(f"{line}\n  out={bytestart}-{byteend}.jpg")
             except (ValueError, IndexError):
                 continue  # Skip malformed lines
         

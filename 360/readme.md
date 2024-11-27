@@ -160,24 +160,29 @@ pano0005.tif \
 
 1. View the 360 image in a webbrowser by clicking in it until it is in its maximum size, NOT full screen.
 2. Open the browser Developer Tools and reload the page.
-3. In the tab Network, righ clic any requested file, select `Copy` and then `Copy all as cURL`.
-4. Paste the curls into a `curls.txt` file, and save it into a folder, then:
+3. In the tab Network, righ clic any requested file, select `Copy` and then `Copy all as URLs`.
+4. Paste the curls into a `urls.txt` file, and save it into a folder, then:
 
 ```sh
 # Create the download script into the downloadfolder
-./curls2uris.py curls.txt downloadfolder
+./curls2uris.py urls.txt downloadfolder
 
 # Download the images
 aria2c -j 16 --continue=true --auto-file-renaming=false -d ./downloadfolder/ -i ./downloadfolder/uris.txt
 
 # Create the cube faces
-./joinmosaic.sh ./downloadfolder ./mosaic
+./joinmosaic.sh ./downloadfolder ./prefix
 
 # Assemble the cube to equirectangular
-./c2e.sh mosaic finalimage.tif fb
+./c2e.sh prefix finalimage.tif fb
 
 # Convert it to JPG
 tif2jpg.sh finalimage.tif
+```
+
+Or after saving the `urls.txt` file, just run:
+```sh
+./fbdown.sh urls.txt myimage
 ```
 
 ## Download a panorama from 360cities.net

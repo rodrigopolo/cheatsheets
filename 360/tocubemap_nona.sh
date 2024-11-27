@@ -26,6 +26,27 @@ if [ "$#" -lt 1 ]; then
     exit 1
 fi
 
+# Divisor calc
+round_to_closest_divisor() {
+    local number=$1
+    local divisor=$2
+
+    # Ensure both inputs are valid
+    if [[ -z "$number" || -z "$divisor" || "$divisor" -eq 0 ]]; then
+        echo "Error: Invalid input. Usage: round_to_closest_divisor <number> <divisor>"
+        return 1
+    fi
+
+    # Calculate the rounded value
+    local half_divisor=$(echo "$divisor / 2" | bc)
+    local rounded=$(echo "scale=0; (($number + $half_divisor) / $divisor) * $divisor" | bc)
+
+    echo "$rounded"
+}
+
+# PI
+pi=$(echo "scale=10; 4*a(1)" | bc -l)
+
 # Function to create PTO file
 create_pto() {
     local prefix="$1"
@@ -74,7 +95,7 @@ for input_file in "$@"; do
         continue
     fi
 
-    cubeface_size=$(echo "scale=10; base = ($height/sqrt(3))*(1/sqrt(3)*sqrt(2)+0.049419); scale=0; if(base%16==0) base else (base/16+1)*16" | bc -l)
+    cubeface_size=$(round_to_closest_divisor $(echo "scale=10; ($width / $pi)" | bc) 16)
 
     # Create PTO files
     create_pto "$prefix" "$input_file" "$width" "$height" "$cubeface_size" "front" "0" "0" "-1.14499968532687e-13"
