@@ -61,6 +61,23 @@ Then you can convert the tif to jpg with `tif2jpg.sh`, which adds the 360° meta
 ```
 
 ### Manually
+1. Load the images in Hugin, make sure the images have the sufix `Back`, `Down`, `Front`, `Left`, `Right` and `Up` for clarity.
+2. Set the `HOV` to `90` when loading the images.
+3. Double click in each image and set the `Yaw` and `Pitch` as in the next table or lad the `CubemapTemplate.pto` by clicking in `File->Apply Template...`.
+4. In the `Canvas` tab, click in the `Calculate optimal size` button, and select `builtin` as the `Blender` option.
+5. Review the pano in the `GL` panorama preview, and stich.
+
+   | Face  | yaw | pitch |
+   |-------|----:|------:|
+   | back  | 180 |     0 |
+   | down  |   0 |   -90 |
+   | front |   0 |     0 |
+   | left  | -90 |     0 |
+   | right |  90 |     0 |
+   | up    |   0 |    90 |
+
+
+### Manually in the Terminal
 1. Create a `.pto` as in the following example, and set the filename of each cube face, in this example the images are `Back.tif`, `Front.tif`, `Down.tif`, `Left.tif`, `Right.tif`, `Up.tif`, also set the dimensions of the final equirectangular image, and the dimensions of each side of the cube.
 
 > In the following example of a `.pto` file, the final equirectangular image has a width of `16384px` by a height of `8192px`, based on a `4096px` cube size. To get the width, we multiply `4` by the cube size, and for the height, `2` by the cube size. Hugin has another "optimized" version of this calculation, where it multiplies the width of the cube by π (pi), rounds up to the nearest integer, and then divides the result by two to get the height.
