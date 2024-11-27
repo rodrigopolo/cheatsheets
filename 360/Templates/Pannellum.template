@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>${TITLE}</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+	<style>@-ms-viewport { width: device-width; }</style>
+	<!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/> -->
+	<link rel="stylesheet" href="pannellum_assets/pannellum.css"/>
+	<link rel="stylesheet" href="pannellum_assets/style.css"/>
+</head>
+<body>
+
+	<div id="pano"></div>
+
+	<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script> -->
+	<script type="text/javascript" src="pannellum_assets/pannellum.js"></script>
+	<script>
+		/*
+		For more information on the settings, visit:
+		https://pannellum.org/documentation/reference/
+		*/
+		var panorama = {
+			// "title": "${TITLE}",
+			// "author": "Your name",
+			// "authorURL": "https://www.example.com",
+			// "autoRotate": false,
+			// "showZoomCtrl": true,
+			// "showControls": true,
+			// "yaw": 0,
+			// "pitch": 0,
+			// "hfov": 100,
+			// "horizonPitch": 0,
+			// "horizonRoll": 0,
+			"autoLoad": true,
+			"type": "multires",
+			"preview": "./1/f_0_0.jpg",
+			"multiRes": {
+				"basePath": "./",
+				"path": "/%l/%s_%y_%x",
+				"fallbackPath": "/fallback/%s",
+				"extension": "jpg",
+				"tileResolution": 512,
+				"maxLevel": ${MAXLEVEL},
+				"cubeResolution": ${CUBERES}
+			},
+			domid: "pano",
+		}
+		pannellum.viewer(panorama.domid, panorama);
+	</script>
+
+</body>
+</html>
