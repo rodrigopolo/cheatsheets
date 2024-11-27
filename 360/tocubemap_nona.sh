@@ -95,6 +95,10 @@ for input_file in "$@"; do
         continue
     fi
 
+    # Hugin calculation, loses some pixels
+    # cubeface_size=$(round_to_closest_divisor $(($width/4)) 16)
+
+    # Exact calculation to revert to cubemap
     cubeface_size=$(round_to_closest_divisor $(echo "scale=10; ($width / $pi)" | bc) 16)
 
     # Create PTO files
@@ -106,9 +110,9 @@ for input_file in "$@"; do
     create_pto "$prefix" "$input_file" "$width" "$height" "$cubeface_size" "down" "-88.244968578448" "90" "-88.244968578448"
 
     # Process files with nona
-    for direction in front right back left up down; do
+    for direction in front back left right up down; do
         direction_prefix=$(echo "$direction" | tr '[:lower:]' '[:upper:]' | cut -c1)$(echo "$direction" | cut -c2-)
-        
+        echo "Creating \"${direction_prefix}\" face."
         if ! nona -o "${basename}_${direction_prefix}" -m TIFF -z LZW "${prefix}_${direction}.pto"; then
             echo "Error: nona processing failed for ${direction} face. Skipping cleanup..."
             continue
@@ -118,5 +122,5 @@ for input_file in "$@"; do
     # Clean up PTO files
     rm -f "${prefix}"_{front,right,back,left,up,down}.pto
 
-    echo "Successfully processed $input_file"
+    echo "Cubemap faces created."
 done
