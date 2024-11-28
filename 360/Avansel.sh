@@ -193,6 +193,12 @@ main() {
     # Calculate mosaic sizes
     get_mosaic_size "$cubesize"
 
+    #echo "${globalCubeset[@]}"
+    # for x in "${globalCubeset[@]}"; do
+    #     echo "[${x}]"
+    # done
+
+
     # Create each cube set
     local levelcounter=0
     for ((i=${#globalCubeset[@]}-1; i>=0; i--)); do
@@ -202,15 +208,15 @@ main() {
 
     log "Applying template"
     templateTitle=$(basename "$prefix")
-    cat ./Templates/Avansel1.template | \
-    sed 's:${TITLE}:'$templateTitle':' > ./$templateTitle/index.html
+    cat "$script_dir/Templates/Avansel1.template" | \
+    sed 's:${TITLE}:'$templateTitle':' > "${prefix}/index.html"
     for (( i=${#globalCubeset[@]}-2; i>=0; i-- )); do
-        echo -e "\t\t\t\t{tileSize:512, size:${globalCubeset[$i]}}," >> ./$templateTitle/index.html
+        echo -e "\t\t\t\t{tileSize:512, size:${globalCubeset[$i]}}," >> "${prefix}/index.html"
     done
-    cat ./Templates/Avansel2.template >> ./$templateTitle/index.html
+    cat "$script_dir/Templates/Avansel2.template" >> "${prefix}/index.html"
 
     # Copying template assets
-    cp -r ./Templates/avansel_assets ./$templateTitle
+    cp -r "$script_dir/Templates/avansel_assets" "${prefix}"
 
     log "Processing complete"
 }

@@ -1,18 +1,7 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2024 Rodrigo Polo
-# 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+# Strict mode for better error handling and safety
+#set -euo pipefail
 
 # Modifying the internal field separator
 IFS=$'\t\n'
@@ -193,6 +182,11 @@ main() {
     # Calculate mosaic sizes
     get_mosaic_size "$cubesize"
 
+    #echo "${globalCubeset[@]}"
+    # for x in "${globalCubeset[@]}"; do
+    #     echo "[${x}]"
+    # done
+
     # Create each cube set
     local levelcounter=0
     for ((i=${#globalCubeset[@]}-1; i>=0; i--)); do
@@ -217,15 +211,15 @@ main() {
 
     log "Applying template"
     templateTitle=$(basename "$prefix")
-    cat ./Templates/Marzipano1.template | \
-    sed 's:${TITLE}:'$templateTitle':' > ./$templateTitle/index.html
+    cat "$script_dir/Templates/Marzipano1.template" | \
+    sed 's:${TITLE}:'$templateTitle':' > "${prefix}/index.html"
     for (( i=${#globalCubeset[@]}-1; i>=0; i-- )); do
-        echo -e "\t\t\t\t{tileSize:512, size:${globalCubeset[$i]}}," >> ./$templateTitle/index.html
+        echo -e "\t\t\t\t{tileSize:512, size:${globalCubeset[$i]}}," >> "${prefix}/index.html"
     done
-    cat ./Templates/Marzipano2.template >> ./$templateTitle/index.html
+    cat "$script_dir/Templates/Marzipano2.template" >> "${prefix}/index.html"
 
     # Copying template assets
-    cp -r ./Templates/marzipano_assets ./$templateTitle
+    cp -r "$script_dir/Templates/marzipano_assets" "${prefix}"
 
     log "Processing complete"
 }

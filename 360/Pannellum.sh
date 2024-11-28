@@ -194,6 +194,11 @@ main() {
     # Calculate mosaic sizes
     get_mosaic_size "$cubesize"
 
+    #echo "${globalCubeset[@]}"
+    # for x in "${globalCubeset[@]}"; do
+    #     echo "[${x}]"
+    # done
+
     # Create each cube set
     local levelcounter=0
     for ((i=${#globalCubeset[@]}-1; i>=0; i--)); do
@@ -206,13 +211,13 @@ main() {
     templateCubeResolution="${globalCubeset[0]}"
     templateLevels=${#globalCubeset[@]}
 
-    cat ./Templates/Pannellum.template | \
+    cat "$script_dir/Templates/Pannellum.template" | \
     sed 's:${TITLE}:'$templateTitle':' | \
     sed 's:${CUBERES}:'$templateCubeResolution':' | \
-    sed 's:${MAXLEVEL}:'$templateLevels':' > ./$templateTitle/index.html
+    sed 's:${MAXLEVEL}:'$templateLevels':' > "${prefix}/index.html"
 
     # Copying template assets
-    cp -r ./Templates/pannellum_assets ./$templateTitle
+    cp -r "$script_dir/Templates/pannellum_assets" "${prefix}"
 
     log "Processing complete"
 }
