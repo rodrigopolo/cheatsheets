@@ -193,12 +193,6 @@ main() {
     # Calculate mosaic sizes
     get_mosaic_size "$cubesize"
 
-    #echo "${globalCubeset[@]}"
-    # for x in "${globalCubeset[@]}"; do
-    #     echo "[${x}]"
-    # done
-
-
     # Create each cube set
     local levelcounter=0
     for ((i=${#globalCubeset[@]}-1; i>=0; i--)); do

@@ -1,7 +1,18 @@
 #!/usr/bin/env bash
 
-# Strict mode for better error handling and safety
-#set -euo pipefail
+# Copyright (c) 2024 Rodrigo Polo
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
 
 # Modifying the internal field separator
 IFS=$'\t\n'
@@ -181,11 +192,6 @@ main() {
 
     # Calculate mosaic sizes
     get_mosaic_size "$cubesize"
-
-    #echo "${globalCubeset[@]}"
-    # for x in "${globalCubeset[@]}"; do
-    #     echo "[${x}]"
-    # done
 
     # Create each cube set
     local levelcounter=0
