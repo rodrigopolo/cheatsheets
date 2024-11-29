@@ -259,16 +259,67 @@ To this:
 #!/usr/bin/env python
 ```
 
-### Publishing
+### Publishing 360 panorama
 
 Convert your 360 equirectangular panorama in a cubemap HTML with the following libraries
 ```sh
-# Avansel
+# Pannellum, quite good in mobile, tons of features
+./Pannellum.sh panorama.jpg
+
+# Avansel, simple, yet powerful, able to handle multiple resolutions
 ./Avansel.sh panorama.jpg
 
-# Marzipano
+# Marzipano, good, but complex
 ./Marzipano.sh panorama.jpg
-
-# Pannellum
-./Pannellum.sh panorama.jpg
 ```
+
+### Downloading 360 video from YouTube
+
+Check which format you want to download:
+```sh
+youtube-dl "https://youtu.be/<HASH>" -F
+```
+
+Use the format id to download, in this case, the `571` video and `140` audio:
+```sh
+youtube-dl "https://youtu.be/<HASH>" -f "571+140"
+```
+
+#### YouTube's cubemap to equirectangular
+
+Some 360° videos come in a special cubemap format with a `16:9` aspect ratio. To convert these videos back to their original equirectangular format, you can use the following FFmpeg command. Note that all equirectangular images have a `2:1` aspect ratio; thus, a 4K video would have a resolution of `3840x1920`, and an 8K video would have a resolution of `7680x3840`.
+
+```sh
+ffmpeg \
+-hwaccel auto \
+-y \
+-hide_banner \
+-i input.mkv \
+-vf "v360=c3x2:e:cubic:in_forder='lfrdbu':in_frot='000313',scale=3840:1920,setsar=1:1" \
+-pix_fmt yuv420p \
+-c:v libx264 \
+-preset faster \
+-crf 21 \
+-c:a copy \
+-movflags +faststart \
+output.mp4
+```
+
+**Explanation of FFmpeg Command:**
+
+* `ffmpeg`: Invokes the FFmpeg tool.
+* `-hwaccel auto`: Uses hardware acceleration if available to speed up processing.
+* `-y`: Automatically overwrites the output file without asking.
+* `-hide_banner`: Hides the FFmpeg banner (version information).
+* `-i input.mkv`: Specifies the input file.
+* `-vf`: Applies video filters:
+  * `v360=c3x2:e:cubic:in_forder='lfrdbu':in_frot='000313'`: Converts from cubemap (3x2 faces) to equirectangular projection. 'lfrdbu' specifies the input face order (left, front, right, down, back, up), and '000313' sets rotation for each face to correct orientation.
+  * `scale=3840:1920`: Scales the video to a resolution of 3840x1920, fitting the 2:1 aspect ratio of equirectangular format.
+  * `setsar=1:1`: Sets the sample/pixel aspect ratio to 1:1 to ensure pixel dimensions match the display aspect ratio.
+* `-pix_fmt yuv420p`: Sets the pixel format to YUV 4:2:0 planar, which is widely supported for video playback.
+* `-c:v libx264`: Uses H.264 codec for video encoding, which provides good quality at lower bitrates.
+* `-preset faster`: Sets the encoding speed; 'faster' balances speed and quality.
+* `-crf 21`: Sets the quality for the video; lower values result in higher quality with larger file sizes.
+* `-c:a copy`: Copies the audio stream from the input without re-encoding it.
+* `-movflags +faststart`: Moves some data to the start of the file for web streaming compatibility.
+* `output.mp4`: Specifies the name of the output file in MP4 format.

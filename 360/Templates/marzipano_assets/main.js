@@ -19,9 +19,15 @@ var source = new Marzipano.ImageUrlSource(function(tile) {
 // Create geometry.
 var geometry = new Marzipano.CubeGeometry(panorama.tiles);
 
+var initialView = {
+  yaw: 0 * Math.PI/180,
+  pitch: 0 * Math.PI/180,
+  fov: 90 * Math.PI/180
+};
+
 // Create view.
 var limiter = Marzipano.RectilinearView.limit.traditional(panorama.tiles[panorama.tiles.length-1].size, 100*Math.PI/180);
-var view = new Marzipano.RectilinearView(null, limiter);
+var view = new Marzipano.RectilinearView(initialView, limiter);
 
 // Create scene.
 var scene = viewer.createScene({
