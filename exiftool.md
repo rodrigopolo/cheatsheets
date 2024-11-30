@@ -249,11 +249,11 @@ exiftool \
 /path/to/directory
 ```
 
-Change date
+Change all dates with UTC-6
 ```sh
-exiftool \
-"-AllDates=2000:12:31 09:30:25" \
-target.jpg
+exiftool "-AllDates=2024:11:27 23:58:23.00-06:00" \
+-overwrite_original \
+"input.jpg"
 ```
 
 Excel date format

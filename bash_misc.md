@@ -490,9 +490,8 @@ brew install fdupes
 # Find duplicates
 fdupes -r -n ./
 
-# Find and delete duplicates 
-fdupes -dN -r -n ./
-fdupes -rdN .
+# Find and delete duplicates, keeping the record of which is the original file
+fdupes -rdN -d ./ > duplicates_log.txt
 ```
 
 Use file lists with `xargs`
