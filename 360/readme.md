@@ -352,7 +352,7 @@ output.mp4
 ### Dealing with Hugin merge momory limit exporting 3 rows
 
 * Go to Hugin main window, the "Stitched" tab, and click in "Calculate optimal size".
-* Copy the optimal width size, and paste it in the HTML calc.
+* Copy the optimal width size, and paste it in the input of the `HuginRowManoCalc.html`.
 * With the results, set the "Top" and "Button" for each row, and export each row.
 * Import all rows into an image stack in Adobe Photoshop, align the images, flatten the image and export it.
 

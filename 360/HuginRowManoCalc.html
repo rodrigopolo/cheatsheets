@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hugin 360 Panorama Row Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-5">
+    <h2 class="mb-4">360 Equirectangular Panorama Calculator</h2>
+    
+    <table class="table table-bordered">
+        <tr><th>Calculated optimal width:</th><td><input type="number" id="panoWidth" class="form-control" value="16000" oninput="calculate()"></td></tr>
+        <tr><th>Proposed width:</th><td><input type="number" id="propoWidth" class="form-control" disabled></td></tr>
+        <tr><th>Proposed Height:</th><td><input type="number" id="propoHeight" class="form-control" disabled></td></tr>
+    </table>
+    
+    <table class="table table-bordered">
+        <tr><th colspan="2" class="text-center">Panorama calculations</th></tr>
+        <tr><th>Row % Margin</th><td><input type="number" id="rowMargin" class="form-control" value="21" oninput="calculate()"></td></tr>
+        <tr><th>Row Height</th><td><input type="number" id="rowHeight" class="form-control" disabled></td></tr>
+        <tr><th>Margin</th><td><input type="number" id="marginPx" class="form-control" disabled></td></tr>
+        <tr><th>Total Row Height</th><td><input type="number" id="totalRowHeight" class="form-control" disabled></td></tr>
+    </table>
+    
+    <table class="table table-bordered">
+        <tr><th colspan="5" class="text-center">Panorama crop for rows</th></tr>
+        <tr><th></th><th>Left</th><th>Top</th><th>Right</th><th>Bottom</th></tr>
+        <tr><th>Row 1</th><td><input type="number" class="form-control" value="0" disabled></td><td><input type="number" class="form-control" value="0" disabled></td><td><input type="number" id="row1Right" class="form-control" disabled></td><td><input type="number" id="row1Bottom" class="form-control" disabled></td></tr>
+        <tr><th>Row 2</th><td><input type="number" class="form-control" value="0" disabled></td><td><input type="number" id="row2Top" class="form-control" disabled></td><td><input type="number" id="row2Right" class="form-control" disabled></td><td><input type="number" id="row2Bottom" class="form-control" disabled></td></tr>
+        <tr><th>Row 3</th><td><input type="number" class="form-control" value="0" disabled></td><td><input type="number" id="row3Top" class="form-control" disabled></td><td><input type="number" id="row3Right" class="form-control" disabled></td><td><input type="number" id="row3Bottom" class="form-control" disabled></td></tr>
+    </table>
+    <script>
+        function calculate() {
+            let panoWidth = parseFloat(document.getElementById("panoWidth").value) || 0;
+            let rowMargin = parseFloat(document.getElementById("rowMargin").value) || 0;
+            
+            let newPanoWidth = Math.round(panoWidth/16)*16;
+            let newPanoHeight = newPanoWidth/2;
+            let rowHeight = Math.round((newPanoHeight/3)/2)*2;
+            let margin = Math.round((newPanoHeight/rowMargin)/16)*16;
+            let totalRowHeight = rowHeight+margin;
+
+            let r1t = 0;
+            let r1b = totalRowHeight;
+
+            let r2t = (newPanoHeight/2)-(totalRowHeight/2);
+            let r2b = r2t+totalRowHeight;
+
+            let r3t = newPanoHeight-totalRowHeight;
+            let r3b = newPanoHeight;
+
+            document.getElementById("propoWidth").value = newPanoWidth;
+            document.getElementById("propoHeight").value = newPanoHeight;
+
+            document.getElementById("rowHeight").value = rowHeight;
+            document.getElementById("marginPx").value = margin;
+            document.getElementById("totalRowHeight").value = totalRowHeight;
+            
+            document.getElementById("row1Bottom").value = r1b;
+
+            document.getElementById("row2Top").value = r2t;
+            document.getElementById("row2Bottom").value = r2b;
+
+            document.getElementById("row3Top").value = r3t;
+            document.getElementById("row3Bottom").value = r3b;
+
+            document.getElementById("row1Right").value = newPanoWidth;
+            document.getElementById("row2Right").value = newPanoWidth;
+            document.getElementById("row3Right").value = newPanoWidth;
+        }
+        calculate();
+    </script>
+</body>
+</html>
