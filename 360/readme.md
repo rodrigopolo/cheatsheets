@@ -323,3 +323,66 @@ output.mp4
 * `-c:a copy`: Copies the audio stream from the input without re-encoding it.
 * `-movflags +faststart`: Moves some data to the start of the file for web streaming compatibility.
 * `output.mp4`: Specifies the name of the output file in MP4 format.
+
+# 360° Panorama with EOS R5 + 15-35mm + Panoramic tripod head
+
+### Gear:
+* [Canon EOS R5](https://bhpho.to/4aIiFJf)
+* [Canon RF 15-35mm f/2.8 L](https://bhpho.to/41ICrlD)
+* [Nodal Ninja NN3 MK3 + Rotator Mini](https://bhpho.to/4hPlQSy)
+
+### Steps capturing the images:
+
+1. **Prepare the Rotator:** Swap the detent ring on the Rotator Mini V2 to 60° for consistent rotation stops.
+2. **Assemble the Setup:** Follow the [Nodal Ninja mount user manual](https://www.nodalninja.com/Manuals/nn3mk3.pdf) to attach the NN3 MK3 to your tripod and secure the EOS R5 with the 15-35mm lens.
+3. **Find the Nodal Point:** Adjust the camera position on the NN3 MK3 [so the lens’s nodal point aligns with the rotation axis](https://youtu.be/uadeEgiLRCY) (test by rotating and checking foreground/background alignment).
+4. **Capture the Nadir:** Set the camera straight down (nadir), ensure it’s centered, and take the first shot.
+5. **First Row:** Tilt the camera to -30°, rotate it in 60° increments (using the detent ring), and take a full row of images.
+6. **Second Row:** Tilt the camera to +30°, repeat the 60° rotation steps, and capture the second row of images.
+7. **Zenith Shot:** Point the camera straight up (zenith) and take the final image.
+
+### Stitching
+
+* Import, adjust and export to TIF the images using Adobe Lightroom.
+* Open Hugin and enter into "Preview panorama (OpenGL)".
+* Load images, and alignt images using Hugin Assistant.
+* Just in case, go to "Move/Drag" and select "Straighten".
+* Export the panorama.
+
+### Dealing with Hugin merge momory limit exporting 3 rows
+
+* Go to Hugin main window, the "Stitched" tab, and click in "Calculate optimal size".
+* Copy the optimal width size, and paste it in the HTML calc.
+* With the results, set the "Top" and "Button" for each row, and export each row.
+* Import all rows into an image stack in Adobe Photoshop, align the images, flatten the image and export it.
+
+### Removing the tripod
+
+* Convert the equirectangular TIF file to cubemap using `tocubemap_nona.sh`.
+* Open the down side in Photoshop and either using "Generative Fill" or "Content-Aware Fill".
+* Convert back to equirectangular with `c2e.sh`.
+
+### Dealing with metadata
+
+Copy the metadata from one of the original tif images to the stitched panorama using:
+
+```sh
+exiftool \
+-overwrite_original \
+-tagsFromFile source.tif \
+target.tif
+```
+
+Set the panorama metadata and tag
+```sh
+exiftool \
+-overwrite_original \
+-ProjectionType="equirectangular" \
+-XMP-GPano:InitialViewHeadingDegrees=0 \
+-Keywords+=360i \
+"target.tif"
+```
+
+### Export to JPG
+
+You can either import the tif file back to Lightroom and use the export funcion, or use the `tif2jpg.sh` script
