@@ -63,6 +63,11 @@ Create a tab table of the image widths and heights
 exiftool -T -FileName -ImageWidth -ImageHeight *.jpg
 ```
 
+Create a tab table with the files with its dates
+```sh
+exiftool -T -s3 -FileName -DateCreated  *.dng 
+```
+
 Sort totals
 ```sh
 awk 'BEGIN {FS="\t"}; {print $3}' models.txt | sort | uniq -c | sort -nr
