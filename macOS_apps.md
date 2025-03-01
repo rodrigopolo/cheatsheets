@@ -80,6 +80,30 @@ bash Miniforge3-MacOSX-arm64.sh
 conda config --set auto_activate_base false
 ```
 
+### GDrive
+
+Install
+```bash
+brew install gdrive
+```
+
+Download
+```bash
+gdrive files download --recursive "file/folder-id"
+```
+
+* Project: https://github.com/glotlabs/gdrive  
+* Credentials: https://github.com/glotlabs/gdrive/blob/main/docs/create_google_api_credentials.md  
+* Tutorial: https://www.youtube.com/watch?v=HCjAK0QA_3w  
+* Config: `~/.config/gdrive3`
+
+### Composer
+```sh
+which php
+cd && curl -sS https://getcomposer.org/installer | php
+mv composer.phar ~/.bin/composer
+```
+
 ### StarShip
 ```sh
 brew install starship
@@ -89,13 +113,6 @@ mkdir -p ~/.config && touch ~/.config/starship.toml
 ### Nano Color
 ```sh
 echo -e "include "/opt/homebrew/share/nano/*.nanorc"\n" > ~/.nanorc
-```
-
-### Composer
-```sh
-which php
-cd && curl -sS https://getcomposer.org/installer | php
-mv composer.phar ~/.bin/composer
 ```
 
 ### unimatrix
