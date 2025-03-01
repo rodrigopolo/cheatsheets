@@ -137,6 +137,11 @@ exiftool \
 /path/to/files
 ```
 
+Get files ans dimensions
+```sh
+exiftool -T -filename -imagewidth -imageheight files
+```
+
 Rename based on CreateDate
 ```sh
 exiftool \

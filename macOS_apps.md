@@ -1,0 +1,237 @@
+# macOS Apps
+
+## Apps
+
+| Adobe                   | Design and Photo    | Multimedia and Streaming  |
+|-------------------------|---------------------|---------------------------|
+| Adobe Lightroom Classic | Topaz Gigapixel AI  | DaVinci Resolve           |
+| Adobe After Effects     | Topaz DeNoise AI    | Insta360 Studio           |
+| Adobe Animate 2024      | Adobe DNG Converter | Blender                   |
+| Adobe Audition          | LRTimelapse 6       | IINA                      |
+| Adobe Media Encoder     | Affinity Photo 2    | VLC                       |
+| Adobe Premiere Pro      | Raw Convertor       | Infuse                    |
+| Adobe Photoshop         | Spherical Viewer    | Aegisub                   |
+|                         | Panorama Stitcher   | MKVToolNix                |
+|                         | Hugin               | CASTER                    |
+|                         |                     | OBS                       |
+|                         |                     | Accentize Complete Bundle |
+|                         |                     | FabFilter Total Bundle    |
+
+
+| Utilities               | Dev                 | Devices               |
+|-------------------------|---------------------|-----------------------|
+| NTFS for Mac            | Sublime Text        | Logitech Presentation |
+| KeePassXC               | FileZilla           | Logi Options+         |
+| KeePassium              | Ghostty             | EOS Webcam Utility    |
+| FreeFileSync            | Warp                | Rode Central          |
+| Disk Inventory X        | DbGate Premium      |                       |
+| Inviska Rename          | DBeaver             |                       |
+| Inviska MKV Extract     | Docker              |                       |
+| AnyDesk                 | Robo 3T             |                       |
+| Google Earth Pro        | Sequel Ace          |                       |
+| Windows App             | SQLPro Studio       |                       |
+| Office                  |                     |                       |
+| QuickRes                |                     |                       |
+| Lasso                   |                     |                       |
+| Rectangle               |                     |                       |
+| RawDigger               |                     |                       |
+| Remote Desktop          |                     |                       |
+
+| Browsers                | Astro               |
+|-------------------------|---------------------|
+| Opera                   | Stellarium          |
+| Google Chrome           | StarStaX            |
+| FireFox                 | Siril               |
+| Brave Browser           | ASTAP               |
+|                         | ASIAIR              |
+|                         | QuickFits           |
+
+
+### Homebrew packages
+```sh
+brew install \
+jq bat btm bmon \
+btop gpac ncdu node \
+tmux tree wget aria2 \
+p7zip bottom fdupes \
+ffmpeg figlet gdrive \
+cmatrix exiftool goaccess \
+fastfetch unimatrix media-info \
+imagemagick mssql-tools18 \
+astrometry-net nano
+```
+
+### Mongo
+```sh
+brew tap mongodb/brew
+brew install mongodb-database-tools
+brew install mongosh
+```
+
+### SSH
+```sh
+ssh-keygen -t ed25519 -C "user@mail.com"
+```
+
+### Conda
+```sh
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh
+bash Miniforge3-MacOSX-arm64.sh
+conda config --set auto_activate_base false
+```
+
+### StarShip
+```sh
+brew install starship
+mkdir -p ~/.config && touch ~/.config/starship.toml
+```
+
+### Nano Color
+```sh
+echo -e "include "/opt/homebrew/share/nano/*.nanorc"\n" > ~/.nanorc
+```
+
+### Composer
+```sh
+which php
+cd && curl -sS https://getcomposer.org/installer | php
+mv composer.phar ~/.bin/composer
+```
+
+### unimatrix
+```sh
+sudo curl -L https://raw.githubusercontent.com/will8211/unimatrix/master/unimatrix.py -o /usr/local/bin/unimatrix
+sudo chmod a+rx /usr/local/bin/unimatrix
+unimatrix -s 90
+```
+
+## Shell settings in `.zshrc`
+```sh
+export PATH=~/.bin:/usr/local/sbin:/opt/homebrew/bin:/Applications/MKVToolNix-90.0.app/Contents/MacOS:/Applications/Hugin/PTBatcherGUI.app/Contents/MacOS:$PATH
+
+# Enable color support
+autoload -U colors && colors
+export TERM=xterm-256color
+
+# Alias for color and weather
+alias ls='ls -G'
+alias tree='tree -C'
+alias grep='grep --color=auto'
+alias weather='curl wttr.in'
+
+# Man pages color settings
+export LESS_TERMCAP_mb=$'\e[1;31m'
+export LESS_TERMCAP_md=$'\e[1;31m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[1;44;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;32m'
+
+# Git color settings
+git config --global color.ui auto
+git config --global color.branch auto
+git config --global color.diff auto
+git config --global color.status auto
+
+# Editor
+export HOMEBREW_EDITOR=/usr/bin/nano
+
+# https://starship.rs/
+if [[ $TERM_PROGRAM == "Apple_Terminal" ]]; then
+    PROMPT='%B%F{green}%n@%m%b %F{yellow}%~ %f$ '
+else
+    eval "$(starship init zsh)"
+fi
+
+# Show FastFetch at start
+fastfetch
+
+```
+
+### Ghostty settings `~/Library/Application\ Support/com.mitchellh.ghostty/config`
+```
+# Custom settings
+
+# ghostty +list-themes
+theme = flexoki-dark
+
+background-opacity = 0.80
+background-blur-radius = 10
+cursor-style = block
+window-height = 34
+window-width = 125
+
+#window-decoration = false
+#background = 000000
+
+clipboard-trim-trailing-spaces = true
+
+# No ligatures
+font-feature = -calt
+font-feature = -dlig
+font-feature = -liga
+```
+
+## Figlet
+```sh
+brew install figlet
+figlet -I2
+figlet -f poison "Rodrigo Polo" 
+figlet -f doom "Rodrigo Polo" 
+figlet -f epic "Rodrigo Polo" 
+figlet -f gothic "Rodrigo Polo" 
+figlet -f larry3d "Rodrigo Polo" 
+figlet -f rectangles "Rodrigo Polo" 
+figlet -f slant "Rodrigo Polo" 
+figlet -f smslant "Rodrigo Polo"
+```
+
+### RAR
+```sh
+cd ~/.apps
+wget https://www.win-rar.com/fileadmin/winrar-versions/rarmacos-arm-612.tar.gz
+tar xzf rarmacos-arm-612.tar.gz
+rm rarmacos-arm-612.tar.gz
+ln -s ~/.apps/rar/rar ~/.bin/rar
+ln -s ~/.apps/rar/unrar ~/.bin/unrar
+```
+
+### Sublime Text defaults
+
+```json
+{
+  "draw_white_space": "all",
+  "ignored_packages":
+  [
+    "Vintage",
+  ],
+  "wrap_width": 68,
+  "open_files_in_new_window": false,
+  "scroll_past_end": true,
+  "show_encoding": true,
+  "word_wrap": false,
+  "index_files": true,
+  "font_size": 12,
+}
+```
+
+### Lightroom Export Presets
+```
+~/Library/Application\ Support/Adobe/Lightroom/Export\ Presets/User\ Presets
+```
+
+### Custom `~/.bin`
+
+Symbolic links in ~/.apps/
+```sh
+ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ~/.bin/sublime
+ln -s /Applications/MAMP/Library/bin/mysql ~/.bin/mysql
+ln -s /Applications/MAMP/Library/bin/mysqldump ~/.bin/mysqldump
+ln -s /Applications/MAMP/bin/php/php7.4.21/bin/php ~/.bin/php
+```
+
+### Misc
+```
+https://github.com/const-void/DOOM-fire-zig
+```
