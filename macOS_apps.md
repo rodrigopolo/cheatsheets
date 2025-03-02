@@ -50,15 +50,48 @@
 ### Homebrew packages
 ```sh
 brew install \
-jq bat btm bmon \
-btop gpac ncdu node \
-tmux tree wget aria2 \
-p7zip bottom fdupes \
-ffmpeg figlet gdrive \
-cmatrix exiftool goaccess \
-fastfetch unimatrix media-info \
-imagemagick mssql-tools18 \
-astrometry-net nano
+jq fzf bat btm bmon btop gpac ncdu \
+node tmux tree wget nano zinit aria2 \
+p7zip bottom fdupes ffmpeg figlet \
+gdrive cmatrix prettier exiftool \
+goaccess fastfetch unimatrix media-info \
+imagemagick mssql-tools18 astrometry-net
+```
+
+Check `my.zshrc` in the repo
+
+### Set the prompt
+```sh
+touch ~/.hushlogin
+p10k configure
+```
+
+Set VCS colors with `nano .p10k.zsh`
+```sh
+    local      clean='%F{#fbf1c7}' # black foreground  %0F Git branch
+    local   modified='%F{#fbf1c7}' # black foreground  %0F !1
+    local       meta='%F{#ff0000}' # white foreground  %7F
+    local  untracked='%F{#fbf1c7}' # black foreground  %0F
+    local conflicted='%F{#af3029}' # red foreground    %1F
+```
+
+Check settings
+```sh
+typeset -m 'POWERLEVEL9K_*'
+```
+
+### Set `ncdu`
+```sh
+mkdir $HOME/.config/ncdu/
+nano $HOME/.config/ncdu/config
+```
+
+Enable color and extended mode in `$HOME/.config/ncdu/config`
+```
+# Color
+--color=dark
+# Always enable extended mode
+-e
 ```
 
 ### Mongo
@@ -251,4 +284,5 @@ ln -s /Applications/MAMP/bin/php/php7.4.21/bin/php ~/.bin/php
 ### Misc
 ```
 https://github.com/const-void/DOOM-fire-zig
+Ctrl+R for search
 ```
