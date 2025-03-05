@@ -53,7 +53,7 @@ brew install \
 jq fzf bat btm bmon btop gpac ncdu \
 node tmux tree wget nano zinit aria2 \
 p7zip bottom fdupes ffmpeg figlet \
-gdrive cmatrix prettier exiftool \
+gdrive cmatrix prettier exiftool nushell \
 goaccess fastfetch unimatrix media-info \
 imagemagick mssql-tools18 astrometry-net
 ```
@@ -247,6 +247,45 @@ ln -s ~/.apps/rar/rar ~/.bin/rar
 ln -s ~/.apps/rar/unrar ~/.bin/unrar
 ```
 
+### Bottom
+[Styling Bottom](https://clementtsang.github.io/bottom/nightly/configuration/config-file/styling/)  
+```sh
+mkdir $HOME/.config/bottom/
+nano $HOME/.config/bottom/bottom.toml
+```
+
+`bottom.toml`
+```
+[styles]
+theme = "gruvbox"
+```
+
+### Nushell
+```sh
+brew install nushell
+nu
+```
+
+```sh
+open file.json | select primerNombre primerApellido fechaNacimiento | where fechaNacimiento =~ "^1980"
+```
+
+```sh
+open file.json | select primerNombre primerApellido fechaNacimiento | where fechaNacimiento =~ "07-23$"
+```
+
+```sh
+open file.json | select primerNombre primerApellido fechaNacimiento | where fechaNacimiento =~ "22$"
+```
+
+```sh
+open file.json | where ln =~ "(?i)gabri"
+```
+
+```sh
+open file.json | where ln =~ "(?i)gabri" | where ln =~ "(?i)jos"
+```
+
 ### Sublime Text defaults
 
 ```json
@@ -264,6 +303,13 @@ ln -s ~/.apps/rar/unrar ~/.bin/unrar
   "index_files": true,
   "font_size": 12,
 }
+```
+
+Packages
+```
+MarkdownPreview.sublime-package
+Sort Lines (Numerically).sublime-package
+Sync View Scroll.sublime-package
 ```
 
 ### Lightroom Export Presets
