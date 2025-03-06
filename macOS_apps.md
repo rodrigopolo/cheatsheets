@@ -237,6 +237,11 @@ font-feature = -liga
 #shell-integration.drag-drop-path-trailing-space true
 ```
 
+My theme
+```sh
+nano /Applications/Ghostty.app/Contents/Resources/ghostty/themes/Rodrigo\ Polo
+```
+
 ## Figlet
 ```sh
 brew install figlet
