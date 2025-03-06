@@ -95,6 +95,7 @@ alias weather='curl -s wttr.in'
 alias ls='ls -G --color=auto'
 alias tree='tree -C'
 alias grep='grep --color=auto'
+alias sls="eza -l --header --color=always --icons=always --group-directories-first --no-time --no-user --no-permissions --no-quotes"
 
 # ===== Terminal Appearance =====
 

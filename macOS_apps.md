@@ -50,9 +50,9 @@
 ### Homebrew packages
 ```sh
 brew install \
-jq fzf bat btm bmon btop gpac ncdu \
+jq fzf bat btm bmon btop gpac ncdu eza \
 node tmux tree wget nano zinit aria2 \
-p7zip bottom fdupes ffmpeg figlet \
+p7zip bottom fdupes ffmpeg figlet yazi \
 gdrive cmatrix prettier exiftool nushell \
 goaccess fastfetch unimatrix media-info \
 imagemagick mssql-tools18 astrometry-net
@@ -203,24 +203,38 @@ fastfetch
 ```
 # Custom settings
 
-# ghostty +list-themes
+# To list themes: ghostty +list-themes
 theme = flexoki-dark
 
+window-height = 34
+window-width = 125
 background-opacity = 0.80
 background-blur-radius = 10
 cursor-style = block
-window-height = 34
-window-width = 125
-
-#window-decoration = false
-#background = 000000
-
 clipboard-trim-trailing-spaces = true
+font-family = MesloLGS Nerd Font Mono
 
 # No ligatures
 font-feature = -calt
 font-feature = -dlig
 font-feature = -liga
+
+# window-decoration = false
+# background = 000000
+
+
+## Other themes
+# Apple System Colors
+# flexoki-dark
+# Adwaita Dark
+# Afterglow
+# Ghostty Default StyleDark
+# Everforest Dark - Hard
+# Galizur
+# Builtin Tango Dark
+# Andromeda
+#drag-and-drop.path-with-trailing-space true
+#shell-integration.drag-drop-path-trailing-space true
 ```
 
 ## Figlet
@@ -325,6 +339,11 @@ ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ~/.bin/sub
 ln -s /Applications/MAMP/Library/bin/mysql ~/.bin/mysql
 ln -s /Applications/MAMP/Library/bin/mysqldump ~/.bin/mysqldump
 ln -s /Applications/MAMP/bin/php/php7.4.21/bin/php ~/.bin/php
+```
+
+### Nerd font
+```sh
+brew install --cask font-meslo-lg-nerd-font
 ```
 
 ### Misc
