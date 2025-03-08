@@ -1,5 +1,5 @@
 palette = 0=#1a1a1a
-palette = 1=#da1a20
+palette = 1=#ed1b21
 palette = 2=#2dc55e
 palette = 3=#ecba0f
 palette = 4=#2a84d2
@@ -20,3 +20,4 @@ cursor-color = #98989d
 cursor-text = #ffffff
 selection-background = #3f638b
 selection-foreground = #ffffff
+
