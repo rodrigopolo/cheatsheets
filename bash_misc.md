@@ -62,10 +62,23 @@ find "$(pwd)" -type f -iname "*.md" -print0 | xargs -0 grep -n -H -i "keyword"
 
 Filter a list of files, and then, search inside each file
 ```sh
-cat indexed.txt | \
-grep -i -E ".md$" | \
-tr '\n' '\0' | \
+tr '\n' '\0' < indexed.txt | \
+grep -i -E '\.md$' -z | \
 xargs -0 grep -l -i "keyword"
+```
+
+Filter a list of files, and then, search inside each file with parallel xargs
+```sh
+tr '\n' '\0' < indexed.txt | \
+grep -i -E '\.md$' -z | \
+xargs -0 -P 4 grep -l -i "keyword"
+```
+
+Filter and process in GNU Parallel (slower)
+```sh
+tr '\n' '\0' < indexed.txt | \
+grep -i -E '\.md$' -z | \
+parallel -j 4 --null --line-buffer grep -l -i "keyword"
 ```
 
 Read a file with a list of files, only get the ones with the file extension, replace breaklines with NULL, and with xargs, find a string using grep

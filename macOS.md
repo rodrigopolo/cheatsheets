@@ -81,6 +81,9 @@ ls -l@ <file or folder>
 
 # Remove the metadata
 xattr -d "com.apple.lastuseddate#PS" <file or folder>
+
+find . -type f -exec xattr -d com.apple.quarantine "{}" +
+find . -type d -exec xattr -d com.apple.quarantine "{}" +
 ```
 
 ## Enable color in the Terminal app
