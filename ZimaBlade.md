@@ -253,7 +253,7 @@ Recipe: https://community-scripts.github.io/ProxmoxVE/scripts?id=jellyfin
 
 ### Set the pool mount point
 ```sh
-# Set the mountpoint for 103 container
+# Set the mountpoint for 101 container
 pct set 101 --mp1 /mzp/media,mp=/mnt/media
 ```
 
