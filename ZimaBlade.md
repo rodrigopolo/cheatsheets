@@ -210,19 +210,19 @@ nano docker-compose.yml
 
 From this:
 ```yaml
-	volumes:
-	  # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD>
-	  - ${UPLOAD_LOCATION}:/usr/src/app/upload
-	  - /etc/localtime:/etc/localtime:ro
+  volumes:
+    # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD>
+    - ${UPLOAD_LOCATION}:/usr/src/app/upload
+    - /etc/localtime:/etc/localtime:ro
 ```
 
 To this:
 ```yaml
-	volumes:
-	  # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD>
-	  - ${UPLOAD_LOCATION}:/usr/src/app/upload
-	  - /etc/localtime:/etc/localtime:ro
-	  - /mnt/media/nas/Pics:/import/pictures
+  volumes:
+    # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD>
+    - ${UPLOAD_LOCATION}:/usr/src/app/upload
+    - /etc/localtime:/etc/localtime:ro
+    - /mnt/media/nas/Pics:/import/pictures
 ```
 
 Install and run
