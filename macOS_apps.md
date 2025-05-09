@@ -376,6 +376,37 @@ ln -s /Applications/MAMP/bin/php/php7.4.21/bin/php ~/.bin/php
 brew install --cask font-meslo-lg-nerd-font
 ```
 
+### Extra resolutions with displayplacer
+```sh
+brew install displayplacer
+displayplacer list
+```
+
+```
+Persistent screen id: AD421EA7-496A-4F73-904F-05E88C3673F8
+Contextual screen id: 4
+Serial screen id: s16843009
+Type: 29 inch external screen
+Resolution: 2560x1080
+
+mode 26: res:2560x1080 hz:60 color_depth:8 <-- current mode
+mode 36: res:2560x1080 hz:60 color_depth:8 scaling:on
+
+Persistent screen id: CD0BFDE7-928E-47C3-8C47-8C75B8A49ADE
+Contextual screen id: 1
+Serial screen id: s2264
+Type: 24 inch external screen
+Resolution: 1920x1080
+
+mode 36: res:1920x1080 hz:60 color_depth:8 <-- current mode
+mode 55: res:1920x1080 hz:60 color_depth:8 scaling:on
+mode 40: res:1280x720 hz:60 color_depth:8 scaling:on
+```
+
+```
+displayplacer "id:CD0BFDE7-928E-47C3-8C47-8C75B8A49ADE mode:55"
+```
+
 ### Misc
 ```
 https://github.com/const-void/DOOM-fire-zig
