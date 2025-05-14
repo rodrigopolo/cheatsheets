@@ -353,6 +353,7 @@ Sources:
 * [zoxide](https://youtu.be/aghxkpyRVDY)
 * [oh-my-posh](https://github.com/jandedobbeleer/oh-my-posh)
 * [oh-my-posh themes](https://ohmyposh.dev/docs/themes)
+* [OMP `zen.toml`](https://github.com/dreamsofautonomy/zen-omp)
 
 ## Homebrew packages
 ```sh
