@@ -410,10 +410,14 @@ https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/
 
 Redirects:
 ```sh
-> redirects stdout to file
-1> redirects stdout to file
-2> redirects stderr to file
-&> redirects stdout and stderr to file
+> output.log   # redirects stdout to file
+1> output.log  # redirects stdout to file
+2> output.log  # redirects stderr to file
+&> output.log  # redirects stdout and stderr to file
+2>&1           # redirects stderr to stdout
+command > output.log 2>&1  # Redirect all output to a file
+command >> output.log 2>&1 # Redirect all output to a file appending
+command > /dev/null 2>&1   # No output
 ```
 
 Run command in the background, discard stdout and stderr
