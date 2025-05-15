@@ -429,11 +429,6 @@ brew install starship
 mkdir -p ~/.config && touch ~/.config/starship.toml
 ```
 
-### Nano Color
-```sh
-echo -e "include "/opt/homebrew/share/nano/*.nanorc"\n" > ~/.nanorc
-```
-
 ### unimatrix
 ```sh
 sudo curl -L https://raw.githubusercontent.com/will8211/unimatrix/master/unimatrix.py -o /usr/local/bin/unimatrix
