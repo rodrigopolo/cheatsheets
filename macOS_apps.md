@@ -63,9 +63,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 brew install --cask font-meslo-for-powerlevel10k font-jetbrains-mono-nerd-font
 ```
 
-### Install `git`, `fzf`, `zoxide` and `oh-my-posh`
+### Install `git`, `wget`, `fzf`, `zoxide` and `oh-my-posh`
 ```sh
-brew install git fzf zoxide fastfetch
+brew install git wget fzf zoxide fastfetch
 brew install jandedobbeleer/oh-my-posh/oh-my-posh
 ```
 
@@ -127,10 +127,30 @@ EOF
 
 > Reload configuration before continuing
 
-### Enable `nano` colors
+#### Customize Oh My Posh
+1. Create the `.config/ohmyposh` dir.
+2. Download or create your template exporting current.
+3. Edit `~/.zshrc` and set the config.
+
+Create config dir, export, edit or download templates
 ```sh
-brew install nano
-echo -e 'include "/opt/homebrew/share/nano/*.nanorc"\n' > ~/.nanorc
+mkdir -p ~/.config/ohmyposh
+cd ~/.config/ohmyposh
+wget https://raw.githubusercontent.com/rodrigopolo/cheatsheets/refs/heads/master/rodrigopolo.omp.json
+```
+
+Examples of custom configurations
+```sh
+oh-my-posh config export --output ./current.json # Exports as JSON
+oh-my-posh config export --format toml --output ./current.toml # Exports as toml
+wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/powerlevel10k_rainbow.omp.json
+wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/slim.omp.json
+wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/quick-term.omp.json
+```
+
+Example of how to load OMP in `~/.zshrc`
+```sh
+eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/slim.omp.json)"
 ```
 
 ### Set all the plug-ins and settings of `~/.zshrc`, then reload the terminal window.
@@ -243,27 +263,7 @@ EOF
 touch ~/.hushlogin
 ```
 
-#### Customize Oh My Posh
-1. Create the `.config/ohmyposh` dir.
-2. Download or create your template exporting current.
-3. Edit `~/.zshrc` and set the config.
 
-Create config dir, export, edit or download templates
-```sh
-mkdir ~/.config/ohmyposh
-cd ~/.config/ohmyposh
-oh-my-posh config export --output ./current.json # Exports as JSON
-oh-my-posh config export --format toml --output ./current.toml # Exports as toml
-wget https://raw.githubusercontent.com/rodrigopolo/cheatsheets/refs/heads/master/rodrigopolo.omp.json
-wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/powerlevel10k_rainbow.omp.json
-wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/slim.omp.json
-wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/quick-term.omp.json
-```
-
-Edit `~/.zshrc` and set the config
-```sh
-eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/slim.omp.json)"
-```
 
 Sources:
 * [Zsh config](https://youtu.be/ud7YxC33Z3w)
