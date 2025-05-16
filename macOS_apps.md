@@ -345,14 +345,33 @@ brew install jandedobbeleer/oh-my-posh/oh-my-posh
 
 1. Remove any `p10k` from `~/.zshrc`
 2. Add the `eval "$(oh-my-posh init zsh)"`
-3. `mkdir .config/ohmyposh`
+3. Customize
+
+##### Customize
+1. Create the `.config/ohmyposh` dir.
+2. Download or create your template.
+3. Edit `~/.zshrc` and set the config.
+
+Create config dir and download templates
+```sh
+mkdir ~/.config/ohmyposh
+cd ~/.config/ohmyposh
+wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/powerlevel10k_rainbow.omp.json
+wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/slim.omp.json
+wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/quick-term.omp.json
+```
+
+Edit `~/.zshrc` and set the config
+```sh
+eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/slim.omp.json)"
+```
 
 Sources:
 * [Zsh config](https://youtu.be/ud7YxC33Z3w)
 * [`.zshrc`](https://github.com/dreamsofautonomy/zensh)
 * [zoxide](https://youtu.be/aghxkpyRVDY)
-* [oh-my-posh](https://github.com/jandedobbeleer/oh-my-posh)
-* [oh-my-posh themes](https://ohmyposh.dev/docs/themes)
+* [oh-my-posh GitHub](https://github.com/jandedobbeleer/oh-my-posh)
+* [oh-my-posh Themes](https://ohmyposh.dev/docs/themes)
 * [OMP `zen.toml`](https://github.com/dreamsofautonomy/zen-omp)
 
 ## Homebrew packages
