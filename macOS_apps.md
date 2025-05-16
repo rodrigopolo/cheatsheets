@@ -58,17 +58,18 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
 
-### Install `git`, `fzf` and `zoxide`
-```sh
-brew install git fzf zoxide fastfetch
-```
-
 ### Install nerd fonts
 ```sh
 brew install --cask font-meslo-for-powerlevel10k font-jetbrains-mono-nerd-font
 ```
 
-### Set your custom color palette
+### Install `git`, `fzf`, `zoxide` and `oh-my-posh`
+```sh
+brew install git fzf zoxide fastfetch
+brew install jandedobbeleer/oh-my-posh/oh-my-posh
+```
+
+### Set your Ghostty custom color palette
 ```sh
 cat > /Applications/Ghostty.app/Contents/Resources/ghostty/themes/Rodrigo\ Polo << 'EOF'
 palette = 0=#1a1a1a
@@ -135,16 +136,14 @@ echo -e 'include "/opt/homebrew/share/nano/*.nanorc"\n' > ~/.nanorc
 ### Set all the plug-ins and settings of `~/.zshrc`, then reload the terminal window.
 ```sh
 cat >> ~/.zshrc << 'EOF'
-fastfetch -c examples/7.jsonc
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# For consistent behavior across terminals
+export TERM=xterm-256color
 
+# Fastfetch, you can disable it
+fastfetch -c examples/7.jsonc
+
+# If you're using macOS, you'll want this enabled
 if [[ -f "/opt/homebrew/bin/brew" ]] then
-  # If you're using macOS, you'll want this enabled
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
@@ -160,9 +159,9 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Add in Powerlevel10k
+# Add in ice
 if [[ "$TERM_PROGRAM" != "Apple_Terminal" ]]; then
-   zinit ice depth=1; zinit light romkatv/powerlevel10k
+   zinit ice depth=1; 
    
    # Add in snippets
    zinit snippet OMZL::git.zsh
@@ -186,11 +185,10 @@ autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-if [[ "$TERM_PROGRAM" != "Apple_Terminal" && -f ~/.p10k.zsh ]]; then
-  source ~/.p10k.zsh
+# Load oh-my-posh only in other terminals
+if [[ "$TERM_PROGRAM" != "Apple_Terminal" ]]; then
+  eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/rodrigopolo.omp.json)"
 fi
-
 
 # Keybindings
 bindkey -e
@@ -245,121 +243,21 @@ EOF
 touch ~/.hushlogin
 ```
 
-### My custom p10k colors
-```sh
-cat >> ~/.p10k.zsh << 'EOF'
-### Custom colors for p10k
-
-# Icon
-POWERLEVEL9K_OS_ICON_BACKGROUND='#d65c0f'
-POWERLEVEL9K_OS_ICON_FOREGROUND='#fbf1c7'
-
-# Dir
-POWERLEVEL9K_DIR_ANCHOR_BOLD=false 
-POWERLEVEL9K_DIR_BACKGROUND='#d79920'
-POWERLEVEL9K_DIR_FOREGROUND='#f8eec4'
-# POWERLEVEL9K_DIR_ANCHOR_FOREGROUND='#0000ff' # ~
-
-# Only affects icon
-POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR='#fbf1c7'
-POWERLEVEL9K_VCS_CLEAN_BACKGROUND='#689d6a' # git clean background
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='#ad8302' # git modified background
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='#af3029' # git untracked background
-
-# Status
-POWERLEVEL9K_STATUS_ERROR=true
-POWERLEVEL9K_STATUS_ERROR_BACKGROUND='#000000'
-POWERLEVEL9K_STATUS_ERROR_FOREGROUND='#af3029'
-POWERLEVEL9K_STATUS_OK=true
-POWERLEVEL9K_STATUS_OK_BACKGROUND='#000000'
-POWERLEVEL9K_STATUS_OK_FOREGROUND='#add14c'
-
-# Command execution time
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=1
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_VISUAL_IDENTIFIER_EXPANSION=''
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='#2e2a29'
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='#c4ba92'
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=1
-
-# Time
-POWERLEVEL9K_TIME_FORMAT='%D{%I:%M%p}'
-POWERLEVEL9K_TIME_BACKGROUND='#3d3837'
-POWERLEVEL9K_TIME_FOREGROUND='#c4ba92'
-POWERLEVEL9K_TIME_VISUAL_IDENTIFIER_EXPANSION=''
-EOF
-```
-
-### My settings in the wizard
-* Does this look like a diamond (rotated square)?: `y`
-* Does this look like a lock?: `y`
-* Does this look like an upwards arrow?: `y`
-* What digit is the downwards arrow pointing at?: `1`
-* Do all these icons fit between the crosses?: `y`
-* Prompt Style: `(3)  Rainbow.`
-* Character Set: `(1)  Unicode.`
-* Show current time?: `(2)  24-hour format.`
-* Prompt Separators: `(1)  Angled.`
-* Prompt Heads: `(3)  Sharp.`
-* Prompt Tails: `(5)  Round.`
-* Prompt Height: `(1)  One line.`
-* Prompt Spacing: `(2)  Sparse.`
-* Icons: `(2)  Many icons.`
-* Prompt Flow: `(1)  Concise.`
-* Enable Transient Prompt?: `(y)  Yes.`
-* Instant Prompt Mode: `(1)  Verbose (recommended).`
-
-### p10k styling (VCS colors)
-
-Edit `~/.p10k.zsh` and replace this:
-```
-    # Styling for different parts of Git status.
-    local       meta='%7F' # white foreground
-    local      clean='%0F' # black foreground
-    local   modified='%0F' # black foreground
-    local  untracked='%0F' # black foreground
-    local conflicted='%1F' # red foreground
-```
-
-With this:
-```
-    # Styling for different parts of Git status.
-    local       meta='%F{#ff0000}' # white foreground  %7F
-    local      clean='%F{#fbf1c7}' # black foreground  %0F Git branch
-    local   modified='%F{#fbf1c7}' # black foreground  %0F !1
-    local  untracked='%F{#fbf1c7}' # black foreground  %0F
-    local conflicted='%F{#af3029}' # red foreground    %1F
-```
-
-Check settings
-```sh
-typeset -m 'POWERLEVEL9K_*'
-```
-
-#### Oh My Posh Alternative
-
-Install Oh My Posh
-```sh
-brew install oh-my-posh
-brew install jandedobbeleer/oh-my-posh/oh-my-posh
-```
-
-1. Remove any `p10k` from `~/.zshrc`
-2. Add the `eval "$(oh-my-posh init zsh)"`
-3. Customize
-
-##### Customize
+#### Customize Oh My Posh
 1. Create the `.config/ohmyposh` dir.
-2. Download or create your template.
+2. Download or create your template exporting current.
 3. Edit `~/.zshrc` and set the config.
 
-Create config dir and download templates
+Create config dir, export, edit or download templates
 ```sh
 mkdir ~/.config/ohmyposh
 cd ~/.config/ohmyposh
+oh-my-posh config export --output ./current.json # Exports as JSON
+oh-my-posh config export --format toml --output ./current.toml # Exports as toml
+wget https://raw.githubusercontent.com/rodrigopolo/cheatsheets/refs/heads/master/rodrigopolo.omp.json
 wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/powerlevel10k_rainbow.omp.json
 wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/slim.omp.json
 wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/quick-term.omp.json
-wget https://raw.githubusercontent.com/rodrigopolo/cheatsheets/refs/heads/master/rodrigopolo.omp.json
 ```
 
 Edit `~/.zshrc` and set the config

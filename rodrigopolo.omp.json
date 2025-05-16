@@ -51,7 +51,7 @@
           "background_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}#a54242{{ end }}",
             "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#de935f{{ end }}",
-            "{{ if gt .Ahead 0 }}#a54242{{ end }}",
+            "{{ if gt .Ahead 0 }}#994e80{{ end }}",
             "{{ if gt .Behind 0 }}#5f819d{{ end }}"
           ],
           "properties": {
@@ -182,7 +182,7 @@
         },
         {
           "type": "session",
-          "background": "#2e2a29",
+          "background": "#34302f",
           "foreground": "#c4ba92",
           "style": "diamond",
           "leading_diamond": "\ue0ba",
@@ -208,10 +208,15 @@
       "newline": true,
       "segments": [
         {
-          "foreground": "#00ff00",
+          "type": "status",
           "style": "plain",
-          "template": " \u276f",
-          "type": "text"
+          "foreground_templates": [
+            "{{ if eq .Code 0 }}#2ce92c{{ else }}#ff0000{{ end }}"
+          ],
+          "properties": {
+            "always_enabled": true
+          },
+          "template": " \u276f"
         }
       ]
     }
