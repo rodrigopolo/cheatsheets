@@ -273,6 +273,7 @@ Sources:
 * [oh-my-posh Themes](https://ohmyposh.dev/docs/themes)
 * [OMP `zen.toml`](https://github.com/dreamsofautonomy/zen-omp)
 
+
 ## Homebrew packages
 ```sh
 brew install \
@@ -280,41 +281,41 @@ jq bat bmon btop gpac ncdu eza \
 node tmux tree wget nano zinit aria2 \
 p7zip bottom fdupes ffmpeg figlet yazi \
 gdrive cmatrix prettier exiftool nushell \
-goaccess media-info \
+goaccess media-info nano \
 imagemagick astrometry-net
 ```
 
-### Set `ncdu`
+### Enable nano colors
 ```sh
-mkdir $HOME/.config/ncdu/
-nano $HOME/.config/ncdu/config
+# brew install nano
+echo -e 'include "/opt/homebrew/share/nano/*.nanorc"\n' > ~/.nanorc # ARM
+echo -e 'include "/usr/local/share/nano/*.nanorc"\n' > ~/.nanorc    # Intel
 ```
 
-Enable color and extended mode in `$HOME/.config/ncdu/config`
-```
+### Set colors for `ncdu`
+```sh
+mkdir -p ~/.config/ncdu/
+cat >> ~/.config/ncdu/config << 'EOF'
 # Color
 --color=dark
 # Always enable extended mode
 -e
+EOF
 ```
 
-### Mongo
+### Bottom
+[Styling Bottom](https://clementtsang.github.io/bottom/nightly/configuration/config-file/styling/)  
 ```sh
-brew tap mongodb/brew
-brew install mongodb-database-tools
-brew install mongosh
+mkdir -p ~/.config/bottom/
+cat >> ~/.config/bottom/bottom.toml << 'EOF'
+[styles]
+theme = "gruvbox"
+EOF
 ```
 
 ### SSH
 ```sh
 ssh-keygen -t ed25519 -C "user@mail.com"
-```
-
-### Conda
-```sh
-wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh
-bash Miniforge3-MacOSX-arm64.sh
-conda config --set auto_activate_base false
 ```
 
 ### GDrive
@@ -339,12 +340,6 @@ gdrive files download --recursive "file/folder-id"
 which php
 cd && curl -sS https://getcomposer.org/installer | php
 mv composer.phar ~/.bin/composer
-```
-
-### StarShip
-```sh
-brew install starship
-mkdir -p ~/.config && touch ~/.config/starship.toml
 ```
 
 ### unimatrix
@@ -378,17 +373,18 @@ ln -s ~/.apps/rar/rar ~/.bin/rar
 ln -s ~/.apps/rar/unrar ~/.bin/unrar
 ```
 
-### Bottom
-[Styling Bottom](https://clementtsang.github.io/bottom/nightly/configuration/config-file/styling/)  
+### Conda
 ```sh
-mkdir $HOME/.config/bottom/
-nano $HOME/.config/bottom/bottom.toml
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh
+bash Miniforge3-MacOSX-arm64.sh
+conda config --set auto_activate_base false
 ```
 
-`bottom.toml`
-```
-[styles]
-theme = "gruvbox"
+### Mongo
+```sh
+brew tap mongodb/brew
+brew install mongodb-database-tools
+brew install mongosh
 ```
 
 ### Microsoft ODBC 18
