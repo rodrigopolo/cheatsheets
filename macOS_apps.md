@@ -58,6 +58,8 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
 
+> **Note:** For Intel the command is `eval "$(/usr/local/bin/brew shellenv)"`
+
 ### Install nerd fonts
 ```sh
 brew install --cask font-meslo-for-powerlevel10k font-jetbrains-mono-nerd-font
@@ -125,7 +127,7 @@ font-feature = -liga
 EOF
 ```
 
-> Reload configuration before continuing
+> **Note:** Reload configuration before continuing
 
 #### Customize Oh My Posh
 1. Create the `.config/ohmyposh` dir.
@@ -274,12 +276,12 @@ Sources:
 ## Homebrew packages
 ```sh
 brew install \
-jq bat btm bmon btop gpac ncdu eza \
+jq bat bmon btop gpac ncdu eza \
 node tmux tree wget nano zinit aria2 \
 p7zip bottom fdupes ffmpeg figlet yazi \
 gdrive cmatrix prettier exiftool nushell \
-goaccess unimatrix media-info \
-imagemagick mssql-tools18 astrometry-net
+goaccess media-info \
+imagemagick astrometry-net
 ```
 
 ### Set `ncdu`
@@ -387,6 +389,14 @@ nano $HOME/.config/bottom/bottom.toml
 ```
 [styles]
 theme = "gruvbox"
+```
+
+### Microsoft ODBC 18
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
+brew update
+HOMEBREW_ACCEPT_EULA=Y brew install msodbcsql18 mssql-tools18
 ```
 
 ### Nushell
