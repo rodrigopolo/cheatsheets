@@ -221,7 +221,6 @@
       ]
     }
   ],
-  "console_title_template": "{{if .Root}}root :: {{end}}{{.Shell}} :: {{.Folder}}",
   "final_space": true,
   "transient_prompt": {
     "background": "transparent",

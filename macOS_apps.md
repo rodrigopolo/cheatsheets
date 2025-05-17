@@ -263,8 +263,6 @@ EOF
 touch ~/.hushlogin
 ```
 
-
-
 Sources:
 * [Zsh config](https://youtu.be/ud7YxC33Z3w)
 * [`.zshrc`](https://github.com/dreamsofautonomy/zensh)
