@@ -59,9 +59,9 @@ echo "eval \"\$(${var_path} shellenv)\"" >> ~/.zprofile
 eval "$(${var_path} shellenv)"
 ```
 
-### Install nerd fonts
+### Install nerd font
 ```sh
-brew install --cask font-meslo-for-powerlevel10k font-jetbrains-mono-nerd-font
+brew install --cask font-jetbrains-mono-nerd-font
 ```
 
 ### Install `git`, `wget`, `fzf`, `zoxide` and `oh-my-posh`
@@ -113,7 +113,7 @@ background-opacity = 0.80
 background-blur-radius = 10
 cursor-style = block
 clipboard-trim-trailing-spaces = true
-font-family = MesloLGS NF, JetBrainsMono Nerd Font
+font-family = JetBrainsMono Nerd Font
 
 # No ligatures
 font-feature = -calt
