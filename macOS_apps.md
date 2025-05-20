@@ -247,7 +247,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;32m'
 
 # Aliases
-alias ls='ls -G --color'
+alias ls='ls -G --color=auto'
 alias grep='grep --color=auto'
 alias tree='tree -C'
 alias vim='nvim'
