@@ -56,7 +56,7 @@ Download and install [Ghostty](https://ghostty.org/download)
 echo >> ~/.zprofile
 var_path=$([ "$(uname -m)" = "arm64" ] && echo "/opt/homebrew/bin/brew" || echo "/usr/local/bin/brew")
 echo "eval \"\$(${var_path} shellenv)\"" >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(${var_path} shellenv)"
 ```
 
 ### Install nerd fonts
