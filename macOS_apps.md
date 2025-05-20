@@ -54,11 +54,10 @@ Download and install [Ghostty](https://ghostty.org/download)
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo >> ~/.zprofile
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+var_path=$([ "$(uname -m)" = "arm64" ] && echo "/opt/homebrew/bin/brew" || echo "/usr/local/bin/brew")
+echo "eval \"\$(${var_path} shellenv)\"" >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
-
-> **Note:** For Intel the command is `eval "$(/usr/local/bin/brew shellenv)"`
 
 ### Install nerd fonts
 ```sh
@@ -288,8 +287,8 @@ imagemagick astrometry-net
 ### Enable nano colors
 ```sh
 # brew install nano
-echo -e 'include "/opt/homebrew/share/nano/*.nanorc"\n' > ~/.nanorc # ARM
-echo -e 'include "/usr/local/share/nano/*.nanorc"\n' > ~/.nanorc    # Intel
+hbpath=$([ "$(uname -m)" = "arm64" ] && echo "/opt/homebrew" || echo "/usr/local")
+echo -e "include \"${hbpath}/share/nano/*.nanorc\"\\n" > ~/.nanorc
 ```
 
 ### Set colors for `ncdu`
@@ -378,21 +377,6 @@ ln -s ~/.apps/rar/unrar ~/.bin/unrar
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh
 bash Miniforge3-MacOSX-arm64.sh
 conda config --set auto_activate_base false
-```
-
-### Mongo
-```sh
-brew tap mongodb/brew
-brew install mongodb-database-tools
-brew install mongosh
-```
-
-### Microsoft ODBC 18
-```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
-brew update
-HOMEBREW_ACCEPT_EULA=Y brew install msodbcsql18 mssql-tools18
 ```
 
 ### Nushell
@@ -491,6 +475,76 @@ mode 40: res:1280x720 hz:60 color_depth:8 scaling:on
 
 ```
 displayplacer "id:CD0BFDE7-928E-47C3-8C47-8C75B8A49ADE mode:55"
+```
+
+### MongoDB Tools
+```sh
+brew tap mongodb/brew
+brew install mongodb-database-tools
+brew install mongosh
+```
+
+### Microsoft ODBC 18 on Apple Silicon
+
+Remove previous installs
+```sh
+brew uninstall mssql-tools
+brew uninstall mssql-tools18
+brew uninstall msodbcsql17
+brew uninstall msodbcsql18
+brew uninstall mssql-tools
+brew uninstall msodbcsql17
+brew uninstall freetds
+rm -rf /opt/homebrew/etc/freetds.conf
+brew uninstall unixodbc
+```
+
+Install `unixodbc`, `msodbcsql18` and `mssql-tools18`
+
+```sh
+brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
+brew update
+HOMEBREW_ACCEPT_EULA=Y brew install msodbcsql18 mssql-tools18
+```
+
+Create custom SSL Conf
+```sh
+nano ~/.openssl.cnf
+```
+
+Enter the following
+```sh
+openssl_conf = default_conf
+
+[default_conf]
+ssl_conf = ssl_sect
+
+[ssl_sect]
+system_default = system_default_sect
+
+[system_default_sect]
+MinProtocol = TLSv1
+CipherString = DEFAULT@SECLEVEL=0
+```
+
+Set the env var `$OPENSSL_CONF`
+```sh
+export OPENSSL_CONF=~/.openssl.cnf
+```
+
+Test connection
+```sh
+sqlcmd -S 10.60.1.151 -U abscript -P 'sFqQ1@RLEaFtGCD' -N -C
+```
+
+```sql
+SELECT @@VERSION
+go
+```
+
+Dependencias Python
+```sh
+pip install openpyxl
 ```
 
 ### Misc
