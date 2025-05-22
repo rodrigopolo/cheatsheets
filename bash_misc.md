@@ -410,14 +410,50 @@ https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/
 
 Redirects:
 ```sh
-> output.log   # redirects stdout to file
-1> output.log  # redirects stdout to file
-2> output.log  # redirects stderr to file
-&> output.log  # redirects stdout and stderr to file
-2>&1           # redirects stderr to stdout
-command > output.log 2>&1  # Redirect all output to a file
-command >> output.log 2>&1 # Redirect all output to a file appending
-command > /dev/null 2>&1   # No output
+# Redirects stdout to file
+command > output_file
+
+# Redirecting stdout and stderr to Different Files overwriting the file
+command > stdout_file 2> stderr_file
+
+# Redirecting stdout and stderr to Different Files appending
+command >> stdout_file 2>> stderr_file
+
+# Combining stdout and stderr to a Single File
+command > output_file 2>&1
+
+# Combining stdout and stderr to a Single File Bash 4.0+
+command &> output_file 
+
+# Combining stdout and stderr to a Single File appending
+command >> output_file 2>&1
+
+# Combining stdout and stderr to a Single File appending Bash 4.0+
+command &>> output_file
+
+# Dicarding stdout
+command > /dev/null
+
+# Dicarding stderr
+command 2> /dev/null
+
+# Dicarding stdout and stderr
+command > /dev/null 2>&1
+
+# Dicarding stdout and stderr Bash 4.0+
+command &> /dev/null
+
+# Redirect stdout to stderr
+command 1>&2
+
+# Redirecting stderr to stdout
+command 2>&1
+
+# Redirect stdout to stderr (not POSIX-compliant)
+command >&2
+
+# Redirecting Both stdout and stderr to Different Files While Combining Them Elsewhere
+command 2> stderr_file | tee stdout_file > combined_file
 ```
 
 Run command in the background, discard stdout and stderr
