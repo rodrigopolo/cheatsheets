@@ -54,9 +54,9 @@ Download and install [Ghostty](https://ghostty.org/download)
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo >> ~/.zprofile
-var_path=$([ "$(uname -m)" = "arm64" ] && echo "/opt/homebrew/bin/brew" || echo "/usr/local/bin/brew")
-echo "eval \"\$(${var_path} shellenv)\"" >> ~/.zprofile
-eval "$(${var_path} shellenv)"
+hbp=$([ "$(uname -m)" = "arm64" ] && echo "/opt/homebrew" || echo "/usr/local")
+echo "eval \"\$(${hbp}/bin/brew shellenv)\"" >> ~/.zprofile
+eval "$(${hbp} shellenv)"
 ```
 
 ### Install nerd font
@@ -274,21 +274,81 @@ Sources:
 
 
 ## Homebrew packages
+* `nano`: Modern text editor with syntax highlighting and undo/redo (replaces macOS nano)
+* `findutils`: GNU find, xargs, etc., with advanced search options (replaces BSD find)
+* `coreutils`: GNU versions of ls, cat, sort, etc., with enhanced features (replaces BSD coreutils)
+* `curl`: Updated HTTP client with modern protocol support (replaces macOS curl)
+* `wget`: Robust file downloader with recursive capabilities
+* `grep`: GNU grep with faster performance and Perl-compatible regex (replaces BSD grep)
+* `gnu-sed`: GNU sed with extended regex support (replaces BSD sed)
+* `gawk`: GNU awk with advanced scripting features (replaces BSD awk)
+* `make`: GNU make with advanced build features (replaces BSD make)
+* `tree`: Displays directory structure visually
+* `btop`: Modern, colorful system monitor (replaces macOS top)
+* `bottom`: Cross-platform system monitor with graphical UI
+* `bmon`: Bandwidth monitor for network interfaces
+* `ncdu`: Disk usage analyzer with interactive interface
+* `zinit`: Fast, flexible Zsh plugin manager
+* `eza`: Modern ls replacement with color and Git integration (replaces ls)
+* `tmux`: Terminal multiplexer for session management
+* `yazi`: Fast terminal file manager with preview capabilities
+* `nushell`: Modern shell with structured data support (alternative to zsh/bash)
+* `ripgrep`: `rg`, faster than grep
+* `fd`: Faster than find
+* `lsd`: modern ls replacements with color and git integration
+* `prettier`: Code formatter for multiple languages
+* `bat`: Syntax-highlighting cat alternative (enhances cat)
+* `jq`: JSON processor for parsing and manipulating data
+* `aria2`: Fast, multi-protocol download utility
+* `gpac`: Multimedia framework for MP4/MPEG processing
+* `ffmpeg`: Versatile tool for video/audio conversion and streaming
+* `exiftool`: Metadata editor for images and media files
+* `media-info`: Displays detailed media file information
+* `imagemagick`: Image manipulation and conversion tool
+* `p7zip`: 7z archive tool for compression/decompression
+* `fdupes`: Finds and manages duplicate files
+* `gdrive`: Google Drive CLI client for file management
+* `figlet`: Creates ASCII art from text
+* `cmatrix`: Matrix-style terminal animation
+* `node`: Node.js runtime for JavaScript development
+* `goaccess`: Real-time web log analyzer
+* `astrometry-net`: Plate-solving tool for astronomical images
+
 ```sh
 brew install \
-jq bat bmon btop gpac ncdu eza \
-node tmux tree wget gnu-sed zinit aria2 \
-p7zip bottom fdupes ffmpeg figlet yazi \
-gdrive cmatrix prettier exiftool nushell \
-goaccess media-info nano \
-imagemagick astrometry-net
+nano findutils coreutils curl wget \
+grep gnu-sed gawk make tree \
+btop bottom bmon ncdu \
+zinit eza tmux yazi nushell \
+ripgrep fd lsd \
+prettier bat jq \
+aria2 gpac ffmpeg exiftool media-info imagemagick \
+p7zip fdupes gdrive \
+node goaccess figlet cmatrix astrometry-net
+```
+
+Path configuration for `~/.zshrc`
+```sh
+hbp=$([ "$(uname -m)" = "arm64" ] && echo "/opt/homebrew" || echo "/usr/local")
+typeset -U path  # Ensure path array has no duplicates
+path=(
+  $hbp/opt/coreutils/libexec/gnubin      # GNU coreutils (ls, cat, sort, etc.)
+  $hbp/opt/gnu-sed/libexec/gnubin        # GNU sed
+  $hbp/opt/grep/libexec/gnubin           # GNU grep
+  $hbp/opt/gawk/libexec/gnubin           # GNU awk
+  $hbp/opt/findutils/libexec/gnubin      # GNU findutils (find, xargs)
+  $hbp/opt/make/libexec/gnubin           # GNU make
+  $hbp/opt/curl/bin                      # Homebrew curl
+  $hbp/bin                               # nano, bash, wget, tree, htop, jq, git, rg, fd, exa, lsd
+  $path
+)
 ```
 
 ### Enable nano colors
 ```sh
 # brew install nano
-hbpath=$([ "$(uname -m)" = "arm64" ] && echo "/opt/homebrew" || echo "/usr/local")
-echo -e "include \"${hbpath}/share/nano/*.nanorc\"\\n" > ~/.nanorc
+hbp=$([ "$(uname -m)" = "arm64" ] && echo "/opt/homebrew" || echo "/usr/local")
+echo -e "include \"${hbp}/share/nano/*.nanorc\"\\n" > ~/.nanorc
 ```
 
 ### Set colors for `ncdu`
