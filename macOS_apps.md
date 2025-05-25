@@ -277,7 +277,7 @@ Sources:
 ```sh
 brew install \
 jq bat bmon btop gpac ncdu eza \
-node tmux tree wget nano zinit aria2 \
+node tmux tree wget gnu-sed zinit aria2 \
 p7zip bottom fdupes ffmpeg figlet yazi \
 gdrive cmatrix prettier exiftool nushell \
 goaccess media-info nano \
@@ -370,6 +370,12 @@ tar xzf rarmacos-arm-612.tar.gz
 rm rarmacos-arm-612.tar.gz
 ln -s ~/.apps/rar/rar ~/.bin/rar
 ln -s ~/.apps/rar/unrar ~/.bin/unrar
+```
+
+### FFmpeg progress bar
+```sh
+pip install --user ffpb
+pip show ffpb
 ```
 
 ### Conda

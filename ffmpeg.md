@@ -725,6 +725,12 @@ Install in maOS
 brew install ffmpeg
 ```
 
+## FFmpeg progress bar
+```sh
+pip install --user ffpb
+pip show ffpb
+```
+
 List streams
 ```sh
 ffmpeg -i input.mp4 2>&1 | grep "Stream #"
