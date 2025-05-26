@@ -10,7 +10,7 @@
   * [Composer](#composer)
   * [FFmpeg progress bar](#ffmpeg-progress-bar)
   * [Conda](#conda)
-  * [Symbolic links in `~/.local/bin`](#symbolic-links-in-local-bin)
+  * [Symbolic links in `~/.local/bin`](#symbolic-links-in-localbin)
   * [Extra resolutions with displayplacer](#extra-resolutions-with-displayplacer)
   * [MongoDB Tools](#mongodb-tools)
   * [Microsoft ODBC 18 on Apple Silicon](#microsoft-odbc-18-on-apple-silicon)
