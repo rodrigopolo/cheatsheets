@@ -113,8 +113,9 @@ https://github.com/chubin/wttr.in
 docker run --rm -it bcbcarl/hollywood
 ```
 
-## Warp theme `~/.warp/themes/rodrigopolo.yaml`
-```yaml
+## Warp theme
+```sh
+cat > ~/.warp/themes/rodrigopolo.yaml << 'EOF'
 ---
 background: '#1e1e1e' # Terminal background color
 accent: '#268bd2' # Accent color for UI elements
@@ -141,4 +142,5 @@ terminal_colors: # Ansi escape colors
     cyan: '#168cda'
     white: '#83868e'
 name: Rodrigo Polo
+EOF
 ```
