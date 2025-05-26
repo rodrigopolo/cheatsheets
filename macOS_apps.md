@@ -8,8 +8,6 @@
   * [SSH](#ssh)
   * [GDrive](#gdrive)
   * [Composer](#composer)
-  * [unimatrix](#unimatrix)
-  * [Figlet](#figlet)
   * [FFmpeg progress bar](#ffmpeg-progress-bar)
   * [Conda](#conda)
   * [Symbolic links in `~/.local/bin`](#symbolic-links-in-local-bin)
@@ -17,6 +15,8 @@
   * [MongoDB Tools](#mongodb-tools)
   * [Microsoft ODBC 18 on Apple Silicon](#microsoft-odbc-18-on-apple-silicon)
   * [Nushell](#nushell)
+  * [unimatrix](#unimatrix)
+  * [Figlet](#figlet)
 * [Personalizations](#personalizations)
   * [Sublime Text defaults](#sublime-text-defaults)
   * [Sublime Packages](#sublime-packages)
@@ -398,6 +398,7 @@ EOF
 ### SSH
 ```sh
 ssh-keygen -t ed25519 -C "user@mail.com"
+ssh-copy-id -i ~/.ssh/id_rsa.pub user@server
 ```
 
 ### GDrive
@@ -421,28 +422,7 @@ gdrive files download --recursive "file/folder-id"
 ```sh
 which php
 cd && curl -sS https://getcomposer.org/installer | php
-mv composer.phar ~/.bin/composer
-```
-
-### unimatrix
-```sh
-sudo curl -L https://raw.githubusercontent.com/will8211/unimatrix/master/unimatrix.py -o /usr/local/bin/unimatrix
-sudo chmod a+rx /usr/local/bin/unimatrix
-unimatrix -s 90
-```
-
-### Figlet
-```sh
-brew install figlet
-figlet -I2
-figlet -f poison "Rodrigo Polo" 
-figlet -f doom "Rodrigo Polo" 
-figlet -f epic "Rodrigo Polo" 
-figlet -f gothic "Rodrigo Polo" 
-figlet -f larry3d "Rodrigo Polo" 
-figlet -f rectangles "Rodrigo Polo" 
-figlet -f slant "Rodrigo Polo" 
-figlet -f smslant "Rodrigo Polo"
+mv composer.phar ~/.local/bin/composer
 ```
 
 ### FFmpeg progress bar
@@ -591,6 +571,27 @@ open file.json | where ln =~ "(?i)gabri"
 
 ```sh
 open file.json | where ln =~ "(?i)gabri" | where ln =~ "(?i)jos"
+```
+
+### unimatrix
+```sh
+sudo curl -L https://raw.githubusercontent.com/will8211/unimatrix/master/unimatrix.py -o /usr/local/bin/unimatrix
+sudo chmod a+rx /usr/local/bin/unimatrix
+unimatrix -s 90
+```
+
+### Figlet
+```sh
+brew install figlet
+figlet -I2
+figlet -f poison "Rodrigo Polo" 
+figlet -f doom "Rodrigo Polo" 
+figlet -f epic "Rodrigo Polo" 
+figlet -f gothic "Rodrigo Polo" 
+figlet -f larry3d "Rodrigo Polo" 
+figlet -f rectangles "Rodrigo Polo" 
+figlet -f slant "Rodrigo Polo" 
+figlet -f smslant "Rodrigo Polo"
 ```
 
 ## Personalizations
