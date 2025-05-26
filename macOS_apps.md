@@ -1,5 +1,28 @@
 # macOS Apps
 
+## Contents
+* [Apps](#apps)
+* [macOS Terminal and Ghostty](#macos-terminal-and-ghostty)
+* [Homebrew packages](#homebrew-packages)
+  * [Bottom](#bottom)
+  * [SSH](#ssh)
+  * [GDrive](#gdrive)
+  * [Composer](#composer)
+  * [unimatrix](#unimatrix)
+  * [Figlet](#figlet)
+  * [FFmpeg progress bar](#ffmpeg-progress-bar)
+  * [Conda](#conda)
+  * [Symbolic links in `~/.local/bin`](#symbolic-links-in-local-bin)
+  * [Extra resolutions with displayplacer](#extra-resolutions-with-displayplacer)
+  * [MongoDB Tools](#mongodb-tools)
+  * [Microsoft ODBC 18 on Apple Silicon](#microsoft-odbc-18-on-apple-silicon)
+  * [Nushell](#nushell)
+* [Personalizations](#personalizations)
+  * [Sublime Text defaults](#sublime-text-defaults)
+  * [Sublime Packages](#sublime-packages)
+  * [Lightroom Export Presets](#lightroom-export-presets)
+  * [Misc](#misc)
+
 ## Apps
 
 | Adobe                   | Design and Photo    | Multimedia and Streaming  |
@@ -323,7 +346,7 @@ zinit eza tmux yazi nushell \
 ripgrep fd lsd \
 prettier bat jq \
 aria2 gpac ffmpeg exiftool media-info imagemagick \
-p7zip fdupes gdrive \
+p7zip rar fdupes gdrive \
 node goaccess figlet cmatrix astrometry-net
 ```
 
@@ -408,7 +431,7 @@ sudo chmod a+rx /usr/local/bin/unimatrix
 unimatrix -s 90
 ```
 
-## Figlet
+### Figlet
 ```sh
 brew install figlet
 figlet -I2
@@ -420,16 +443,6 @@ figlet -f larry3d "Rodrigo Polo"
 figlet -f rectangles "Rodrigo Polo" 
 figlet -f slant "Rodrigo Polo" 
 figlet -f smslant "Rodrigo Polo"
-```
-
-### RAR
-```sh
-cd ~/.apps
-wget https://www.win-rar.com/fileadmin/winrar-versions/rarmacos-arm-612.tar.gz
-tar xzf rarmacos-arm-612.tar.gz
-rm rarmacos-arm-612.tar.gz
-ln -s ~/.apps/rar/rar ~/.bin/rar
-ln -s ~/.apps/rar/unrar ~/.bin/unrar
 ```
 
 ### FFmpeg progress bar
@@ -445,71 +458,12 @@ bash Miniforge3-MacOSX-arm64.sh
 conda config --set auto_activate_base false
 ```
 
-### Nushell
+### Symbolic links in `~/.local/bin`
 ```sh
-brew install nushell
-nu
-```
-
-```sh
-open file.json | select primerNombre primerApellido fechaNacimiento | where fechaNacimiento =~ "^1980"
-```
-
-```sh
-open file.json | select primerNombre primerApellido fechaNacimiento | where fechaNacimiento =~ "07-23$"
-```
-
-```sh
-open file.json | select primerNombre primerApellido fechaNacimiento | where fechaNacimiento =~ "22$"
-```
-
-```sh
-open file.json | where ln =~ "(?i)gabri"
-```
-
-```sh
-open file.json | where ln =~ "(?i)gabri" | where ln =~ "(?i)jos"
-```
-
-### Sublime Text defaults
-
-```json
-{
-  "draw_white_space": "all",
-  "ignored_packages":
-  [
-    "Vintage",
-  ],
-  "wrap_width": 68,
-  "open_files_in_new_window": false,
-  "scroll_past_end": true,
-  "show_encoding": true,
-  "word_wrap": false,
-  "index_files": true,
-  "font_size": 12,
-}
-```
-
-Packages
-```
-MarkdownPreview.sublime-package
-Sort Lines (Numerically).sublime-package
-Sync View Scroll.sublime-package
-```
-
-### Lightroom Export Presets
-```
-~/Library/Application\ Support/Adobe/Lightroom/Export\ Presets/User\ Presets
-```
-
-### Custom `~/.bin`
-
-Symbolic links in ~/.apps/
-```sh
-ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ~/.bin/sublime
-ln -s /Applications/MAMP/Library/bin/mysql ~/.bin/mysql
-ln -s /Applications/MAMP/Library/bin/mysqldump ~/.bin/mysqldump
-ln -s /Applications/MAMP/bin/php/php7.4.21/bin/php ~/.bin/php
+ln -s /Applications/MAMP/bin/php/php8.2.0/bin/php ~/.local/bin/php
+ln -s /Applications/MAMP/Library/bin/mysql ~/.local/bin/mysql
+ln -s /Applications/MAMP/Library/bin/mysqldump ~/.local/bin/mysqldump
+ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ~/.local/bin/sublime
 ```
 
 ### Extra resolutions with displayplacer
@@ -600,7 +554,7 @@ export OPENSSL_CONF=~/.openssl.cnf
 
 Test connection
 ```sh
-sqlcmd -S 10.60.1.151 -U abscript -P 'sFqQ1@RLEaFtGCD' -N -C
+sqlcmd -S 192.168.1.5 -U abscript -P 'pass' -N -C
 ```
 
 ```sql
@@ -611,6 +565,65 @@ go
 Dependencias Python
 ```sh
 pip install openpyxl
+```
+
+### Nushell
+```sh
+brew install nushell
+nu
+```
+
+```sh
+open file.json | select primerNombre primerApellido fechaNacimiento | where fechaNacimiento =~ "^1980"
+```
+
+```sh
+open file.json | select primerNombre primerApellido fechaNacimiento | where fechaNacimiento =~ "07-23$"
+```
+
+```sh
+open file.json | select primerNombre primerApellido fechaNacimiento | where fechaNacimiento =~ "22$"
+```
+
+```sh
+open file.json | where ln =~ "(?i)gabri"
+```
+
+```sh
+open file.json | where ln =~ "(?i)gabri" | where ln =~ "(?i)jos"
+```
+
+## Personalizations
+
+### Sublime Text defaults
+
+```json
+{
+  "draw_white_space": "all",
+  "ignored_packages":
+  [
+    "Vintage",
+  ],
+  "wrap_width": 68,
+  "open_files_in_new_window": false,
+  "scroll_past_end": true,
+  "show_encoding": true,
+  "word_wrap": false,
+  "index_files": true,
+  "font_size": 12,
+}
+```
+
+### Sublime Packages
+```
+MarkdownPreview.sublime-package
+Sort Lines (Numerically).sublime-package
+Sync View Scroll.sublime-package
+```
+
+### Lightroom Export Presets
+```
+~/Library/Application\ Support/Adobe/Lightroom/Export\ Presets/User\ Presets
 ```
 
 ### Misc
