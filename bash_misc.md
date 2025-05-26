@@ -81,6 +81,16 @@ grep -i -E '\.md$' -z | \
 parallel -j 4 --null --line-buffer grep -l -i "keyword"
 ```
 
+Get extensions
+```sh
+ls -1 | grep -i -E "\.[a-z0-9]+$" | awk -F. '{print $NF}' | sort | uniq
+```
+
+Get total for extension
+```sh
+cat indexed.txt | grep -i -E "\.[a-z0-9]+$" | awk -F. '{print $NF}' | sort | uniq -c | sort
+```
+
 Read a file with a list of files, only get the ones with the file extension, replace breaklines with NULL, and with xargs, find a string using grep
 ```sh
 cat files.txt | \

@@ -62,6 +62,23 @@ output.mp4
 * `veryslow`
 * `placebo`
 
+> **Best profiles:** More than a decade ago, I did several tests and concluded 
+> that the best preset for H.265/HEVC balancing speed, compression and quality, 
+> was `superfast` with CRF `21`, in 2025 I learned about Netflix's VMAF, so
+> I did the tests and found the fastests profiles, CRF providing the 
+> best quality, here in order from the slowest with the best quality, and
+> the fastests with less quality, most of them indistinguishable from the
+> original file:
+> 
+> 1. Profile: `slow` CRF `20`
+> 2. Profile: `slow` CRF `21`
+> 3. Profile: `medium` CRF `20`
+> 4. Profile: `medium` CRF `21`
+> 5. Profile: `veryfast` CRF `20`
+> 6. Profile: `superfast` CRF `20` (My favorite)
+> 7. Profile: `superfast` CRF `21`
+> 8. Profile: `superfast` CRF `22` (My 2dn favorite)
+
 ### Modify rotation metadata without re-encoding.
 ```sh
 ffmpeg \
@@ -717,6 +734,76 @@ output.mp3
 
 > [FFmpeg Wiki: Audio Channels](https://trac.ffmpeg.org/wiki/AudioChannelManipulation)
 > [Source](https://stackoverflow.com/a/14528482/218418)
+
+## Quality tests
+
+Netflix's VMAF
+```sh
+ffmpeg \
+-hide_banner \
+-hwaccel auto \
+-i original.mp4 \
+-i encoded.mp4 \
+-lavfi "[0:v][1:v]libvmaf=log_path=vmaf.json:log_fmt=json" \
+-f null -
+```
+
+SSIM
+```sh
+ffmpeg \
+-hide_banner \
+-hwaccel auto \
+-i original.mp4 \
+-i encoded.mp4 \
+-lavfi "[0:v][1:v]ssim=stats_file=ssim.txt" \
+-f null -
+```
+
+PSNR
+```sh
+ffmpeg \
+-hide_banner \
+-hwaccel auto \
+-i original.mp4 \
+-i encoded.mp4 \
+-lavfi "[0:v][1:v]psnr=stats_file=psnr.txt" \
+-f null -
+```
+
+MSSSIM
+```sh
+ffmpeg \
+-hide_banner \
+-hwaccel auto \
+-i original.mp4 \
+-i encoded.mp4 \
+-lavfi "[0:v][1:v]msssim=stats_file=msssim.txt" \
+-f null -
+```
+
+### Metric Explanations:
+- **VMAF**: Netflix's perceptual quality metric (0-100, higher is better)
+  - 95+: Excellent quality, virtually indistinguishable from source
+  - 80-95: Very good quality, minor artifacts
+  - 60-80: Good quality, some noticeable artifacts
+  - 40-60: Fair quality, artifacts visible
+  - <40: Poor quality, significant artifacts
+
+- **SSIM**: Structural Similarity Index (0-1, higher is better)
+  - 0.95+: Excellent
+  - 0.90-0.95: Very good
+  - 0.80-0.90: Good
+  - 0.70-0.80: Fair
+  - <0.70: Poor
+
+- **PSNR**: Peak Signal-to-Noise Ratio (dB, higher is better)
+  - 40+: Excellent
+  - 35-40: Very good
+  - 30-35: Good
+  - 25-30: Fair
+  - <25: Poor
+
+- **MS-SSIM**: Multi-Scale SSIM (0-1, higher is better, similar to SSIM)
 
 ## Misc
 

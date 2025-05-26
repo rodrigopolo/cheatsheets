@@ -37,9 +37,20 @@ Dates on ISO 9075
 > [regext test](http://regex101.com/)
 
 In `Preferences.sublime-settings`
-```
-	"draw_white_space": "all",
-	"open_files_in_new_window": false,
-	"scroll_past_end": true,
-	"show_encoding": true,
+```json
+{
+  "draw_white_space": "all",
+  "ignored_packages":
+  [
+    "Vintage",
+  ],
+  "wrap_width": 80,
+  "open_files_in_new_window": false,
+  "scroll_past_end": true,
+  "show_encoding": true,
+  "word_wrap": false,
+  "rulers": [80],
+  "index_files": true,
+  "font_size": 12,
+}
 ```

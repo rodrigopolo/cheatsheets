@@ -15,8 +15,6 @@
   * [MongoDB Tools](#mongodb-tools)
   * [Microsoft ODBC 18 on Apple Silicon](#microsoft-odbc-18-on-apple-silicon)
   * [Nushell](#nushell)
-  * [unimatrix](#unimatrix)
-  * [Figlet](#figlet)
 * [Personalizations](#personalizations)
   * [Sublime Text defaults](#sublime-text-defaults)
   * [Sublime Packages](#sublime-packages)
@@ -297,30 +295,30 @@ Sources:
 
 
 ## Homebrew packages
-* `nano`: Modern text editor with syntax highlighting and undo/redo (replaces macOS nano)
-* `findutils`: GNU find, xargs, etc., with advanced search options (replaces BSD find)
-* `coreutils`: GNU versions of ls, cat, sort, etc., with enhanced features (replaces BSD coreutils)
-* `curl`: Updated HTTP client with modern protocol support (replaces macOS curl)
+* `nano`: Modern text editor with syntax highlighting and undo/redo (replaces macOS `nano`)
+* `findutils`: GNU find, xargs, etc., with advanced search options (replaces BSD `find`)
+* `coreutils`: GNU versions of ls, cat, sort, etc., with enhanced features (replaces BSD `coreutils`)
+* `curl`: Updated HTTP client with modern protocol support (replaces macOS `curl`)
 * `wget`: Robust file downloader with recursive capabilities
-* `grep`: GNU grep with faster performance and Perl-compatible regex (replaces BSD grep)
-* `gnu-sed`: GNU sed with extended regex support (replaces BSD sed)
-* `gawk`: GNU awk with advanced scripting features (replaces BSD awk)
-* `make`: GNU make with advanced build features (replaces BSD make)
+* `grep`: GNU grep with faster performance and Perl-compatible regex (replaces BSD `grep`)
+* `gnu-sed`: GNU sed with extended regex support (replaces BSD `sed`)
+* `gawk`: GNU awk with advanced scripting features (replaces BSD `awk`)
+* `make`: GNU make with advanced build features (replaces BSD `make`)
 * `tree`: Displays directory structure visually
-* `btop`: Modern, colorful system monitor (replaces macOS top)
+* `btop`: Modern, colorful system monitor (replaces macOS `top`)
 * `bottom`: Cross-platform system monitor with graphical UI
 * `bmon`: Bandwidth monitor for network interfaces
 * `ncdu`: Disk usage analyzer with interactive interface
 * `zinit`: Fast, flexible Zsh plugin manager
-* `eza`: Modern ls replacement with color and Git integration (replaces ls)
+* `eza`: Modern `ls` replacement with color and Git integration
 * `tmux`: Terminal multiplexer for session management
 * `yazi`: Fast terminal file manager with preview capabilities
 * `nushell`: Modern shell with structured data support (alternative to zsh/bash)
 * `ripgrep`: `rg`, faster than grep
 * `fd`: Faster than find
-* `lsd`: modern ls replacements with color and git integration
+* `lsd`: modern `ls` replacements with color and git integration
 * `prettier`: Code formatter for multiple languages
-* `bat`: Syntax-highlighting cat alternative (enhances cat)
+* `bat`: Syntax-highlighting cat alternative (enhances `cat`)
 * `jq`: JSON processor for parsing and manipulating data
 * `aria2`: Fast, multi-protocol download utility
 * `gpac`: Multimedia framework for MP4/MPEG processing
@@ -345,7 +343,8 @@ btop bottom bmon ncdu \
 zinit eza tmux yazi nushell \
 ripgrep fd lsd \
 prettier bat jq \
-aria2 gpac ffmpeg exiftool media-info imagemagick \
+aria2 yt-dlp gpac ffmpeg \
+exiftool media-info imagemagick \
 p7zip rar fdupes gdrive \
 node goaccess figlet cmatrix astrometry-net
 ```
@@ -444,6 +443,7 @@ ln -s /Applications/MAMP/bin/php/php8.2.0/bin/php ~/.local/bin/php
 ln -s /Applications/MAMP/Library/bin/mysql ~/.local/bin/mysql
 ln -s /Applications/MAMP/Library/bin/mysqldump ~/.local/bin/mysqldump
 ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ~/.local/bin/sublime
+ln -s /opt/homebrew/bin/yt-dlp ~/.local/bin/youtube-dl
 ```
 
 ### Extra resolutions with displayplacer
@@ -573,27 +573,6 @@ open file.json | where ln =~ "(?i)gabri"
 open file.json | where ln =~ "(?i)gabri" | where ln =~ "(?i)jos"
 ```
 
-### unimatrix
-```sh
-sudo curl -L https://raw.githubusercontent.com/will8211/unimatrix/master/unimatrix.py -o /usr/local/bin/unimatrix
-sudo chmod a+rx /usr/local/bin/unimatrix
-unimatrix -s 90
-```
-
-### Figlet
-```sh
-brew install figlet
-figlet -I2
-figlet -f poison "Rodrigo Polo" 
-figlet -f doom "Rodrigo Polo" 
-figlet -f epic "Rodrigo Polo" 
-figlet -f gothic "Rodrigo Polo" 
-figlet -f larry3d "Rodrigo Polo" 
-figlet -f rectangles "Rodrigo Polo" 
-figlet -f slant "Rodrigo Polo" 
-figlet -f smslant "Rodrigo Polo"
-```
-
 ## Personalizations
 
 ### Sublime Text defaults
@@ -605,11 +584,12 @@ figlet -f smslant "Rodrigo Polo"
   [
     "Vintage",
   ],
-  "wrap_width": 68,
+  "wrap_width": 80,
   "open_files_in_new_window": false,
   "scroll_past_end": true,
   "show_encoding": true,
   "word_wrap": false,
+  "rulers": [80],
   "index_files": true,
   "font_size": 12,
 }
