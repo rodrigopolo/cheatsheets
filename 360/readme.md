@@ -1,66 +1,69 @@
 # 360° image and video manipulation
 
 ## Equirectangular to Cubemap
+There are three tools for this, Hugin which it multiplatform, Kubi and py360convert that are Python scripts.
 
-To convert any equirectangular image to cubemap, you'll need `imagemagick`, `exiftool` and either Hugin's `nona` or `convert360`, at the end how to install this dependencies. `convert360` requires the input image to be png.
+> **Note:** `convert360` has an image limit size up to 13376x6688px, while Facebook has an image limit of 16384px8192px. Hugin's `nona` can process bigger images.
 
-> **Note:** `convert360` has an image limit size up to 13,376px x 6,688px, while Facebook has an image limit of 16,000px x 8,000px. Hugin's `nona` can process bigger images.
-
-### Using Hugin's `nona` and `exiftool`
-
-Just run `tocubemap_nona.sh` with each image you want to process, making shure that `nona` is in the `$PATH` and all dependencies installed, see dependencies at the end.
+### Kubi
+To convert a panorama to cubemap with Kubi
 ```sh
-./tocubemap_nona.sh pano1.jpg pano2.jpg pano3.jpg...
+kubi \
+-s 6848 \
+-f Right Left Up Down Front Back \
+Panorama.tif \
+Panorama
 ```
 
-### Using `convert360`
-1. Convert the equirectangular image to a flat PNG file
+Guide to install Kubi: https://github.com/rodrigopolo/clis/tree/main/360#alternative-to-tocubemapsh  
+
+### Hugin
+You can open your equirectangular image in Hugin's GUI, set the field of view to 90x90 in the projection tab, export each image changing the yaw to +90 in the move/drag tab, one for each horizontal face, and then change the pitch +90 and -90 for the up and down image. Alternatively, you can use `tocubemap.sh` script located here:
+https://github.com/rodrigopolo/clis/tree/main/360#tocubemapsh
+
+### py360convert
+
 ```sh
-magick equirectangular.tif -flatten -alpha off equirectangular.png
+convert360 \
+-i equirectangular.png \
+-o cubemap.png \
+-s 2992 2992 \
+-it equirectangular \
+-ot cubemap
+```
+More about `py360convert`: https://github.com/sunset1995/py360convert  
+
+## Cubemap to Equirectangular with `toequirectangular.sh`
+
+To convert 6 separated `tif` image cube faces into an equirectangular panorama,
+you can call it by setting just one cube face. The script will look for the file
+name prefix, then look for the `_Back`, `_Down`, `_Front`, `_Left`, `_Right`
+and `_Up` files, and the output file would have the `_equirectangular` suffix:
+```sh
+./toequirectangular.sh Pano_Front.tif
 ```
 
-2. Get the image width, to devide it into 4 to get the cube size
-```sh
-exiftool -s -s -s -ImageWidth equirectangular.png
+Result:
+```
+Panorama_equirectangular.tif
 ```
 
-3. Convert the png file to cuebemap with `convert360`
+You can also call it by setting all the cube faces:
 ```sh
-convert360 -i equirectangular.png -o cubemap.png -s 2992 2992 -it equirectangular -ot cubemap
+./toequirectangular.sh \
+Pano_Back.tif \
+Pano_Down.tif \
+Pano_Front.tif \
+Pano_Left.tif \
+Pano_Right.tif \
+Pano_Up.tif
 ```
 
-4. Slice the cubemap into its different pieces
-```sh
-magick cubemap.png -crop 2992x2992 +repage output_%d.tif
-```
+Check all the panorama scripts: https://github.com/rodrigopolo/clis/tree/main/360#360-panorama-scripts  
 
-5. Rename files to its cube face
-```sh
-mv output_1.tif Left.tif
-mv output_0.tif Right.tif
-mv output_2.tif Up.tif
-mv output_3.tif Down.tif
-mv output_4.tif Front.tif
-mv output_5.tif Back.tif
-```
 
-## Cubemap to Equirectangular
+## Cubemap to Equirectangular with Hugin
 
-For this task, we need Hugin, make shure that `nona` is in the `$PATH` and all dependencies installed, see dependencies at the end.
-
-### With `c2e.sh`
-
-Just run `c2e.sh` setting the path and prefix of the cubemap sides (`ImagePrefix_Back.tif`, `ImagePrefix_Down.tif`, `ImagePrefix_Front.tif`, `ImagePrefix_Left.tif`, `ImagePrefix_Right.tif`, `ImagePrefix_Up.tif`), and the output file.
-```sh
-./c2e.sh /Path/To/ImagePrefix /Path/To/FinalImage.tif
-```
-
-Then you can convert the tif to jpg with `tif2jpg.sh`, which adds the 360° metadata
-```sh
-./tif2jpg.sh /Path/To/FinalImage.tif
-```
-
-### Manually
 1. Load the images in Hugin, make sure the images have the sufix `Back`, `Down`, `Front`, `Left`, `Right` and `Up` for clarity.
 2. Set the `HOV` to `90` when loading the images.
 3. Double click in each image and set the `Yaw` and `Pitch` as in the next table or lad the `CubemapTemplate.pto` by clicking in `File->Apply Template...`.
@@ -77,74 +80,6 @@ Then you can convert the tif to jpg with `tif2jpg.sh`, which adds the 360° meta
    | up    |   0 |    90 |
 
 
-### Manually in the Terminal
-1. Create a `.pto` as in the following example, and set the filename of each cube face, in this example the images are `Back.tif`, `Front.tif`, `Down.tif`, `Left.tif`, `Right.tif`, `Up.tif`, also set the dimensions of the final equirectangular image, and the dimensions of each side of the cube.
-
-> In the following example of a `.pto` file, the final equirectangular image has a width of `16384px` by a height of `8192px`, based on a `4096px` cube size. To get the width, we multiply `4` by the cube size, and for the height, `2` by the cube size. Hugin has another "optimized" version of this calculation, where it multiplies the width of the cube by π (pi), rounds up to the nearest integer, and then divides the result by two to get the height.
-
-> **Note:** Facebook downloaded cubemaps have the `up` and `down` faces rotaded 180°, so you'll have to set `y180` to `Up.tif` and `Down.tif`.
-
-Sample `cubemap.pto`
-```
-p f2 w16384 h8192 v360  k0 E0 R0 n"TIFF_m c:LZW r:CROP"
-m i0
-
-i w4096 h4096 f0 v90 Ra0 Rb0 Rc0 Rd0 Re0 Eev0 Er1 Eb1 r0 p0 y180 TrX0 TrY0 TrZ0 Tpy0 Tpp0 j0 a0 b0 c0 d0 e0 g0 t0 Va1 Vb0 Vc0 Vd0 Vx0 Vy0  Vm5 n"Back.tif"
-i w4096 h4096 f0 v=0 Ra=0 Rb=0 Rc=0 Rd=0 Re=0 Eev0 Er1 Eb1 r0 p0 y0 TrX0 TrY0 TrZ0 Tpy0 Tpp0 j0 a=0 b=0 c=0 d=0 e=0 g=0 t=0 Va=0 Vb=0 Vc=0 Vd=0 Vx=0 Vy=0  Vm5 n"Front.tif"
-i w4096 h4096 f0 v=0 Ra=0 Rb=0 Rc=0 Rd=0 Re=0 Eev0 Er1 Eb1 r0 p-90 y0 TrX0 TrY0 TrZ0 Tpy0 Tpp0 j0 a=0 b=0 c=0 d=0 e=0 g=0 t=0 Va=0 Vb=0 Vc=0 Vd=0 Vx=0 Vy=0  Vm5 n"Down.tif"
-i w4096 h4096 f0 v=0 Ra=0 Rb=0 Rc=0 Rd=0 Re=0 Eev0 Er1 Eb1 r0 p0 y-90 TrX0 TrY0 TrZ0 Tpy0 Tpp0 j0 a=0 b=0 c=0 d=0 e=0 g=0 t=0 Va=0 Vb=0 Vc=0 Vd=0 Vx=0 Vy=0  Vm5 n"Left.tif"
-i w4096 h4096 f0 v=0 Ra=0 Rb=0 Rc=0 Rd=0 Re=0 Eev0 Er1 Eb1 r0 p0 y90 TrX0 TrY0 TrZ0 Tpy0 Tpp0 j0 a=0 b=0 c=0 d=0 e=0 g=0 t=0 Va=0 Vb=0 Vc=0 Vd=0 Vx=0 Vy=0  Vm5 n"Right.tif"
-i w4096 h4096 f0 v=0 Ra=0 Rb=0 Rc=0 Rd=0 Re=0 Eev0 Er1 Eb1 r0 p90 y0 TrX0 TrY0 TrZ0 Tpy0 Tpp0 j0 a=0 b=0 c=0 d=0 e=0 g=0 t=0 Va=0 Vb=0 Vc=0 Vd=0 Vx=0 Vy=0  Vm5 n"Up.tif"
-
-v Ra0
-v Rb0
-v Rc0
-v Rd0
-v Re0
-v Vb0
-v Vc0
-v Vd0
-v Eev1
-v r1
-v p1
-v y1
-v Eev2
-v r2
-v p2
-v y2
-v Eev3
-v r3
-v p3
-v y3
-v Eev4
-v r4
-v p4
-v y4
-v Eev5
-v r5
-v p5
-v y5
-v
-
-```
-
-2. Use `nona` to prepare the image for stitching
-```sh
-nona -o pano -m TIFF_m -z LZW pano.pto
-```
-
-3. Use `verdandi` to blend the images
-```sh
-verdandi \
-pano0000.tif \
-pano0001.tif \
-pano0002.tif \
-pano0003.tif \
-pano0004.tif \
-pano0005.tif \
--o pano_equirectangular.tif
-```
-
 ## Superscale Insta360 x4 image
 1. Convert the original dual-fisheye DNG to TIF with Photoshop or ImageMagick.
 2. Resize the TIF to 2 or 4x using Topaz Gigapixel AI or similar tools.
@@ -153,7 +88,7 @@ pano0005.tif \
 5. In "Sticher" tab, select "Calculate oprimal size" and then export the image.
 
 > **Denoise:** You can use Topaz DeNoise AI before Topaz Gigapixel AI, and use Affinity Photo 2 to refine the horizon.
-> **Object removal:** You can use `tocubemap_nona.sh` to convert the equirectangular image to cubemap, then with Photoshop Generative Fill, remove objects, and then with `c2e.sh` convert it back to equirectangular.
+> **Object removal:** You can use `tocubemap.sh` to convert the equirectangular image to cubemap, then with Photoshop Generative Fill, remove objects, and then with `toequirectangular.sh` convert it back to equirectangular.
 > **Metadata:** You can copy the metadata from an already exported image and copy it to the new image with `exiftool -overwrite_original -tagsFromFile source.tif target.tif`
 
 ## Download a Facebook 360° image
@@ -225,52 +160,14 @@ brew install imagemagick exiftool aria2
 ```
 
 ### Hugin
-The official download links for Hugin are obsolete, user Dannephoto provided a more recent builds for Intel and Apple Silicon macs:
-https://bitbucket.org/Dannephoto/hugin/downloads/
-
-> macOS "protects" its users from "unwanted binaries" that are downloaded, a trick to avoid this issues is to use a `cat Hugin-2023.0.0_GPUFIX.dmg > Hugin-2023.0.0_GPUFIX_noquarantine.dmg` and then install the DMG files.
-
-### `convert360`
-1. Install `conda` to have a working Python enviroment
-```sh
-curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
-bash Miniforge3-$(uname)-$(uname -m).sh
-```
-It is recomended to restart the terminal, then, install `convert360`
-
-2. Install `convert360` with `pip`
-```sh
-pip install convert360
-```
-
-3. For reasons that I don't understand, the `convert360` script has a path from the wrong interpreter, so with `nano`:
-```sh
-nano ~/miniforge3/bin/convert360
-```
-
-Replace the interpreter, from this:
-
-```sh
-#!/home/mateus/dev/still360/env/bin/python
-```
-
-To this:
-```sh
-#!/usr/bin/env python
-```
+Installations instructions available here:  
+https://github.com/rodrigopolo/clis/tree/main/360#hugin  
 
 ### Publishing 360 panorama
 
-Convert your 360 equirectangular panorama in a cubemap HTML with the following libraries
+Convert your 360 equirectangular panorama in a multiple cubemap grids, and generate the HTML for the Pannellum viewer
 ```sh
-# Pannellum, quite good in mobile, tons of features
 ./Pannellum.sh panorama.jpg
-
-# Avansel, simple, yet powerful, able to handle multiple resolutions
-./Avansel.sh panorama.jpg
-
-# Marzipano, good, but complex
-./Marzipano.sh panorama.jpg
 ```
 
 ### Downloading 360 video from YouTube
@@ -305,25 +202,6 @@ ffmpeg \
 output.mp4
 ```
 
-**Explanation of FFmpeg Command:**
-
-* `ffmpeg`: Invokes the FFmpeg tool.
-* `-hwaccel auto`: Uses hardware acceleration if available to speed up processing.
-* `-y`: Automatically overwrites the output file without asking.
-* `-hide_banner`: Hides the FFmpeg banner (version information).
-* `-i input.mkv`: Specifies the input file.
-* `-vf`: Applies video filters:
-  * `v360=c3x2:e:cubic:in_forder='lfrdbu':in_frot='000313'`: Converts from cubemap (3x2 faces) to equirectangular projection. 'lfrdbu' specifies the input face order (left, front, right, down, back, up), and '000313' sets rotation for each face to correct orientation.
-  * `scale=3840:1920`: Scales the video to a resolution of 3840x1920, fitting the 2:1 aspect ratio of equirectangular format.
-  * `setsar=1:1`: Sets the sample/pixel aspect ratio to 1:1 to ensure pixel dimensions match the display aspect ratio.
-* `-pix_fmt yuv420p`: Sets the pixel format to YUV 4:2:0 planar, which is widely supported for video playback.
-* `-c:v libx264`: Uses H.264 codec for video encoding, which provides good quality at lower bitrates.
-* `-preset faster`: Sets the encoding speed; 'faster' balances speed and quality.
-* `-crf 21`: Sets the quality for the video; lower values result in higher quality with larger file sizes.
-* `-c:a copy`: Copies the audio stream from the input without re-encoding it.
-* `-movflags +faststart`: Moves some data to the start of the file for web streaming compatibility.
-* `output.mp4`: Specifies the name of the output file in MP4 format.
-
 # 360° Panorama with EOS R5 + 15-35mm + Panoramic tripod head
 
 ### Gear:
@@ -350,17 +228,12 @@ output.mp4
 * Export the panorama.
 
 ### Dealing with Hugin merge momory limit exporting 3 rows
-
-* Go to Hugin main window, the "Stitched" tab, and click in "Calculate optimal size".
-* Copy the optimal width size, and paste it in the input of the `HuginRowManoCalc.html`.
-* With the results, set the "Top" and "Button" for each row, and export each row.
-* Import all rows into an image stack in Adobe Photoshop, align the images, flatten the image and export it.
+Check https://github.com/rodrigopolo/clis/blob/main/360/ptogrid_rows.sh  
 
 ### Removing the tripod
-
-* Convert the equirectangular TIF file to cubemap using `tocubemap_nona.sh`.
+* Convert the equirectangular TIF file to cubemap using `tocubemap.sh`.
 * Open the down side in Photoshop and either using "Generative Fill" or "Content-Aware Fill".
-* Convert back to equirectangular with `c2e.sh`.
+* Convert back to equirectangular with `toequirectangular.sh`.
 
 ### Dealing with metadata
 
@@ -382,6 +255,8 @@ exiftool \
 -Keywords+=360i \
 "target.tif"
 ```
+
+Or just run `add360metadata.sh onput.tif`
 
 ### Export to JPG
 
