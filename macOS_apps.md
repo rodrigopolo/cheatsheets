@@ -149,6 +149,39 @@ EOF
 
 > **Note:** Reload configuration before continuing
 
+#### Oh My Posh Themes
+
+Themes folder
+```sh
+# Get the themes folder
+echo $(brew --prefix oh-my-posh)/themes/
+#> /opt/homebrew/opt/oh-my-posh/themes/
+
+# List themes
+ls $(brew --prefix oh-my-posh)/themes/
+```
+
+My personal favorite themes
+```sh
+# Mix
+eval "$(oh-my-posh init zsh --config /opt/homebrew/opt/oh-my-posh/themes/kushal.omp.json)"
+eval "$(oh-my-posh init zsh --config /opt/homebrew/opt/oh-my-posh/themes/clean-detailed.omp.json)"
+eval "$(oh-my-posh init zsh --config /opt/homebrew/opt/oh-my-posh/themes/takuya.omp.json)"
+
+
+# Colorful
+eval "$(oh-my-posh init zsh --config /opt/homebrew/opt/oh-my-posh/themes/atomic.omp.json)"
+eval "$(oh-my-posh init zsh --config /opt/homebrew/opt/oh-my-posh/themes/jandedobbeleer.omp.json)"
+
+# Colorful and minimalist
+eval "$(oh-my-posh init zsh --config /opt/homebrew/opt/oh-my-posh/themes/marcduiker.omp.json)"
+eval "$(oh-my-posh init zsh --config /opt/homebrew/opt/oh-my-posh/themes/cert.omp.json)"
+
+# Barebones
+eval "$(oh-my-posh init zsh --config /opt/homebrew/opt/oh-my-posh/themes/uew.omp.json)"
+eval "$(oh-my-posh init zsh --config /opt/homebrew/opt/oh-my-posh/themes/tokyo.omp.json)"
+```
+
 #### Customize Oh My Posh
 1. Create the `.config/ohmyposh` dir.
 2. Download or create your template exporting current.
@@ -158,21 +191,30 @@ Create config dir, export, edit or download templates
 ```sh
 mkdir -p ~/.config/ohmyposh
 cd ~/.config/ohmyposh
-wget https://raw.githubusercontent.com/rodrigopolo/cheatsheets/refs/heads/master/rodrigopolo.omp.json
-```
-
-Examples of custom configurations
-```sh
 oh-my-posh config export --output ./current.json # Exports as JSON
 oh-my-posh config export --format toml --output ./current.toml # Exports as toml
-wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/powerlevel10k_rainbow.omp.json
-wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/slim.omp.json
-wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/quick-term.omp.json
 ```
 
 Example of how to load OMP in `~/.zshrc`
 ```sh
-eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/slim.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/current.json)"
+```
+
+My personal theme
+```sh
+cd ~/.config/ohmyposh
+wget https://raw.githubusercontent.com/rodrigopolo/cheatsheets/refs/heads/master/rodrigopolo.omp.json
+```
+
+Switch between themes to try them out
+```sh
+# Set an index, and an array of the themes
+th_index=0
+th_dir=$(brew --prefix oh-my-posh)/themes/
+th_jsons=($(ls $th_dir | grep -i -E "\.json$"))
+
+# Then load each theme one by one by running this line
+eval "$(oh-my-posh init zsh --config ${th_dir}/${th_jsons[th_index]})" && echo ${th_jsons[th_index]} && ((th_index++))
 ```
 
 ### Set all the plug-ins and settings of `~/.zshrc`, then reload the terminal window.
