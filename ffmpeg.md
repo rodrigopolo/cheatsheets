@@ -90,6 +90,34 @@ ffmpeg \
 output.m4v
 ```
 
+### Rotate with filters:
+```sh
+ffmpeg \
+-hwaccel auto \
+-y \
+-hide_banner \
+-i input.mp4 \
+-vf "transpose=1" \
+-pix_fmt yuv420p \
+-c:v libx265 \
+-tag:v hvc1 \
+-preset superfast \
+-crf 21 \
+-c:a aac \
+-b:a 128k \
+-movflags +faststart \
+output.mp4
+```
+
+```
+Right:             transpose=1
+Left:              transpose=2
+Upside-Down        transpose=1,transpose=1
+Flip Horizontal:   hflip
+Flip Vertical:     vflip
+```
+
+
 ### To JPG sequence:
 ```sh
 ffmpeg \
