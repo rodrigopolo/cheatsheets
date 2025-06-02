@@ -69,8 +69,6 @@
 
 ## macOS Terminal and Ghostty
 
-Download and install [Ghostty](https://ghostty.org/download)
-
 ### Install Homebrew
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -79,6 +77,13 @@ hbp=$([ "$(uname -m)" = "arm64" ] && echo "/opt/homebrew" || echo "/usr/local")
 echo "eval \"\$(${hbp}/bin/brew shellenv)\"" >> ~/.zprofile
 eval "$(${hbp} shellenv)"
 ```
+
+### Install Ghostty
+```
+brew install --cask ghostty
+```
+
+> **NOTE:** From now on, we will use Ghostty as the main terminal emulator.
 
 ### Install nerd font
 ```sh
@@ -202,6 +207,7 @@ eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/current.json)"
 
 My personal theme
 ```sh
+mkdir -p ~/.config/ohmyposh
 cd ~/.config/ohmyposh
 wget https://raw.githubusercontent.com/rodrigopolo/cheatsheets/refs/heads/master/rodrigopolo.omp.json
 ```
@@ -410,7 +416,7 @@ path=(
 
 ### Enable nano colors
 ```sh
-# brew install nano
+brew install nano
 hbp=$([ "$(uname -m)" = "arm64" ] && echo "/opt/homebrew" || echo "/usr/local")
 echo -e "include \"${hbp}/share/nano/*.nanorc\"\\n" > ~/.nanorc
 ```
@@ -470,22 +476,6 @@ mv composer.phar ~/.local/bin/composer
 ```sh
 pip install --user ffpb
 pip show ffpb
-```
-
-### Conda
-```sh
-wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh
-bash Miniforge3-MacOSX-arm64.sh
-conda config --set auto_activate_base false
-```
-
-### Symbolic links in `~/.local/bin`
-```sh
-ln -s /Applications/MAMP/bin/php/php8.2.0/bin/php ~/.local/bin/php
-ln -s /Applications/MAMP/Library/bin/mysql ~/.local/bin/mysql
-ln -s /Applications/MAMP/Library/bin/mysqldump ~/.local/bin/mysqldump
-ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ~/.local/bin/sublime
-ln -s /opt/homebrew/bin/yt-dlp ~/.local/bin/youtube-dl
 ```
 
 ### Extra resolutions with displayplacer
