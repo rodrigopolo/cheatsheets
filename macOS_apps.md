@@ -509,6 +509,66 @@ mode 40: res:1280x720 hz:60 color_depth:8 scaling:on
 displayplacer "id:CD0BFDE7-928E-47C3-8C47-8C75B8A49ADE mode:55"
 ```
 
+> **Setting HiDPI neccesary**
+> ```sh
+> brew install --cask betterdisplay
+> brew uninstall --cask betterdisplay
+> ```
+
+## Dev
+
+### Go
+
+Install
+```sh
+brew install go
+```
+
+Create project
+```sh
+mkdir myproject
+cd myproject
+go mod init myproject
+```
+
+Run project
+```sh
+go run main.go
+go build
+```
+
+### Rust
+
+Install
+```sh
+# On macOS/Linux using rustup (recommended)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# On Windows, download and run the installer from:
+# https://www.rust-lang.org/tools/install
+```
+
+Create a new project
+```sh
+cargo new myproject
+cd myproject
+
+# This creates a basic structure with:
+# - Cargo.toml (project configuration)
+# - src/main.rs (main source file)
+```
+
+```sh
+# Run the project
+cargo run
+
+# Build the project
+cargo build
+
+# Build an optimized release version
+cargo build --release
+```
+
 ### MongoDB Tools
 ```sh
 brew tap mongodb/brew

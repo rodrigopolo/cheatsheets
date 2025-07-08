@@ -181,20 +181,20 @@ crontab -e
 ```
 
 Set the shell, and an email to receive cron output
-```
+```sh
 SHELL="/bin/bash"
 # Mail for errors and output
 # MAILTO="email@domain.com"
 ```
 
 Run every day at 4am at Guatemala local time
-```
+```sh
 TZ=America/Guatemala
 0 4 * * * your_command
 ```
 
 Run every 5 minutes, detaching the process from the crontab
-```
+```sh
 # Time Zone
 TZ=America/Guatemala
 
