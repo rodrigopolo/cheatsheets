@@ -9,7 +9,6 @@
   * [GDrive](#gdrive)
   * [Composer](#composer)
   * [FFmpeg progress bar](#ffmpeg-progress-bar)
-  * [Conda](#conda)
   * [Symbolic links in `~/.local/bin`](#symbolic-links-in-localbin)
   * [Extra resolutions with displayplacer](#extra-resolutions-with-displayplacer)
   * [MongoDB Tools](#mongodb-tools)
@@ -474,8 +473,19 @@ mv composer.phar ~/.local/bin/composer
 
 ### FFmpeg progress bar
 ```sh
-pip install --user ffpb
-pip show ffpb
+curl -L -o ~/.local/bin/fpb https://github.com/rodrigopolo/fpb/releases/download/v1.0.1/fpb-darwin-arm64
+chmod +x ~/.local/bin/fpb
+```
+Source: https://github.com/rodrigopolo/fpb/releases
+
+### Symbolic links in `~/.local/bin`
+Just some examples
+```sh
+ln -s /Applications/MAMP/bin/php/php8.2.0/bin/php ~/.local/bin/php
+ln -s /Applications/MAMP/Library/bin/mysql ~/.local/bin/mysql
+ln -s /Applications/MAMP/Library/bin/mysqldump ~/.local/bin/mysqldump
+ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ~/.local/bin/sublime
+ln -s /opt/homebrew/bin/yt-dlp ~/.local/bin/youtube-dl
 ```
 
 ### Extra resolutions with displayplacer
