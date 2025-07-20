@@ -40,8 +40,8 @@ chsh -s $(which zsh)
 ```sh
 sudo apt install zoxide
 echo 'export PATH=$PATH:$HOME/.local/bin' >> .zshrc
-curl -s https://ohmyposh.dev/install.sh | bash -s
 source .zshrc
+curl -s https://ohmyposh.dev/install.sh | bash -s
 eval "$(oh-my-posh init zsh)"
 ```
 
