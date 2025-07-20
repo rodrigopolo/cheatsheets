@@ -72,14 +72,24 @@ Get-Content (Get-PSReadLineOption).HistorySavePath
 
 ## Tauri/Rust Dev
 
-Install node
+### Node
 ```bat
 scoop install nodejs
 ```
 
+### Rust
 Download and install Rust manualy, it will install Microsoft C++ build tools for Visual Studio
 https://www.rust-lang.org/tools/install
 
+
+### Winget
+Download msixbundle from:  
+https://github.com/microsoft/winget-cli/releases
+
+Install
+```bat
+Add-AppxPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+```
 
 Install compilig tools (Rust installs this)
 ```bat
@@ -90,19 +100,21 @@ winget install Microsoft.VisualStudio.2022.BuildTools --override "--quiet --add 
 winget install Microsoft.VisualStudio.2022.BuildTools --override "--quiet --add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.Tools.ARM64 --includeRecommended"
 ```
 
-Make sure the target is X86
+Compile for x86_64
 ```bat
 rustup default stable-x86_64-pc-windows-msvc
-```
-
-Index files
-```bat
-Get-ChildItem -Recurse -File | ForEach-Object { $_.FullName } >  ~/Desktop/allfiles.txt
+npm run tauri build
 ```
 
 Change architecture
 ```bat
 rustup default stable-x86_64-pc-windows-msvc
+npm run tauri build
+```
+
+Compile for ARM64
+```bat
+npm run tauri build -- --target aarch64-pc-windows-msvc
 ```
 
 Add path
@@ -130,17 +142,9 @@ function Get-ExeArchitecture($path) {
 Get-ExeArchitecture "C:\path\to\your\file.exe"
 ```
 
-Compile
+Index files
 ```bat
-npm run tauri build -- --target aarch64-pc-windows-msvc
-```
-
-Winget
-https://github.com/microsoft/winget-cli/releases
-
-
-```bat
-Add-AppxPackage C:\Users\rpolo\Downloads\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+Get-ChildItem -Recurse -File | ForEach-Object { $_.FullName } >  ~/Desktop/allfiles.txt
 ```
 
 ### Other sources
@@ -157,9 +161,7 @@ https://www.microsoft.com/en-us/software-download/windows11arm64
 https://www.microsoft.com/en-us/software-download/windows11
 
 
-
 ### Videos
-
 
 * How To Clean Install macOS Sequoia on Unsupported Macs (2007-2019) - Step By Step Guide  
   https://www.youtube.com/watch?v=OzAvWKUKmJE
@@ -173,3 +175,15 @@ https://www.microsoft.com/en-us/software-download/windows11
 * 4,1-7,1 Windows 11 Install! - Mac Pro Series S.4 EP.8  
   https://www.youtube.com/watch?v=cMiIOy8ptRc
 
+### 
+```bat
+:: Create dir
+New-Item -Path "$env:USERPROFILE\.local\bin" -ItemType Directory -Force
+
+:: Add path
+$newPath = "$env:USERPROFILE\.local\bin"
+$currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
+if ($currentPath -notlike "*$newPath*") {
+    [Environment]::SetEnvironmentVariable("Path", "$currentPath;$newPath", "User")
+}
+```
