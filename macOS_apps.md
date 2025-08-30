@@ -396,6 +396,11 @@ p7zip rar fdupes gdrive \
 node goaccess figlet cmatrix astrometry-net
 ```
 
+Instal `tcolor` to test the terminal emulator colors
+```sh
+brew install fortio/tap/tcolor
+```
+
 Path configuration for `~/.zshrc`
 ```sh
 hbp=$([ "$(uname -m)" = "arm64" ] && echo "/opt/homebrew" || echo "/usr/local")
