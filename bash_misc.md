@@ -81,9 +81,14 @@ grep -i -E '\.md$' -z | \
 parallel -j 4 --null --line-buffer grep -l -i "keyword"
 ```
 
-Get extensions
+Get extensions with `ls`
 ```sh
 ls -1 | grep -i -E "\.[a-z0-9]+$" | awk -F. '{print $NF}' | sort | uniq
+```
+
+Get extensions of all files with `find`
+```sh
+find . -type f -name "*.*" | sed 's/.*\.//' | sort | uniq -c | sort
 ```
 
 Get total for extension
@@ -164,10 +169,23 @@ Change file date
 touch -t 201306141200 
 ```
 
-Download a file on Linux and OS X
+Download a file with `wget` or `curl`
 ```sh
 wget http://example.com/file.txt
 curl -O http://example.com/file.txt
+```
+
+Post JSON with `curl`
+```sh
+curl -X POST http://localhost/api/ \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "pass"}'
+```
+
+Check if port `5000` is being used, and check the command based on the `pid`, 625 in the example
+```sh
+lsof -i :5000
+ps -p 625 -o comm=
 ```
 
 Change file or permissions

@@ -28,6 +28,12 @@ sudo pmset -a disksleep 0
 defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 ```
 
+### Disable long press for special chars
+```
+defaults write -g ApplePressAndHoldEnabled -bool false
+```
+Source: https://apple.stackexchange.com/a/332770  
+
 ### Remove [ugly blue capslock indicator](https://discussions.apple.com/thread/255191086?sortBy=best)
 ```sh
 sudo defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist redesigned_text_cursor -dict-add Enabled -bool NO

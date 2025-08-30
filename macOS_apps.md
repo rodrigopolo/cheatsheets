@@ -714,3 +714,34 @@ Sync View Scroll.sublime-package
 https://github.com/const-void/DOOM-fire-zig
 Ctrl+R for search
 ```
+
+### Browser Plug-ins
+
+* Seek Subtitles for YouTube by J.Rajer  
+  https://chrome.google.com/webstore/detail/seek-subtitles-for-youtub/ghjmdgljbfiiaginabfnaopnocgafffb  
+* Chrome Regex Search  
+  https://chrome.google.com/webstore/detail/chrome-regex-search/bpelaihoicobbkgmhcbikncnpacdbknn  
+* Get cookies.txt Clean  
+  https://chromewebstore.google.com/detail/get-cookiestxt-clean/ahmnmhfbokciafffnknlekllgcnafnie  
+* Live Chat Overlay  
+  https://chromewebstore.google.com/detail/live-chat-overlay/aplaefbnohemkmngdogmbkpompjlijia  
+* Return YouTube Dislike  
+  https://chrome.google.com/webstore/detail/return-youtube-dislike/gebbhagfogifgggkldgodflihgfeippi  
+* EditThisCookie  
+  https://addons.opera.com/en/extensions/details/edit-this-cookie/  
+  https://www.editthiscookie.com/  
+* Tampermonkey by derjanb  
+  https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo  
+  https://addons.opera.com/en/extensions/details/tampermonkey-beta/  
+  https://www.tampermonkey.net/  
+Highlighter for Google Chrome™
+  https://chrome.google.com/webstore/detail/highlighter-for-google-ch/lebapnohkilocjiocfcaljckcdoaciae  
+  https://chrome.google.com/webstore/detail/highlighter/fdfcjfoifbjplmificlkdfneafllkgmn  
+* Adblock Plus  
+  https://adblockplus.org/  
+* Instagram Downloader (IDL Helper)  
+  https://addons.opera.com/en/extensions/details/instagram-downloader-idl-helper/  
+* FoxyProxy Standard by Eric H. Jung  
+  https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/  
+* Telegram Video Downloader / Telegram Media Downloader  
+  https://github.com/neet-nestor/telegram-media-downloader  
