@@ -79,6 +79,61 @@ output.mp4
 > 7. Profile: `superfast` CRF `21`
 > 8. Profile: `superfast` CRF `22` (My 2dn favorite)
 
+### HDR HEVC encoding
+```sh
+fpb \
+-y \
+-i hdr_input.ts \
+-vf "crop=3840:1608" \
+-c:v libx265 \
+-preset faster \
+-crf 20 \
+-pix_fmt yuv420p10le \
+-color_primaries bt2020 \
+-color_trc smpte2084 \
+-colorspace bt2020nc \
+-color_range tv \
+-x265-params "hdr10=1:repeat-headers=1:colorprim=bt2020:transfer=smpte2084:colormatrix=bt2020nc:master-display=copy:max-cll=copy" \
+-tag:v hvc1 \
+-an \
+-movflags +faststart \
+hdr_output.mp4
+```
+
+### HDR to SDR
+```sh
+ffmpeg \
+-hwaccel auto \
+-y \
+-i input.ts \
+-vf "crop=3840:1608,zscale=t=linear:npl=100,tonemap=hable:desat=0,zscale=p=bt709:t=bt709:m=bt709:r=tv,format=yuv420p" \
+-pix_fmt yuv420p \
+-c:v libx265 \
+-tag:v hvc1 \
+-preset fast \
+-crf 21 \
+-color_primaries bt709 \
+-color_trc bt709 \
+-colorspace bt709 \
+-an \
+-movflags +faststart \
+sdr.mp4 
+```
+
+### Minimal Stats
+```sh
+...
+-hide_banner \
+-loglevel error \
+-stats \
+...
+```
+
+### Time offset, before intput
+```sh
+-ss 00:58:26.292 -t 30 \
+```
+
 ### Modify rotation metadata without re-encoding.
 ```sh
 ffmpeg \
