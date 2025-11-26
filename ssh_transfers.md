@@ -39,8 +39,3 @@ rsync \
 user@host:/path/to/src/ \
 /path/to/dest/
 ```
-
-Create a ssh tunnel
-```bash
-ssh -D 8080 -q -C -N user@domain.com
-```
