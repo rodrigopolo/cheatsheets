@@ -117,6 +117,11 @@ find . -type f -name "*.*" | sed 's/.*\.//' | sort | uniq -c | sort
 cat indexed.txt | grep -i -E "\.[a-z0-9]+$" | awk -F. '{print $NF}' | sort | uniq -c | sort
 ```
 
+### Get total for extension making all lower case
+```sh
+cat indexed.txt | sed 's/.*\.//' | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort
+```
+
 ### Read a file with a list of files, only get the ones with the file extension, replace breaklines with NULL, and with xargs, find a string using grep
 ```sh
 cat files.txt | \
