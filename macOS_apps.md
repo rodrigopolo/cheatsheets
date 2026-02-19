@@ -584,6 +584,32 @@ cargo build
 cargo build --release
 ```
 
+### GhosttyFetch
+An animated system information display tool for the Ghostty terminal emulator.
+
+```sh
+cd
+brew install zig
+git clone https://github.com/BarutSRB/GhosttyFetch.git
+cd GhosttyFetch
+zig build -Doptimize=ReleaseFast
+mkdir -p ~/.config/ghosttyfetch
+mkdir -p /.local/bin/
+cp config.json animation.json ~/.config/ghosttyfetch/
+cp ./zig-out/bin/ghosttyfetch ~/.local/bin/ghosttyfetch
+cd ..
+rm -rf GhosttyFetch
+ghosttyfetch
+```
+
+Add the following lines to `~/.zshrc` for running at startup
+```sh
+# Run GhosttyFetch on terminal startup
+if [[ $- == *i* ]]; then
+  ghosttyfetch
+fi
+```
+
 ### MongoDB Tools
 ```sh
 brew tap mongodb/brew

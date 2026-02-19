@@ -33,7 +33,7 @@ output.mp4
 * `veryslow`
 * `placebo`
 
-### HEVC/H.265/HE-AAC version 2 Encoding
+### HEVC/H.265/AAC Encoding
 ```sh
 ffmpeg \
 -i input.mp4 \
@@ -172,6 +172,77 @@ Flip Horizontal:   hflip
 Flip Vertical:     vflip
 ```
 
+### Applying a LUT with HEVC/H.265/AAC
+```sh
+ffmpeg \
+-i input.mp4 \
+-vf "lut3d=lut.cube" \
+-c:v libx265 \
+-preset superfast \
+-crf 21 \
+-c:a aac \
+-b:a 128k \
+-ac 2 \
+-ar 44100 \
+-tag:v hvc1 \
+-movflags +faststart \
+output.mp4
+```
+
+### Audio Delay on a video
+```sh
+ffmpeg \
+-i "input.mp4" \
+-itsoffset 0.6 \
+-i "input.mp4" \
+-map 0:v \
+-map 1:a \
+-c copy \
+"output.mp4"
+```
+
+### Chapters
+```sh
+ffmpeg \
+-i "video.mp4" \
+-i "chapters.txt" \
+-map_metadata 1 \
+-map_chapters 1 \
+-codec copy \
+"output.mp4"
+```
+
+The `chapters.txt` file for ffmpeg uses the **FFmpeg metadata format**:
+
+```
+;FFMETADATA1
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=0
+END=30000
+title=Introduction
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=30000
+END=90000
+title=Chapter 2
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=90000
+END=180000
+title=Conclusion
+```
+
+Format:
+
+- `;FFMETADATA1` must be the first line
+- `TIMEBASE` defines the time unit — `1/1000` means milliseconds, `1/1` means seconds
+- `START` and `END` are in units of the timebase
+- `END` of one chapter should match `START` of the next
+- `title` is the chapter name shown in players
 
 ### To JPG sequence:
 ```sh
@@ -910,6 +981,16 @@ Split a FLAC file into separate tracks based on the CUE file, or just use [flaco
 ```sh
 brew install shntool
 shnsplit -f file.cue -o flac file.flac
+```
+
+## Rip DVD in macOS
+```sh
+# Install dependencies
+brew install libdvdcss
+brew install dvdbackup
+
+# Rip from disk5 to directory DVD01, then, ejects the disk
+dvdbackup -i /dev/disk5 -M -n "DVD01" -o . && diskutil eject disk5
 ```
 
 v360 links

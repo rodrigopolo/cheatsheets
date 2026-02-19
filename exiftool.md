@@ -415,6 +415,19 @@ exiftool \
 /path/to/files
 ```
 
+Inject 360 metadata into a video
+```sh
+exiftool \
+  -XMP-GSpherical:Spherical=true \
+  -XMP-GSpherical:Stitched=true \
+  -XMP-GSpherical:ProjectionType=equirectangular \
+  -XMP-GSpherical:StereoMode=mono \
+  -XMP-GSpherical:SourceCount=2 \
+  -XMP-GSpherical:StitchingSoftware="Insta360" \
+  -overwrite_original \
+  input.mp4
+```
+
 
 Rename all Insta360 X3 videos
 > Insta360 videos do not handle time offset and [do not have a typical video extension](https://archive.ph/cxpMz). Therefore, the workflow to rename the files to have a name convention compatible with other cameras does not require using `exiftool` or `mediainfo`. Instead, it utilizes `sed` replacements. Ensure you have Insta360 Studio installed and that the videos have already been processed in it. This is important as Insta360 Studio provides date-time information in the filename convention. Then follow the script bellow:
