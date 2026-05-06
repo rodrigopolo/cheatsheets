@@ -735,9 +735,10 @@ Sort Lines (Numerically).sublime-package
 Sync View Scroll.sublime-package
 ```
 
-### Lightroom Export Presets
+### Lightroom Export Presets and filename templates
 ```
 ~/Library/Application\ Support/Adobe/Lightroom/Export\ Presets/User\ Presets
+~/Library/Application\ Support/Adobe/Lightroom/Filename\ Templates
 ```
 
 ### Misc
