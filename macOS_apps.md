@@ -741,6 +741,17 @@ Sync View Scroll.sublime-package
 ~/Library/Application\ Support/Adobe/Lightroom/Filename\ Templates
 ```
 
+### To disable the blue "change input language" and caps-lock pop-up
+```sh
+defaults write kCFPreferencesAnyApplication TSMLanguageIndicatorEnabled 0
+sudo defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist redesigned_text_cursor -dict-add Enabled -bool NO
+```
+
+###
+```
+~/.config/filezilla/sitemanager.xml
+```
+
 ### Misc
 ```
 https://github.com/const-void/DOOM-fire-zig
