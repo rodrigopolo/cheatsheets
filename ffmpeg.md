@@ -620,6 +620,26 @@ ffmpeg \
 output.mov
 ```
 
+### Add an extra audio track
+```sh
+# With ffmpeg
+ffmpeg -i input.mp4 -i spanish_audio.m4a \
+  -c:v copy -c:a copy \
+  -map 0:v:0 -map 0:a:0 -map 1:a:0 \
+  -metadata:s:a:0 language=eng \
+  -metadata:s:a:1 language=spa \
+  -metadata:s:a:0 title="English" \
+  -metadata:s:a:1 title="Spanish" \
+  -disposition:a:0 default \
+  output.mp4
+
+# With mp4box
+mp4box -new output.mp4 \
+  -add 'input.mp4#video' \
+  -add 'input.mp4#audio:lang=eng:name="English"' \
+  -add 'spanish_audio.m4a:lang=spa:name="Spanish"'
+```
+
 ### Add SRT subtitles to a MP4 file
 ```sh
 ffmpeg \
