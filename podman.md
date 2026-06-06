@@ -257,46 +257,46 @@ podman network disconnect <network_name> <container_name>
 ### Docker Compose Compatibility
 ```bash
 # Start services defined in docker-compose.yml
-podman-compose up
+podman compose up
 
 # Start services in background
-podman-compose up -d
+podman compose up -d
 
 # Stop services
-podman-compose down
+podman compose down
 
 # Stop and remove volumes
-podman-compose down -v
+podman compose down -v
 
 # Build services
-podman-compose build
+podman compose build
 
 # View logs
-podman-compose logs
+podman compose logs
 
 # Follow logs
-podman-compose logs -f
+podman compose logs -f
 
 # List running services
-podman-compose ps
+podman compose ps
 
 # Execute command in service
-podman-compose exec <service> <command>
+podman compose exec <service> <command>
 
 # Pull latest images
-podman-compose pull
+podman compose pull
 
 # Restart services
-podman-compose restart
+podman compose restart
 
 # Scale services
-podman-compose up --scale <service>=<number>
+podman compose up --scale <service>=<number>
 
 # Validate compose file
-podman-compose config
+podman compose config
 
 # Use custom compose file
-podman-compose -f <compose-file.yml> up
+podman compose -f <compose-file.yml> up
 ```
 
 ## Registry Operations
@@ -371,11 +371,11 @@ alias pclean='podman system prune'
 alias pcleanall='podman system prune -a --volumes'
 
 # Compose aliases
-alias pup='podman-compose up'
-alias pupd='podman-compose up -d'
-alias pdown='podman-compose down'
-alias pclogs='podman-compose logs -f'
-alias pcexec='podman-compose exec'
+alias pup='podman compose up'
+alias pupd='podman compose up -d'
+alias pdown='podman compose down'
+alias pclogs='podman compose logs -f'
+alias pcexec='podman compose exec'
 ```
 
 ## Common Use Cases
@@ -403,16 +403,16 @@ podman run -d --name nginx \
 ### Multi-Container Applications
 ```bash
 # Example docker-compose.yml with podman compose
-podman-compose up -d
+podman compose up -d
 
 # Scale specific service
-podman-compose up --scale web=3
+podman compose up --scale web=3
 
 # View service logs
-podman-compose logs web
+podman compose logs web
 
 # Execute command in service
-podman-compose exec web /bin/bash
+podman compose exec web /bin/bash
 ```
 
 ### Quick Testing
