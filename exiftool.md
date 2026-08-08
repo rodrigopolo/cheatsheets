@@ -108,6 +108,57 @@ exiftool \
 target.tif
 ```
 
+### Set location based on a `.gpx` files
+```sh
+# Geotag a directory of images
+exiftool -geotag=track.gpx /path/to/images/
+
+# Geotag images without creating backup files
+exiftool -overwrite_original -geotag=track.gpx /path/to/images/
+
+# Geotag using multiple GPX files at once
+exiftool -geotag=track1.gpx -geotag=track2.gpx /path/to/images/
+
+# Correct for a specific time zone
+exiftool -geotag=track.gpx -geosync=-05:00 /path/to/images/
+
+# Correct for a drifting camera clock
+exiftool -geotag=track.gpx -geosync=+00:01:24 /path/to/images/
+```
+
+#### Install/Download templates
+```sh
+mkdir -p ~/.local/share/exiftool
+curl https://raw.githubusercontent.com/exiftool/exiftool/refs/heads/master/fmt_files/gpx.fmt -o ~/.local/share/exiftool/gpx.fmt
+curl https://raw.githubusercontent.com/exiftool/exiftool/refs/heads/master/fmt_files/gpx_wpt.fmt -o ~/.local/share/exiftool/gpx_wpt.fmt
+curl https://raw.githubusercontent.com/exiftool/exiftool/refs/heads/master/fmt_files/kml.fmt -o ~/.local/share/exiftool/kml.fmt
+curl https://raw.githubusercontent.com/exiftool/exiftool/refs/heads/master/fmt_files/kml_track.fmt -o ~/.local/share/exiftool/kml_track.fmt
+```
+
+#### Generate `.gpx` or `.kml` file
+```sh
+
+exiftool \
+-p ~/.local/share/exiftool/gpx.fmt \
+-ee3 /path/to/images \
+> track.gpx
+
+exiftool \
+-p ~/.local/share/exiftool/kml.fmt \
+-ee3 /path/to/images \
+> photos.kml
+
+exiftool \
+-p ~/.local/share/exiftool/gpx_wpt.fmt \
+-ee3 /path/to/images \
+> track_wpt.gpx
+
+exiftool \
+-p ~/.local/share/exiftool/kml_track.fmt \
+-ee3 /path/to/images \
+> photos_track.kml
+```
+
 ### Get GPS decimal location
 ```sh
 exiftool -m -c "%+.10f" -p '$GPSlatitude,$GPSlongitude' file.jpg
